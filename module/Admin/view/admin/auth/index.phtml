@@ -1,0 +1,19 @@
+<div id="dialog-form" title="Formulário de login">
+<?php
+	echo $this->form()->openTag($form);?>
+	<fieldset>
+	<?php 
+		echo $this->formLabel($form->get('nome'));
+		echo $this->formInput($form->get('nome'));
+ 		echo $this->formLabel($form->get('senha'));
+ 		echo $this->formInput($form->get('senha'));?>
+ 		<div id="hidden">
+ 		<?php
+		echo $this->formInput($form->get('submit'));?>
+		</div>
+	</fieldset>
+	<?php 
+		echo $this->form()->closeTag();?>
+</div>
+
+<?php

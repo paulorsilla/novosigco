@@ -1,0 +1,48 @@
+<div id="tituloPagina">Instituições<br/><br/>Instituições cadastradas</div>
+
+<table class="hover" id="consulta">
+	<thead>
+		<tr>
+			<th style="text-align: left;">Código</th>
+			<th style="text-align: left;">CNPJ</th>
+			<th style="text-align: left;">Razão Social</th>
+			<th style="text-align: left;">Nome Fantasia</th>
+			<th width="90" class="center">Opções</th>
+		</tr>
+	</thead>
+	<tbody>
+	<?php foreach($instituicoes as $instituicao):?>
+		<tr>
+			<td id="codigo"><?php echo $this->escapeHtml($instituicao->getCodigo());?></td>
+			<td id="cnpj"><?php echo $this->escapeHtml(substr($instituicao->getCnpj(),0,2).
+					".".substr($instituicao->getCnpj(),2,3).
+					".".substr($instituicao->getCnpj(),5,3).
+					"/".substr($instituicao->getCnpj(),8,4).
+					"-".substr($instituicao->getCnpj(),12,2));?></td>
+			<td id="razaoSocial"><?php echo $this->escapeHtml($instituicao->getRazao());?></td>
+			<td id="nomeFantasia"><?php echo $this->escapeHtml($instituicao->getFantasia());?></td>
+			
+		<td style="text-align:center">
+				<a href="/application/instituicao/save/id/<?php echo $instituicao->getCodigo();?>"><span title="Editar" class="ui-icon ui-icon-pencil"/></a>
+			</td> 
+		</tr>
+	<?php endforeach;?>
+</table>
+<div id="barraBotoes">
+	<button id="novo">Novo...</button>
+</div>
+
+<script>
+	$("#novo").button({
+		icons: {
+			primary: "ui-icon-plus",
+		},
+	text: true,
+	});
+	$("#novo").click(function(e) {
+		e.preventDefault();
+		window.location ="/application/instituicao/save";
+	});
+
+	$("input[type=submit], a" ).button();
+</script>

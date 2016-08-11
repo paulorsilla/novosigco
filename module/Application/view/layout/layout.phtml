@@ -1,0 +1,115 @@
+<?php use Zend\Http\Header\Location;
+echo $this->doctype(); ?>
+
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />        
+            <?php echo $this->headTitle($this->translate('Sistema de Gestão de Competências - SiGCo'))->setSeparator(' - ')->setAutoEscape(false)?>
+
+            <?php echo $this->headMeta()->appendName('viewport', 'width=device-width, initial-scale=1.0')?>
+
+            <!-- Le styles -->
+            <?php
+												
+echo $this->headLink ( array ('rel' => 'shortcut icon',
+							  'type' => 'image/vnd.microsoft.icon',
+							  'href' => $this->basePath ().'/images/favicon.ico'))->prependStylesheet($this->basePath ().'/css/style.css' )
+							->prependStylesheet($this->basePath().'/css/jquery.dataTables.css')
+							->prependStylesheet($this->basePath().'/css/jquery-ui.css' )?>
+ 
+            <!-- Scripts -->
+            <?php
+												
+echo $this->headScript ()->prependFile ( $this->basePath () . '/js/html5.js', 'text/javascript', array (
+														'conditional' => 'lt IE 9' 
+												) )->prependFile ( $this->basePath () . '/js/layout.js' )
+													->prependFile ( $this->basePath () . '/js/meiomask.js' )
+                                                   ->prependFile ( $this->basePath () . '/js/jquery-ui.js' )
+                                                   ->prependFile ( $this->basePath () . '/js/jquery.js' );
+												?>
+            
+    </head>
+<body>
+	<div id="wrapper">
+		<div id="header">
+			<div id="logo">
+				<img src="<?php echo $this->basePath().'/images/embrapa.png';?>">
+			</div>
+			<div id="titulo">
+				Sistema de Gestão de Competências - SiGCo
+			</div>
+		</div>
+		<?php
+ 			$user = $this->session()->offsetGet('user');
+		?>
+		<div id="contentliquid">
+			<div id="content">
+        		<?php 
+        		$url = $_SERVER['REQUEST_URI'];
+        		if ( ($user) || ($url == "/admin/auth/index")) {
+        			echo $this->content;
+        		}?>
+				</div>
+		</div>
+		
+		<div id="leftcolumn">
+		<?php 
+ 			if ($user) {?>
+ 				<div id="logado">
+					<p>Usuário logado: <br/><?php echo $user->getNome();?></p>
+					<button id="inicio">Início do sistema</button>
+					<button id="preferencias">Preferências do usuário</button>
+					<button id="sair">Sair do sistema</button>
+				</div>
+				
+				<div id="accordion">
+					<h3>Cadastros</h3>
+					<div>
+						<ul id="menu"> 
+	 						<li><a href="/application/empregado/index">Empregado</a></li> 
+						</ul>
+					</div>
+<!-- 					<h3>Consultas</h3> -->
+<!-- 					<div> -->
+<!-- 						<ul id="menu">  -->
+<!-- 	 						<li><a href="#">Consulta 1</a></li>  -->
+<!-- 	 						<li><a href="#">Consulta 2</a></li>  --> 
+<!-- 						<li><a href="#">Consulta 3</a></li>  --> 
+<!-- 						</ul> -->
+<!-- 					</div> -->
+					<h3>Configurações</h3>
+					<div>
+						<ul id="menu">
+ 							<li><a href="/application/area">Área de atuação</a></li> 
+ 							<li><a href="/application/cargo">Cargo</a></li>
+ 							<li><a href="/application/competencia">Competências</a></li> 
+ 							<li><a href="/application/curso">Curso</a></li>
+ 							<li><a href="/application/equipe-tecnica">Equipe tércnica</a></li>
+ 							<li><a href="/application/escolaridade">Escolaridade</a></li>
+ 							<li><a href="/application/facilitador">Facilitador</a></li>
+ 							<li><a href="/application/funcao">Função</a></li>
+ 							<li><a href="/application/instituicao">Instituição</a></li>
+ 							<li><a href="/application/outra-funcao">Outras funções</a></li>
+ 							<li><a href="/application/subarea">Subárea de atuação</a></li> 
+ 							<li><a href="/application/sublotacao">Sublotação</a></li>
+ 							
+						</ul>
+					</div>
+				</div>
+			<?php 
+			}?>
+		</div>
+		
+		<div id="footer">
+			<p>
+				<a href="http://www.embrapa.br">Empresa Brasileira de Pesquisa Agropecuária - Embrapa.</a> Todos os
+				direitos reservados, conforme Lei n° 9.610. <a href="http://www.embrapa.br/soja">Embrapa Soja</a> - Rod.
+				Carlos João Strass - Distrito de Warta. Telefone (43) 3371 6000, Fax
+				(43) 3371 6100, Caixa Postal 231, CEP 86001-970, Londrina - Paraná -
+				Brasil
+			</p>
+		</div>
+		
+	</div>
+</body>
+</html>

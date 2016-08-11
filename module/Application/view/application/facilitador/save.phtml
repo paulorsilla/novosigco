@@ -1,0 +1,98 @@
+<?php
+use Zend\Form\Element\Submit;
+?>
+<div id="tituloPagina">Cadastro de Facilitador</div>
+<div id="tabs">
+<ul>
+<li><a href="#dados">Facilitador</a></li>
+</ul>
+<div id="dados">
+<?php
+echo $this->form()->openTag($form);
+echo $this->formInput($form->get('id'));
+
+echo $this->formLabel($form->get('instituicao'))."<br />";
+echo $this->formSelect($form->get('instituicao'))."<br />";
+echo $this->formElementErrors($form->get('instituicao'))."<br />";
+
+echo $this->formLabel($form->get('cpf'))."<br />";
+echo $this->formInput($form->get('cpf'))."<br />";
+echo $this->formElementErrors($form->get('cpf'))."<br />";
+
+echo $this->formLabel($form->get('nome'))."<br />";
+echo $this->formInput($form->get('nome'))."<br />";
+echo $this->formElementErrors($form->get('nome'))."<br />";
+
+echo $this->formLabel($form->get('nascimento'))."<br />";
+echo $this->formInput($form->get('nascimento'))."<br />";
+echo $this->formElementErrors($form->get('nascimento'))."<br />";
+
+echo $this->formLabel($form->get('email'))."<br />";
+echo $this->formInput($form->get('email'))."<br />";
+echo $this->formElementErrors($form->get('email'))."<br />";
+
+echo $this->formLabel($form->get('telefone'))."<br />";
+echo $this->formInput($form->get('telefone'))."<br />";
+echo $this->formElementErrors($form->get('telefone'))."<br />";
+
+echo $this->formLabel($form->get('celular'))."<br />";
+echo $this->formInput($form->get('celular'))."<br />";
+echo $this->formElementErrors($form->get('celular'))."<br />";
+
+echo $this->formInput ($form->get ("submit"));
+echo $this->form()->closeTag();
+
+?>
+	</div>
+</div>
+<div id="barraBotoes">
+	<button id="cancelar">Cancelar</button>
+	<button id="salvar">Salvar</button>
+</div>
+<script>
+ 	$("#submit").hide();
+	$("#cancelar").button({
+		icons: {
+			primary: "ui-icon-close",
+		},
+	text: true,
+	});
+	$(document).ready(function(){
+	  $('#cpf').mask('000.000.000-00');
+	  $('#nascimento').mask('00-00-0000');
+	  $('#telefone').mask('(00)0000-00000');
+	  $('#celular').mask('(00)0000-00000');
+	});
+	$('#nome').keypress(function (e) {
+		if(e.keyCode == 46 || e.keyCode == 9 || e.keyCode == 116){
+			return true;
+		}
+	  	var regex =  /^[a-zA-Z -()\b+]/;
+	    var str = String.fromCharCode(!e.charCode ? e.which : e.charCode);
+	    if (regex.test(str)) {
+	        return true;
+	    }
+
+	    e.preventDefault();
+	    return false;
+	});	
+	$("#salvar").button({
+		icons: {
+			primary: "ui-icon-disk",
+		},
+	text: true,
+	});
+
+	$("#cancelar").click(function(e) {
+		e.preventDefault();
+		window.location ="/application/facilitador";
+	});
+
+	$("#salvar").click(function(e) {
+		e.preventDefault();
+		$("#submit").click();
+	});
+
+	$("#tabs").tabs();
+	
+</script>

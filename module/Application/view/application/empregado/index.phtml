@@ -1,0 +1,31 @@
+<div id="tituloPagina">Empregados da Embrapa Soja<br/><br/>Empregados cadastrados</div>
+
+<table class="hover" id="consulta">
+	<thead>
+		<tr>
+			<th style="text-align: left;">Nome</th>
+			<th width="90" class="center">Opções</th>
+		</tr>
+	</thead>
+	<tbody>
+	<?php foreach($empregados as $empregado):?>
+		<tr>
+			<td id="nome"><?php echo $this->escapeHtml($empregado->getNome());?></td>
+			
+			<td style="text-align:center">
+				<a href="/application/empregado/save/matricula/<?php echo $empregado->getMatricula();?>"><span title="Editar" class="ui-icon ui-icon-pencil"/></a>
+			</td>
+		</tr>
+	<?php endforeach;?>
+</table>
+
+<script>
+
+    $("input[type=submit], a" ).button();
+
+	$('#consulta').dataTable({
+    	"bLengthChange": false,
+    	"iDisplayLength": 17,
+     });
+   
+</script>

@@ -1,0 +1,21 @@
+{
+	"name" : "zendframework/sigco",
+	"description" : "Sistema Gerenciador de Competencias - SiGCo",
+	"license" : "BSD-3-Clause",
+	"keywords" : [
+		"framework",
+		"zf2"
+	],
+	"homepage" : "http://framework.zend.com/",
+	"minimum-stability" : "dev",
+	"require" : {
+		"php" : ">=5.5",
+		"zendframework/zendframework" : "2.5",
+		"doctrine/doctrine-orm-module": "dev-master",
+		"zendframework/zendpdf": "dev-master",
+		"zendframework/zend-ldap": "dev-master"
+	},
+	"config" : {
+		"process-timeout" : 50000
+	}
+}

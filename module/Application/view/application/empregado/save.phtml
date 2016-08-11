@@ -1,0 +1,311 @@
+<div id="tituloPagina">Cadastro de Empregado</div>
+<div id="tabs">
+	<ul>
+		<li><a href="#dados">Empregado</a></li>
+	</ul>
+	<div id="dados">
+		<?php
+		echo $this->form ()->openTag ( $form );
+		echo $this->formInput ( $form->get ( 'matricula' ) );
+		?>	
+			<div id="nomeEmpregado" class="destaque"></div>
+		<div id="supervisor">
+			<label for="supervisor">Supervisor:</label>		
+<select>
+<?php echo $optionEmpregados; ?>
+</select>
+		</div>
+
+		<div id="historico">
+<!-- 			<ul> -->
+<!-- 				<li><a href='#cargoTab'><span>Cargo</span></a></li> -->
+<!-- 				<li><a href='#areaTab'><span>Área/Subárea</span></a></li> -->
+<!-- 				<li><a href='#funcaoTab'><span>Função</span></a></li> -->
+<!-- 				<li><a href='#outrasFuncoesTab'><span>Outras funções</span></a></li> -->
+<!-- 				<li><a href='#equipeTecnicaTab'><span>Equipe técnica</span></a></li> -->
+<!-- 				<li><a href='#sublotacaoTab'><span>Sublotação</span></a></li> -->
+<!-- 				<li><a href='#escolaridadeTab'><span>Escolaridade</span></a></li> -->
+<!-- 			</ul> -->
+
+			<div id='cargoTab'>
+				<fieldset class="coluna100">
+					<legend>Cargo</legend>
+					<div id="cargos">
+						<table class="hover" id="tabelaCargos">
+							<thead>
+								<tr>
+									<th>Cargo</th>
+									<th>Data início</th>
+									<th>Data término</th>
+									<th>Opções</th>
+								</tr>
+							</thead>
+							<tbody>
+							</tbody>
+						</table>
+					</div>
+
+					<button id="novoCargo">Adicionar</button>
+				</fieldset>
+			</div>
+
+			<div id='areaTab'>
+				<fieldset class="coluna100">
+					<legend>Área/Sub-área</legend>
+
+					<div id="areas">
+						<table class="hover" id="tabelaAreas">
+							<thead>
+								<tr>
+									<th>Área</th>
+									<th>Subárea</th>
+									<th>Data início</th>
+									<th>Data término</th>
+									<th>Opções</th>
+								</tr>
+							</thead>
+							<tbody>
+							</tbody>
+						</table>
+					</div>
+					<button id="novaArea">Adicionar</button>
+				</fieldset>
+			</div>
+
+			<div id='funcaoTab'>
+				<fieldset class="coluna100">
+					<legend>Função</legend>
+					<div id="funcoes"></div>
+					<table class="hover" id="tabelaFuncoes">
+						<thead>
+							<tr>
+								<th>Função</th>
+								<th>Data início</th>
+								<th>Data término</th>
+								<th>Opções</th>
+							</tr>
+						</thead>
+						<tbody>
+						</tbody>
+					</table>
+					<button id="novaFuncao">Adicionar</button>
+				</fieldset>
+			</div>
+
+			<div id='outrasFuncoesTab'>
+				<fieldset class="coluna100">
+					<legend>Outras funções</legend>
+					<div id="outrasFuncoes"></div>
+					<table class="hover" id="tabelaOutrasFuncoes">
+						<thead>
+							<tr>
+								<th>Outras Funções</th>
+								<th>Data início</th>
+								<th>Data término</th>
+								<th>Opções</th>
+							</tr>
+						</thead>
+						<tbody>
+						</tbody>
+					</table>
+					<button id="novaOutra">Adicionar</button>
+				</fieldset>
+			</div>
+
+			<div id='equipeTecnicaTab'>
+				<fieldset class="coluna100">
+					<legend>Equipe técnica</legend>
+					<div id="equipes"></div>
+
+					<table class="hover" id="tabelaEquipesTecnicas">
+						<thead>
+							<tr>
+								<th>Equipe técnica</th>
+								<th>Data início</th>
+								<th>Data término</th>
+								<th>Opções</th>
+							</tr>
+						</thead>
+						<tbody>
+						</tbody>
+					</table>
+
+					<button id="novaEquipe">Adicionar</button>
+				</fieldset>
+			</div>
+
+			<div id='sublotacaoTab'>
+				<fieldset class="coluna100">
+					<legend>Sublotação</legend>
+					<div id="sublotacoes"></div>
+
+					<table class="hover" id="tabelaSublotacoes">
+						<thead>
+							<tr>
+								<th>Sublotação</th>
+								<th>Data início</th>
+								<th>Data término</th>
+								<th>Opções</th>
+							</tr>
+						</thead>
+						<tbody>
+						</tbody>
+					</table>
+
+					<button id="novaSublotacao">Adicionar</button>
+				</fieldset>
+			</div>
+
+			<div id='escolaridadeTab'>
+				<fieldset class="coluna100">
+					<legend>Escolaridade</legend>
+					<div id="escolaridades"></div>
+
+					<table class="hover" id="tabelaEscolaridades">
+						<thead>
+							<tr>
+								<th>Escolaridade</th>
+								<th>Instituição</th>
+								<th>Curso</th>
+<!-- 								<th>Data início</th> -->
+<!-- 								<th>Data conclusão</th> -->
+								<th>Ano Conclusão</th>
+								<th>Opções</th>
+							</tr>
+						</thead>
+						<tbody>
+						</tbody>
+					</table>
+
+					<button id="novaEscolaridade">Adicionar</button>
+				</fieldset>
+			</div>
+		</div>
+		
+		<!--MODIFICAÇÕES-->
+	
+	<div id='lotacaoAnteriorTab'>
+				<fieldset class="coluna100">
+					<legend>Lotação anterior</legend>
+					<div id="lotacoesAnteriores">
+						<table class="hover" id="tabelaLotacaoAnterior">
+							<thead>
+								<tr>
+									<th>Lotacão anterior</th>
+									<th>Data início</th>
+									<th>Data término</th>
+									<th>Opções</th>
+								</tr>
+							</thead>
+							<tbody>
+							</tbody>
+						</table>
+					</div>
+
+					<button id="novaLotacaoAnterior">Adicionar</button>
+				</fieldset>
+			</div>
+			
+		<!--MODIFICAÇÕES-->	
+			
+		<?php
+		echo $this->form ()->closeTag ();
+		?>
+	</div>
+</div>
+<div id="barraBotoes">
+	<button id="cancelar">Cancelar</button>
+	<button id="salvar">Salvar</button>
+</div>
+
+<div id="modal-cargo" title="Novo cargo" class="ui-widget">
+	<label for='cargo'>Cargo:</label><br /> <select id='cargo' name='cargo'
+		style='width: 500px'></select><br />
+	<br /> <label for='dataInicialCargo'>Data início: </label><br /> <input
+		type='text' name='dataInicialCargo' id='dataInicialCargo' alt='date'
+		value='' style='width: 100px'><br />
+	<br /> <label for='dataFinalCargo'>Data término: </label><br /> <input
+		type='text' name='dataFinalCargo' id='dataFinalCargo' alt='date'
+		value='' style='width: 100px'>
+</div>
+
+<div id="modal-area" title="Nova Área/Subárea" class="ui-widget">
+	<label for='areaAtuacao"'>Área:</label><br /> <select id='areaAtuacao'
+		name='areaAtuacao' style='width: 500px'></select><br />
+	<br /> <label for='subareaAtuacao'>Subárea:</label><br /> <select
+		id='subareaAtuacao' name='subareaAtuacao' style='width: 500px'></select><br />
+	<br /> <label for='dataInicialArea'>Data início: </label><br /> <input
+		type='text' name='dataInicialArea' id='dataInicialArea' alt='date'
+		value='' style='width: 100px'><br />
+	<br /> <label for='dataFinalArea'>Data término: </label><br /> <input
+		type='text' name='dataFinalArea' id='dataFinalArea' alt='date'
+		value='' style='width: 100px'>
+</div>
+
+<div id="modal-funcao" title="Nova função" class="ui-widget">
+	<label for='funcao'>Função:</label><br /> <select id='funcao'
+		name='funcao' style='width: 500px'></select><br />
+	<br /> <label for='dataInicialFuncao'>Data início: </label><br /> <input
+		type='text' name='dataInicialFuncao' id='dataInicialFuncao' alt='date'
+		value='' style='width: 100px'><br />
+	<br /> <label for='dataFinalFuncao'>Data término: </label><br /> <input
+		type='text' name='dataFinalFuncao' id='dataFinalFuncao' alt='date'
+		value='' style='width: 100px'>
+</div>
+
+<div id="modal-outra-funcao" title="Nova outra função" class="ui-widget">
+	<label for='outraFuncao'>Outra Função:</label><br /> <select
+		id='outraFuncao' name='outraFuncao' style='width: 500px'></select><br />
+	<br /> <label for='dataInicialOutraFuncao'>Data início: </label><br />
+	<input type='text' name='dataInicialOutraFuncao'
+		id='dataInicialOutraFuncao' alt='date' value='' style='width: 100px'><br />
+	<br /> <label for='dataFinalOutraFuncao'>Data término: </label><br /> <input
+		type='text' name='dataFinalOutraFuncao' id='dataFinalOutraFuncao'
+		alt='date' value='' style='width: 100px'>
+</div>
+
+<div id="modal-equipe-tecnica" title="Nova equipe técnica"
+	class="ui-widget">
+	<label for='equipeTecnica'>Equipe Técnica:</label><br /> <select
+		id='equipeTecnica' name='equipeTecnica' style='width: 500px'></select><br />
+	<br /> <label for='dataInicialEquipeTecnica'>Data início: </label><br />
+	<input type='text' name='dataInicialEquipeTecnica'
+		id='dataInicialEquipeTecnica' alt='date' value='' style='width: 100px'><br />
+	<br /> <label for='dataFinalEquipeTecnica'>Data término: </label><br />
+	<input type='text' name='dataFinalEquipeTecnica'
+		id='dataFinalEquipeTecnica' alt='date' value='' style='width: 100px'>
+</div>
+
+<div id="modal-sublotacao" title="Nova sublotação" class="ui-widget">
+	<label for='sublotacao'>Sublotação:</label><br /> <select
+		id='sublotacao' name='sublotacao' style='width: 500px'></select><br />
+	<br /> <label for='dataInicialSublotacao'>Data início: </label><br /> <input
+		type='text' name='dataInicialSublotacao' id='dataInicialSublotacao'
+		alt='date' value='' style='width: 100px'><br />
+	<br /> <label for='dataFinalSublotacao'>Data término: </label><br /> <input
+		type='text' name='dataFinalSublotacao' id='dataFinalSublotacao'
+		alt='date' value='' style='width: 100px'>
+</div>
+
+<div id="modal-escolaridade" title="Nova escolaridade" class="ui-widget">
+	<label for='escolaridade"'>Escolaridade:</label><br /> <select
+		id='escolaridade' name='escolaridade' style='width: 500px'></select><br />
+	<br /> <label for='instituicao'>Instituição:</label><br /> <select
+		id='instituicao' name='instituicao' style='width: 500px'></select><br />
+	<br /> <label for='curso'>Curso: </label><br /> <input type='text'
+		name='curso' id='curso' value='' style='width: 500px'><br />
+	 <label for='anoConclusaoEscolaridade'>Ano conclusão: </label><br />
+	<input type='text' name='anoConclusaoEscolaridade'
+		id='anoConclusaoEscolaridade' value=''
+		style='width: 50px'>
+</div>
+<div id="modal-lotacao-anterior" title="Nova Lotação Anterior" class="ui-widget">
+	<label for='lotacaoAnterior'>Lotacao anterior:</label><br /> <select
+		id='lotacaoAnterior' name='lotacaoAnterior' style='width: 620px'></select><br />
+	<br /> <label for='dataInicialLotacaoAnterior'>Data início: </label><br /> <input
+		type='text' name='dataInicialLotacaoAnterior' id='dataInicialLotacaoAnterior'
+		alt='date' value='' style='width: 100px'><br />
+		<br /> <label for='dataFinalLotacaoAnterior'>Data término: </label><br /> <input
+		type='text' name='dataFinalLotacaoAnterior' id='dataFinalLotacaoAnterior'
+		alt='date' value='' style='width: 100px'>
+</div>
