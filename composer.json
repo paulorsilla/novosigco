@@ -1,22 +1,21 @@
 {
-    "name": "zendframework/sigco",
-    "description": "Sistema de Gestao de Competencias",
-    "license": "BSD-3-Clause",
-    "keywords": [
-        "framework",
-        "zf2"
-    ],
-    "homepage": "http://framework.zend.com/",
-    "minimum-stability": "dev",
-    "require": {
-        "php": ">=5.6",
-        "zendframework/zendframework": "2.5.2",
-	"doctrine/doctrine-orm-module": "0.9",
-	"zendframework/zendpdf": "dev-master",
-	"zendframework/zend-mail": "2.5",
-	"zendframework/zend-ldap": "dev-master"
-    },
-    "config": {
-	"process-timeout": 50000
-    }
+	"name" : "zendframework/sigco",
+	"description" : "Sistema Gerenciador de Competencias - SiGCo",
+	"license" : "BSD-3-Clause",
+	"keywords" : [
+		"framework",
+		"zf2"
+	],
+	"homepage" : "http://framework.zend.com/",
+	"minimum-stability" : "dev",
+	"require" : {
+		"php" : ">=5.6",
+		"zendframework/zendframework" : "2.5.2",
+		"doctrine/doctrine-orm-module": "0.9",
+		"zendframework/zendpdf": "dev-master",
+		"zendframework/zend-ldap": "dev-master"
+	},
+	"config" : {
+		"process-timeout" : 50000
+	}
 }

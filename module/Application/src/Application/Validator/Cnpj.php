@@ -21,6 +21,10 @@ class Cnpj extends AbstractValidator {
 			$this->error ( self::INVALIDO );
 			return false;
 		}
+		if($cnpj == 00000000000000 || 11111111111111){
+			$this->error ( self::INVALIDO );
+			return false;
+		}
 		// Valida primeiro dígito verificador
 		for($i = 0, $j = 5, $soma = 0; $i < 12; $i ++) {
 			$soma += $cnpj {$i} * $j;
