@@ -25,35 +25,40 @@ class Facilitador extends Entity {
 	 */
 	protected $id;
 	
-	/**
-	 * @ORM\Column(type="integer",name="cpf")
-	 */
-	protected $cpf;
+// 	/**
+// 	 * @ORM\Column(type="integer",name="cpf")
+// 	 */
+// 	protected $cpf;
 	
 	/**
 	 * @ORM\Column(type="string",name="nome")
 	 */
 	protected $nome;
 	
-	/**
-	 * @ORM\Column(type="date",name="data_nascimento")
-	 */
-	protected $nascimento;
+// 	/**
+// 	 * @ORM\Column(type="date",name="data_nascimento")
+// 	 */
+// 	protected $nascimento;
 	
 	/**
 	 * @ORM\Column(type="string",name="email")
 	 */
 	protected $email;
 	
-	/**
-	 * @ORM\Column(type="string",name="telefone")
-	 */
-	protected $telefone;
+// 	/**
+// 	 * @ORM\Column(type="string",name="telefone")
+// 	 */
+// 	protected $telefone;
 	
 	/**
 	 * @ORM\Column(type="string",name="telefone_celular")
 	 */
 	protected $celular;
+	
+	/**
+	 * @ORM\Column(type="text",name="curriculo")
+	 */
+	protected $curriculo;
 	
 	/**
 	 * @ORM\ManyToOne(targetEntity="Instituicao", inversedBy="facilitadores")
@@ -66,12 +71,12 @@ class Facilitador extends Entity {
 	public function setId($id) {
 		$this->id = $id;
 	}
-	public function getCpf() {
-		return $this->cpf;
-	}
-	public function setCpf($cpf) {
-		$this->cpf = $cpf;
-	}
+// 	public function getCpf() {
+// 		return $this->cpf;
+// 	}
+// 	public function setCpf($cpf) {
+// 		$this->cpf = $cpf;
+// 	}
 	public function getNome() {
 		return $this->nome;
 	}
@@ -84,29 +89,35 @@ class Facilitador extends Entity {
 	public function setEmail($email) {
 		$this->email = $email;
 	}
-	public function getTelefone() {
-		return $this->telefone;
-	}
-	public function setTelefone($telefone) {
-		$this->telefone = $telefone;
-	}
+// 	public function getTelefone() {
+// 		return $this->telefone;
+// 	}
+// 	public function setTelefone($telefone) {
+// 		$this->telefone = $telefone;
+// 	}
 	public function getInstituicao() {
 		return $this->instituicao;
 	}
 	public function setInstituicao($instituicao) {
 		$this->instituicao = $instituicao;
 	}
-	public function getNascimento() {
-		return $this->nascimento->format ( "d-m-Y" );
-	}
-	public function setNascimento($nascimento) {
-		$this->nascimento = $nascimento;
-	}
+// 	public function getNascimento() {
+// 		return $this->nascimento->format ( "d-m-Y" );
+// 	}
+// 	public function setNascimento($nascimento) {
+// 		$this->nascimento = $nascimento;
+// 	}
 	public function getcelular() {
 		return $this->celular;
 	}
 	public function setCelular($celular) {
 		$this->celular = $celular;
+	}
+	public function getCurriculo() {
+		return $this->curriculo;
+	}
+	public function setCurriculo($curriculo) {
+		$this->curriculo = $curriculo;
 	}
 	public function getInputFilter() {
 		if (! $this->inputFilter) {
@@ -123,28 +134,28 @@ class Facilitador extends Entity {
 					) 
 			) ) );
 			
-			$inputFilter->add ( $factory->createInput ( array (
-					'name' => 'cpf',
-					'required' => true,
-					'filters' => array (
-							array (
-									'name' => 'String' 
-							) 
-					) 
-			) ) );
+// 			$inputFilter->add ( $factory->createInput ( array (
+// 					'name' => 'cpf',
+// 					'required' => true,
+// 					'filters' => array (
+// 							array (
+// 									'name' => 'String' 
+// 							) 
+// 					) 
+// 			) ) );
 			
-			$inputFilter->add ( $factory->createInput ( array (
-					'name' => 'nascimento',
-					'required' => true,
-					'filters' => array (
-							array (
-									'name' => 'StripTags' 
-							),
-							array (
-									'name' => 'StringTrim' 
-							) 
-					) 
-			) ) );
+// 			$inputFilter->add ( $factory->createInput ( array (
+// 					'name' => 'nascimento',
+// 					'required' => true,
+// 					'filters' => array (
+// 							array (
+// 									'name' => 'StripTags' 
+// 							),
+// 							array (
+// 									'name' => 'StringTrim' 
+// 							) 
+// 					) 
+// 			) ) );
 			
 			$inputFilter->add ( $factory->createInput ( array (
 					'name' => 'nome',

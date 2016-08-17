@@ -7,12 +7,10 @@ use Doctrine\ORM\Query\AST\Functions\SubstringFunction;
 <table class="hover" id="consulta">
 <thead>
 <tr>
-<th style="text-align: left;">CPF</th>
 <th style="text-align: left;">Nome</th>
-<th style="text-align: left;">Data de nascimento</th>
 <th style="text-align: left;">Email</th>
-<th style="text-align: left;">Telefone</th>
 <th style="text-align: left;">Telefone celular</th>
+<th style="text-align: left;">Currículo</th>
 <th style="text-align: left;">Instituição</th>
 <th width="90" class="center">Opções</th>
 </tr>
@@ -20,16 +18,10 @@ use Doctrine\ORM\Query\AST\Functions\SubstringFunction;
 <tbody>
 <?php foreach($facilitadores as $facilitador):?>
 		<tr>
-			<td><?php //substring para dar mascara ao CPF (000.000.000-00)
-				echo $this->escapeHtml(substr($facilitador->getCpf(),0,3).
-					".".substr($facilitador->getCpf(),3,3).
-					".".(substr($facilitador->getCpf(),6,3).
-					"-".substr($facilitador->getCpf(),9,2)));?></td>
 			<td><?php echo $this->escapeHtml($facilitador->getNome());?></td>
-			<td><?php echo $this->escapeHtml($facilitador->getNascimento());?></td>
 			<td><?php echo $this->escapeHtml($facilitador->getEmail());?></td>
-			<td><?php echo $this->escapeHtml($facilitador->getTelefone());?></td>
 			<td><?php echo $this->escapeHtml($facilitador->getCelular());?></td>
+			<td><?php echo $this->escapeHtml($facilitador->getCurriculo());?></td>
 			<td><?php echo $this->escapeHtml($facilitador->getInstituicao()->getRazao());?></td>
 			<td style="text-align:center">
 				<a href="/application/facilitador/save/id/<?php echo $facilitador->getId();?>"><span title="Editar" class="ui-icon ui-icon-pencil"/></a>

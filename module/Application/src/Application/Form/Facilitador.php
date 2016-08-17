@@ -5,10 +5,9 @@ namespace Application\Form;
 use Zend\Form\Form;
 use Zend\Form\Element;
 use Zend\Stdlib\Hydrator\ClassMethods;
-use Application\Validator\Cpf;
 use Zend\InputFilter\InputFilterProviderInterface;
 
-class Facilitador extends Form implements InputFilterProviderInterface {
+class Facilitador extends Form{ //implements InputFilterProviderInterface {
 	public function __construct($em) {
 		parent::__construct ( 'Facilitador' );
 		$this->setHydrator ( new ClassMethods () );
@@ -39,18 +38,18 @@ class Facilitador extends Form implements InputFilterProviderInterface {
 						) 
 				) 
 		) );
-		$this->add ( array (
-				'name' => 'cpf',
-				'attributes' => array (
-						'type' => 'text',
-						'style' => 'width:800px',
-						'required' => true,
-						'id' => 'cpf' 
-				),
-				'options' => array (
-						'label' => 'CPF:*' 
-				) 
-		) );
+// 		$this->add ( array (
+// 				'name' => 'cpf',
+// 				'attributes' => array (
+// 						'type' => 'text',
+// 						'style' => 'width:800px',
+// 						'required' => true,
+// 						'id' => 'cpf' 
+// 				),
+// 				'options' => array (
+// 						'label' => 'CPF:*' 
+// 				) 
+// 		) );
 		
 		$this->add ( array (
 				'name' => 'nome',
@@ -65,18 +64,18 @@ class Facilitador extends Form implements InputFilterProviderInterface {
 				) 
 		) );
 		
-		$this->add ( array (
-				'name' => 'nascimento',
-				'attributes' => array (
-						'required' => true,
-						'style' => 'width:800px',
-						'type' => 'text',
-						'id' => 'nascimento' 
-				),
-				'options' => array (
-						'label' => 'Data de nascimento:*' 
-				) 
-		) );
+// 		$this->add ( array (
+// 				'name' => 'nascimento',
+// 				'attributes' => array (
+// 						'required' => true,
+// 						'style' => 'width:800px',
+// 						'type' => 'text',
+// 						'id' => 'nascimento' 
+// 				),
+// 				'options' => array (
+// 						'label' => 'Data de nascimento:*' 
+// 				) 
+// 		) );
 		
 		$this->add ( array (
 				'name' => 'email',
@@ -90,17 +89,17 @@ class Facilitador extends Form implements InputFilterProviderInterface {
 				) 
 		) );
 		
-		$this->add ( array (
-				'name' => 'telefone',
-				'attributes' => array (
-						'style' => 'width:800px',
-						'type' => 'text',
-						'id' => 'telefone' 
-				),
-				'options' => array (
-						'label' => 'Telefone:' 
-				) 
-		) );
+// 		$this->add ( array (
+// 				'name' => 'telefone',
+// 				'attributes' => array (
+// 						'style' => 'width:800px',
+// 						'type' => 'text',
+// 						'id' => 'telefone' 
+// 				),
+// 				'options' => array (
+// 						'label' => 'Telefone:' 
+// 				) 
+// 		) );
 		
 		$this->add ( array (
 				'name' => 'celular',
@@ -114,6 +113,21 @@ class Facilitador extends Form implements InputFilterProviderInterface {
 						'label' => 'Telefone celular:' 
 				) 
 		) );
+		
+		$this->add ( array (
+				'name' => 'curriculo',
+				'attributes' => array (
+						'type' => 'textarea',
+						'style' => 'width:815px',
+						'rows' => '3',
+						'id' => 'curriculo',
+						'required' => false
+				),
+				'options' => array (
+						'label' => 'Curriculo:*'
+				)
+		) );
+		
 		$this->add ( array (
 				'name' => 'submit',
 				'attributes' => array (
@@ -123,17 +137,17 @@ class Facilitador extends Form implements InputFilterProviderInterface {
 				) 
 		) );
 	}
-	public function getInputFilterSpecification() {
-		return array (
-				array (
-						'name' => 'cpf',
-						'required' => true,
-						'validators' => array (
-								array (
-										'name' => 'Application\Validator\Cpf' 
-								) 
-						) 
-				) 
-		);
-	}
+// 	public function getInputFilterSpecification() {
+// 		return array (
+// 				array (
+// 						'name' => 'cpf',
+// 						'required' => true,
+// 						'validators' => array (
+// 								array (
+// 										'name' => 'Application\Validator\Cpf' 
+// 								) 
+// 						) 
+// 				) 
+// 		);
+// 	}
 }

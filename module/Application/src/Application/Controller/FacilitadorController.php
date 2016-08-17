@@ -64,20 +64,20 @@ class FacilitadorController extends ActionController {
 			$form->setData ( $request->getPost () );
 			if ($form->isValid ()) {
 				$data = $form->getData ();
-				$nascimento = new \DateTime($this->params()->fromPost("nascimento"));
-				$cpf = preg_replace('/[^0-9]/', '',  $this->params()->fromPost("cpf"));
+//				$nascimento = new \DateTime($this->params()->fromPost("nascimento"));
+//				$cpf = preg_replace('/[^0-9]/', '',  $this->params()->fromPost("cpf"));
 				$instituicao_id = $this->params()->fromPost("instituicao");
 				$instituicao = $this->getEntityManager()->find ('Application\Model\Instituicao', $instituicao_id);
 				unset ( $data ['submit'] );
-				unset ($data["nascimento"]);
-				unset ($data["cpf"]);
+// 				unset ($data["nascimento"]);
+// 				unset ($data["cpf"]);
 				unset ($data["instituicao"]);
 				if (isset ( $data ['id'] ) && $data ['id'] > 0) {
 					$facilitador = $this->getEntityManager ()->find ( 'Application\Model\Facilitador', $data ['id'] );
 				}
 				$facilitador->setData ( $data );
-				$facilitador->setNascimento($nascimento);
-				$facilitador->setCpf($cpf);
+//				$facilitador->setNascimento($nascimento);
+//				$facilitador->setCpf($cpf);
 				$facilitador->setInstituicao($instituicao);
 				$this->getEntityManager ()->persist ( $facilitador );
 				$this->getEntityManager ()->flush ();

@@ -12,57 +12,53 @@ use Zend\Form\Element\Submit;
 echo $this->form()->openTag($form);
 echo $this->formInput($form->get('codigo'));
 
-echo $this->formLabel($form->get('razao'))."<br />";
-echo $this->formInput($form->get('razao'))."<br />";
-echo $this->formElementErrors($form->get('razao'))."<br />";
-
 echo $this->formLabel($form->get('cnpj'))."<br />";
 echo $this->formInput($form->get('cnpj'))."<br />";
 echo $this->formElementErrors($form->get('cnpj'))."<br />";
-
-echo $this->formLabel($form->get('endereco'))."<br />";
-echo $this->formInput($form->get('endereco'))."<br />";
-echo $this->formElementErrors($form->get('endereco'))."<br />";
-
-echo $this->formLabel($form->get('caixaPostal'))."<br />";
-echo $this->formInput($form->get('caixaPostal'))."<br />";
-echo $this->formElementErrors($form->get('caixaPostal'))."<br />";
-
-echo $this->formLabel($form->get('cidade'))."<br />";
-echo $this->formInput($form->get('cidade'))."<br />";
-echo $this->formElementErrors($form->get('cidade'))."<br />";
-
-echo $this->formLabel($form->get('pais'))."<br />";
-echo $this->formInput($form->get('pais'))."<br />";
-echo $this->formElementErrors($form->get('pais'))."<br />";
-
-echo $this->formLabel($form->get('email'))."<br />";
-echo $this->formInput($form->get('email'))."<br />";
-echo $this->formElementErrors($form->get('email'))."<br />";
-
-echo $this->formLabel($form->get('observacao'))."<br />";
-echo $this->formInput($form->get('observacao'))."<br />";
-echo $this->formElementErrors($form->get('observacao'))."<br />";
-
-echo $this->formLabel($form->get('fantasia'))."<br />";
-echo $this->formInput($form->get('fantasia'))."<br />";
-echo $this->formElementErrors($form->get('fantasia'))."<br />";
 
 echo $this->formLabel($form->get('inscricaoEstadual'))."<br />";
 echo $this->formInput($form->get('inscricaoEstadual'))."<br />";
 echo $this->formElementErrors($form->get('inscricaoEstadual'))."<br />";
 
-echo $this->formLabel($form->get('bairro'))."<br />";
-echo $this->formInput($form->get('bairro'))."<br />";
-echo $this->formElementErrors($form->get('bairro'))."<br />";
+echo $this->formLabel($form->get('razao'))."<br />";
+echo $this->formInput($form->get('razao'))."<br />";
+echo $this->formElementErrors($form->get('razao'))."<br />";
+
+echo $this->formLabel($form->get('fantasia'))."<br />";
+echo $this->formInput($form->get('fantasia'))."<br />";
+echo $this->formElementErrors($form->get('fantasia'))."<br />";
 
 echo $this->formLabel($form->get('cep'))."<br />";
 echo $this->formInput($form->get('cep'))."<br />";
 echo $this->formElementErrors($form->get('cep'))."<br />";
 
+echo $this->formLabel($form->get('endereco'))."<br />";
+echo $this->formInput($form->get('endereco'))."<br />";
+echo $this->formElementErrors($form->get('endereco'))."<br />";
+
+echo $this->formLabel($form->get('bairro'))."<br />";
+echo $this->formInput($form->get('bairro'))."<br />";
+echo $this->formElementErrors($form->get('bairro'))."<br />";
+
+echo $this->formLabel($form->get('cidade'))."<br />";
+echo $this->formInput($form->get('cidade'))."<br />";
+echo $this->formElementErrors($form->get('cidade'))."<br />";
+
 echo $this->formLabel($form->get('uf'))."<br />";
 echo $this->formSelect($form->get('uf'))."<br />";
 echo $this->formElementErrors($form->get('uf'))."<br />";
+
+echo $this->formLabel($form->get('pais'))."<br />";
+echo $this->formInput($form->get('pais'))."<br />";
+echo $this->formElementErrors($form->get('pais'))."<br />";
+
+echo $this->formLabel($form->get('caixaPostal'))."<br />";
+echo $this->formInput($form->get('caixaPostal'))."<br />";
+echo $this->formElementErrors($form->get('caixaPostal'))."<br />";
+
+echo $this->formLabel($form->get('email'))."<br />";
+echo $this->formInput($form->get('email'))."<br />";
+echo $this->formElementErrors($form->get('email'))."<br />";
 
 echo $this->formLabel($form->get('telefone'))."<br />";
 echo $this->formInput($form->get('telefone'))."<br />";
@@ -71,6 +67,11 @@ echo $this->formElementErrors($form->get('telefone'))."<br />";
 echo $this->formLabel($form->get('homepage'))."<br />";
 echo $this->formInput($form->get('homepage'))."<br />";
 echo $this->formElementErrors($form->get('homepage'))."<br />";
+
+echo $this->formLabel($form->get('observacao'))."<br />";
+echo $this->formInput($form->get('observacao'))."<br />";
+echo $this->formElementErrors($form->get('observacao'))."<br />";
+
 
 echo $this->formInput ($form->get ("submit"));
 echo $this->form()->closeTag();

@@ -15,29 +15,33 @@ echo $this->formLabel($form->get('instituicao'))."<br />";
 echo $this->formSelect($form->get('instituicao'))."<br />";
 echo $this->formElementErrors($form->get('instituicao'))."<br />";
 
-echo $this->formLabel($form->get('cpf'))."<br />";
-echo $this->formInput($form->get('cpf'))."<br />";
-echo $this->formElementErrors($form->get('cpf'))."<br />";
+// echo $this->formLabel($form->get('cpf'))."<br />";
+// echo $this->formInput($form->get('cpf'))."<br />";
+// echo $this->formElementErrors($form->get('cpf'))."<br />";
 
 echo $this->formLabel($form->get('nome'))."<br />";
 echo $this->formInput($form->get('nome'))."<br />";
 echo $this->formElementErrors($form->get('nome'))."<br />";
 
-echo $this->formLabel($form->get('nascimento'))."<br />";
-echo $this->formInput($form->get('nascimento'))."<br />";
-echo $this->formElementErrors($form->get('nascimento'))."<br />";
+// echo $this->formLabel($form->get('nascimento'))."<br />";
+// echo $this->formInput($form->get('nascimento'))."<br />";
+// echo $this->formElementErrors($form->get('nascimento'))."<br />";
 
 echo $this->formLabel($form->get('email'))."<br />";
 echo $this->formInput($form->get('email'))."<br />";
 echo $this->formElementErrors($form->get('email'))."<br />";
 
-echo $this->formLabel($form->get('telefone'))."<br />";
-echo $this->formInput($form->get('telefone'))."<br />";
-echo $this->formElementErrors($form->get('telefone'))."<br />";
+// echo $this->formLabel($form->get('telefone'))."<br />";
+// echo $this->formInput($form->get('telefone'))."<br />";
+// echo $this->formElementErrors($form->get('telefone'))."<br />";
 
 echo $this->formLabel($form->get('celular'))."<br />";
 echo $this->formInput($form->get('celular'))."<br />";
 echo $this->formElementErrors($form->get('celular'))."<br />";
+
+echo $this->formLabel($form->get('curriculo'))."<br />";
+echo $this->formTextarea($form->get('curriculo'))."<br />";
+echo $this->formElementErrors($form->get('curriculo'))."<br />";
 
 echo $this->formInput ($form->get ("submit"));
 echo $this->form()->closeTag();
@@ -58,9 +62,9 @@ echo $this->form()->closeTag();
 	text: true,
 	});
 	$(document).ready(function(){
-	  $('#cpf').mask('000.000.000-00');
-	  $('#nascimento').mask('00-00-0000');
-	  $('#telefone').mask('(00)0000-00000');
+// 	  $('#cpf').mask('000.000.000-00');
+// 	  $('#nascimento').mask('00-00-0000');
+// 	  $('#telefone').mask('(00)0000-00000');
 	  $('#celular').mask('(00)0000-00000');
 	});
 	$('#nome').keypress(function (e) {
