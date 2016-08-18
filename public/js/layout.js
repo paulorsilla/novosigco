@@ -30,5 +30,16 @@ $(document).ready(function() {
 		e.preventDefault();
 		window.location ="/admin/auth/logout";
 	});
-    
+	
+	$("#logar").button({
+		icons: {
+			primary: "ui-icon-key",
+		},
+	text: false,
+	}).click(function(e) {
+		e.preventDefault();
+		$("#logado").html("");
+		window.location ="/admin/auth/logout";
+	});
+
 });
