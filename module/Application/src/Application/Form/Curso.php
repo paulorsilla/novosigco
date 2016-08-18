@@ -38,15 +38,15 @@ class Curso extends Form{
 						'label' => 'Carga horaria:',
 				)
 		));
-		$this->add(array(
-				'name' => 'modalidadeCapacitacao',
-				'attributes' => array(
-						'style' => 'width:800px',
-						'type'=> 'text',
-				),
-				'options' => array(
-						'label' => 'Modalidade de capacitação:'
-				)));
+// 		$this->add(array(
+// 				'name' => 'modalidadeCapacitacao',
+// 				'attributes' => array(
+// 						'style' => 'width:800px',
+// 						'type'=> 'text',
+// 				),
+// 				'options' => array(
+// 						'label' => 'Modalidade de capacitação:'
+// 				)));
 		$this->add(array(
 				'name'=>'submit',
 				'attributes' => array(

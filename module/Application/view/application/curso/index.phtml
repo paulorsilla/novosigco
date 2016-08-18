@@ -5,7 +5,6 @@
 <thead>
 <tr>
 <th style="text-align: left;">Carga horaria</th>
-<th style="text-align: left;">Modalidade de capacitação</th>
 <th style="text-align: left;">Descrição</th>
 <th width="90" class="center">Opções</th>
 </tr>
@@ -14,7 +13,6 @@
 <?php foreach($cursos as $curso):?>
 		<tr>
 			<td id="cargaHoraria"><?php echo $this->escapeHtml($curso->getCargaHoraria());?></td>
-			<td id="modalidadeCapacitacao"><?php echo $this->escapeHtml($curso->getModalidadeCapacitacao());?></td>
 			<td id="descricao"><?php echo $this->escapeHtml($curso->getDescricao());?></td>
 			<td style="text-align:center">
 				<a href="/application/curso/save/id/<?php echo $curso->getId();?>"><span title="Editar" class="ui-icon ui-icon-pencil"/></a>

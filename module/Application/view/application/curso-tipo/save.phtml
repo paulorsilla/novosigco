@@ -1,0 +1,49 @@
+<div id="tituloPagina">Cadastro tipos de cursos</div>
+<div id="tabs">
+	<ul>
+		<li><a href="#dados">Tipo de Curso</a></li>
+	</ul>
+	<div id="dados">
+		<?php
+		echo $this->form()->openTag($form);
+		//	echo $this->formCollection($form);
+		echo $this->formInput($form->get('id'));
+		echo $this->formLabel($form->get('descricao'))."<br />";
+		echo $this->formInput($form->get('descricao'))."<br />";
+		echo $this->formElementErrors($form->get('descricao'))."<br />";
+		echo $this->form()->closeTag();
+		?>
+	</div>
+</div>
+<div id="barraBotoes">
+	<button id="cancelar">Cancelar</button>
+	<button id="salvar">Salvar</button>
+</div>
+<script>
+	$("#submit").hide();
+	$("#cancelar").button({
+		icons: {
+			primary: "ui-icon-close",
+		},
+	text: true,
+	});
+	$("#salvar").button({
+		icons: {
+			primary: "ui-icon-disk",
+		},
+	text: true,
+	});
+
+	$("#cancelar").click(function(e) {
+		e.preventDefault();
+		window.location ="/application/curso-tipo";
+	});
+
+	$("#salvar").click(function(e) {
+		e.preventDefault();
+		$("#submit").click();
+	});
+
+	$("#tabs").tabs();
+	
+</script>

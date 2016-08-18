@@ -79,6 +79,7 @@ return array(
 		            'Application\Controller\Cargo'     				 => 'Application\Controller\CargoController',
 					'Application\Controller\Competencia'             => 'Application\Controller\CompetenciaController',
 					'Application\Controller\Curso'           		 => 'Application\Controller\CursoController',
+					'Application\Controller\CursoTipo'           	 => 'Application\Controller\CursoTipoController',
 		            'Application\Controller\EquipeTecnica' 			 => 'Application\Controller\EquipeTecnicaController',
 		            'Application\Controller\Escolaridade' 			 => 'Application\Controller\EscolaridadeController',
 					'Application\Controller\Facilitador'    		 => 'Application\Controller\FacilitadorController',

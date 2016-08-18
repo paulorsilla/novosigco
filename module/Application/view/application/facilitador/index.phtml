@@ -21,8 +21,8 @@ use Doctrine\ORM\Query\AST\Functions\SubstringFunction;
 			<td><?php echo $this->escapeHtml($facilitador->getNome());?></td>
 			<td><?php echo $this->escapeHtml($facilitador->getEmail());?></td>
 			<td><?php echo $this->escapeHtml($facilitador->getCelular());?></td>
-			<td><?php echo $this->escapeHtml(substr($facilitador->getCurriculo(),0,20).
-					"..."($facilitador->getCurriculo())	);?></td>
+			<td><?php echo $this->escapeHtml(substr($facilitador->getCurriculo(),0,60).
+					"...");?></td>
 			<td><?php echo $this->escapeHtml($facilitador->getInstituicao()->getRazao());?></td>
 			<td style="text-align:center">
 				<a href="/application/facilitador/save/id/<?php echo $facilitador->getId();?>"><span title="Editar" class="ui-icon ui-icon-pencil"/></a>

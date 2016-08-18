@@ -31,10 +31,16 @@ class Curso extends Entity {
 	 */
 	protected $cargaHoraria;
 	
+// 	/**
+// 	 * @ORM\Column(type="string", name="modalidade_capacitacao")
+// 	 */
+// 	protected $modalidadeCapacitacao;
+	
 	/**
-	 * @ORM\Column(type="string", name="modalidade_capacitacao")
+	 * @ManyToOne(targetEntity="CursoTipo")
+	 * @JoinColumn(name="tipo_curso_id", referencedColumnName="id")
 	 */
-	protected $modalidadeCapacitacao;
+	protected $tipoCurso;
 	
 	/**
 	 * @ORM\Column(type="string", name="descricao")
@@ -106,28 +112,28 @@ class Curso extends Entity {
 					) 
 			) ) );
 			
-			$inputFilter->add ( $factory->createInput ( array (
-					'name' => 'modalidadeCapacitacao',
-					'required' => true,
-					'filters' => array (
-							array (
-									'name' => 'StripTags' 
-							),
-							array (
-									'name' => 'StringTrim' 
-							) 
-					),
-					'validators' => array (
-							array (
-									'name' => 'StringLength',
-									'options' => array (
-											'encoding' => 'UTF-8',
-											'min' => 5,
-											'max' => 200 
-									) 
-							) 
-					) 
-			) ) );
+// 			$inputFilter->add ( $factory->createInput ( array (
+// 					'name' => 'modalidadeCapacitacao',
+// 					'required' => true,
+// 					'filters' => array (
+// 							array (
+// 									'name' => 'StripTags' 
+// 							),
+// 							array (
+// 									'name' => 'StringTrim' 
+// 							) 
+// 					),
+// 					'validators' => array (
+// 							array (
+// 									'name' => 'StringLength',
+// 									'options' => array (
+// 											'encoding' => 'UTF-8',
+// 											'min' => 5,
+// 											'max' => 200 
+// 									) 
+// 							) 
+// 					) 
+// 			) ) );
 			
 			$inputFilter->add ( $factory->createInput ( array (
 					'name' => 'descricao',
