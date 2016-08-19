@@ -33,7 +33,7 @@ class CursoTipoController extends ActionController {
 	}
 	public function indexAction() {
 		$cursosTipo = $this->getEntityManager ()->getRepository ( "Application\Model\CursoTipo" )->findAll ( array (), array (
-				'descricao' => 'ASC'
+				'descricao' => 'ASC' 
 		) );
 		// adiciona os arquivos indexcomum.js e jquery.dataTable.min.js
 		// ao head da página
@@ -41,40 +41,38 @@ class CursoTipoController extends ActionController {
 		$renderer->headScript ()->appendFile ( '/js/jquery.dataTables.min.js' );
 		$renderer->headScript ()->appendFile ( '/js/indexcomum.js' );
 		return new ViewModel ( array (
-				'cursosTipo' => $cursosTipo
+				'cursosTipo' => $cursosTipo 
 		) );
 	}
-	
-	public function saveAction()
-	{
-		$form = new CursoTipoForm();
-		$request = $this->getRequest();
-		if ($request->isPost()) {
-			$cursoTipo = new CursoTipo();
-			$form->setInputFilter($cursoTipo->getInputFilter());
-			$form->setData($request->getPost());
-			if ($form->isValid()) {
-				$data = $form->getData();
-				unset($data['submit']);
-				if (isset($data['id']) && $data['id'] > 0) {
-					$cursoTipo = $this->getEntityManager()->find('Application\Model\CursoTipo', $data['id']);
+	public function saveAction() {
+		$form = new CursoTipoForm ();
+		$request = $this->getRequest ();
+		if ($request->isPost ()) {
+			$cursoTipo = new CursoTipo ();
+			$form->setInputFilter ( $cursoTipo->getInputFilter () );
+			$form->setData ( $request->getPost () );
+			if ($form->isValid ()) {
+				$data = $form->getData ();
+				unset ( $data ['submit'] );
+				if (isset ( $data ['id'] ) && $data ['id'] > 0) {
+					$cursoTipo = $this->getEntityManager ()->find ( 'Application\Model\CursoTipo', $data ['id'] );
 				}
-				$cursoTipo->setData($data);
-				$this->getEntityManager()->persist($cursoTipo);
-				$this->getEntityManager()->flush();
-	
-				return $this->redirect()->toUrl('/application/curso-tipo');
+				$cursoTipo->setData ( $data );
+				$this->getEntityManager ()->persist ( $cursoTipo );
+				$this->getEntityManager ()->flush ();
+				
+				return $this->redirect ()->toUrl ( '/application/curso-tipo' );
 			}
 		}
-		$id = (int) $this->params()->fromRoute('id', 0);
+		$id = ( int ) $this->params ()->fromRoute ( 'id', 0 );
 		if ($id > 0) {
-			$sublotacao = $this->getEntityManager()->find('Application\Model\CursoTipo', $id);
-			$form->bind($cursoTipo);
-			$form->get('submit')->setAttribute('value', 'Edit');
+			$cursoTipo = $this->getEntityManager ()->find ( 'Application\Model\CursoTipo', $id );
+			$form->bind ( $cursoTipo );
+			$form->get ( 'submit' )->setAttribute ( 'value', 'Edit' );
 		}
-		return new ViewModel(
-				array('form' => $form)
-				);
+		return new ViewModel ( array (
+				'form' => $form 
+		) );
 	}
 	public function deleteAction() {
 		$id = ( int ) $this->params ()->fromRoute ( 'id', 0 );

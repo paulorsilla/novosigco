@@ -6,6 +6,7 @@
 <tr>
 <th style="text-align: left;">Carga horaria</th>
 <th style="text-align: left;">Descrição</th>
+<th style="text-align: left;">Tipo de curso</th>
 <th width="90" class="center">Opções</th>
 </tr>
 </thead>
@@ -14,6 +15,7 @@
 		<tr>
 			<td id="cargaHoraria"><?php echo $this->escapeHtml($curso->getCargaHoraria());?></td>
 			<td id="descricao"><?php echo $this->escapeHtml($curso->getDescricao());?></td>
+			<td id="descricao"><?php echo $this->escapeHtml($curso->getCursoTipo()->getDescricao());?></td>
 			<td style="text-align:center">
 				<a href="/application/curso/save/id/<?php echo $curso->getId();?>"><span title="Editar" class="ui-icon ui-icon-pencil"/></a>
 				<a href="/application/curso/delete/id/<?php echo $curso->getId();?>" id="excluir"><span title="Excluir" class="ui-icon ui-icon-trash"/></a>

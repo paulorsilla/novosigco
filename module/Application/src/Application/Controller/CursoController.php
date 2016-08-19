@@ -80,37 +80,58 @@ class CursoController extends ActionController {
 			}
 		return $response;
 	}
-	
 	public function saveAction() {
-		$form = new CursoForm ();
+		error_log("1");
+		$form = new CursoForm ($this->getEntityManager());
 		$request = $this->getRequest ();
+		error_log("2");
 		if ($request->isPost ()) {
+			error_log("3");
 			$curso = new Curso ();
+			error_log("4");
 			$form->setInputFilter ( $curso->getInputFilter () );
 			$form->setData ( $request->getPost () );
+			error_log("5");
 			if ($form->isValid ()) {
+				error_log("6");
 				$data = $form->getData ();
+				error_log("7");
 				unset ( $data ['submit'] );
-				$competencias = $this->params()->fromPost("competencia");
+				error_log("8");
+			//	$curso = $this->params()->fromPost("curso");
+				error_log("9");
 				if (isset ( $data ['id'] ) && $data ['id'] > 0) {
+					error_log("10");
 					$curso = $this->getEntityManager ()->find ( 'Application\Model\Curso', $data ['id'] );
+					error_log("11");
 					$curso->getCompetencias()->clear();
+					error_log("12");
 					}
 				$curso->setData ( $data );
+				error_log("13");
 				foreach ($competencias as $competenciaid){
+					error_log("14");
 					$competencia = $this->getEntityManager()->find("Application\Model\Competencia",$competenciaid);
+					error_log("15");
 					$curso->getCompetencias()->add($competencia);
+					error_log("16");
 				}
 				$this->getEntityManager ()->persist ( $curso );
+				error_log("17");
 				$this->getEntityManager ()->flush ();
 				return $this->redirect ()->toUrl ( '/application/curso' );
+				error_log("18");
 			}
 		}
+		error_log("19");
 		$id = ( int ) $this->params ()->fromRoute ( 'id', 0 );
 		if ($id > 0) {
+			error_log("20");
 			$curso = $this->getEntityManager ()->find ( 'Application\Model\Curso', $id );
 			$form->bind ( $curso );
+			error_log("21");
 			$form->get ( 'submit' )->setAttribute ( 'value', 'Edit' );
+			error_log("22");
 		}
 		$renderer = $this->getServiceLocator ()->get ( 'Zend\View\Renderer\PhpRenderer' );
 		$renderer->headScript ()->appendFile ( '/js/jquery.dataTables.min.js' );
