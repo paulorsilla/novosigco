@@ -37,7 +37,7 @@ class Curso extends Entity {
 // 	protected $modalidadeCapacitacao;
 	
 	/**
-	 * @ORM\ManyToOne(targetEntity="CursoTipo", inversedBy="cursos")
+	 * @ORM\ManyToOne(targetEntity="CursoTipo")
      * @ORM\JoinColumn(name="curso_tipo_id", referencedColumnName="id")
 	 */
 	protected $cursoTipo;
@@ -70,12 +70,12 @@ class Curso extends Entity {
 	public function setCargaHoraria($cargaHoraria) {
 		$this->cargaHoraria = $cargaHoraria;
 	}
-	public function getModalidadeCapacitacao() {
-		return $this->modalidadeCapacitacao;
-	}
-	public function setModalidadeCapacitacao($modalidadeCapacitacao) {
-		$this->modalidadeCapacitacao = $modalidadeCapacitacao;
-	}
+// 	public function getModalidadeCapacitacao() {
+// 		return $this->modalidadeCapacitacao;
+// 	}
+// 	public function setModalidadeCapacitacao($modalidadeCapacitacao) {
+// 		$this->modalidadeCapacitacao = $modalidadeCapacitacao;
+// 	}
 	public function getDescricao() {
 		return $this->descricao;
 	}

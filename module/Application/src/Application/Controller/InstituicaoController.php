@@ -177,20 +177,15 @@ class InstituicaoController extends ActionController
 			$form->setInputFilter ( $instituicao->getInputFilter () );
 			$form->setData($request->getPost());
 			if ($form->isValid()) {
-				error_log("1",$cnpj);
 				$data = $form->getData();
 				$cnpj = preg_replace('/[^0-9]/', '',  $this->params()->fromPost("cnpj"));
-				error_log("2",$cnpj);
 				unset($data['submit']);
-				error_log("3",$cnpj);
 				unset($data['cnpj']);
-				error_log("4",$cnpj);
 				if (isset($data['codigo']) && $data['codigo'] > 0) {
 					$instituicao = $this->getEntityManager()->find('Application\Model\Instituicao', $data['codigo']);
 				}
 				$instituicao->setData($data);
 				$instituicao->setCnpj($cnpj);
-				error_log("5",$cnpj);
 				$instituicao->setTipoPessoa('Pessoa Jurídica');
 				$this->getEntityManager()->persist($instituicao);
 				$this->getEntityManager()->flush();

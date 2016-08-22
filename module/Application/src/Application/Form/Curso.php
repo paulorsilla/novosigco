@@ -25,7 +25,8 @@ class Curso extends Form {
 				'name' => 'descricao',
 				'attributes' => array (
 						'style' => 'width:800px',
-						'type' => 'text' 
+						'type' => 'text',
+						'id' => 'descricao'
 				),
 				'options' => array (
 						'label' => 'Descricao:' 
@@ -36,6 +37,7 @@ class Curso extends Form {
 				'name' => 'cargaHoraria',
 				'attributes' => array (
 						'type' => 'text',
+						'id' => 'cargaHoraria',
 						'style' => 'width:800px' 
 				),
 				'options' => array (
