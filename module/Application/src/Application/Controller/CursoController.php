@@ -89,8 +89,9 @@ class CursoController extends ActionController {
 			$form->setData ( $request->getPost () );
 			if ($form->isValid ()) {
 				$data = $form->getData ();
-				$cursoTipo = $this->getEntityManager ()->find ( 'Application\Model\CursoTipo', $data ['cursoTipo'] );
+				$cursoTipo = $this->getEntityManager ()->find ( 'Application\Model\Curso', $data ['cursoTipo'] );
 				unset ( $data ['cursoTipo'] );
+				unset ($data ['cargaHoraria']);
 				unset ( $data ['submit'] );
 				$competencias = $this->params ()->fromPost ( "competencia" );
 				if (isset ( $data ['id'] ) && $data ['id'] > 0) {
@@ -98,6 +99,7 @@ class CursoController extends ActionController {
 					$curso->getCompetencias ()->clear ();
 				}
 				$curso->setData ( $data );
+				$curso->setCargaHoraria ($cargaHoraria);
 				$curso->setCursoTipo ( $cursoTipo );
 				foreach ( $competencias as $competenciaid ) {
 					$competencia = $this->getEntityManager ()->find ( "Application\Model\Competencia", $competenciaid );
@@ -112,6 +114,9 @@ class CursoController extends ActionController {
 		if ($id > 0) {
 			$curso = $this->getEntityManager ()->find ( 'Application\Model\Curso', $id );
 			$form->bind ( $curso );
+			//forçando dados aparecerem na tela
+			$form->get('cursoTipo')->setAttribute ('value', $curso->getCursoTipo());
+			$form->get('cargaHoraria')->setAttribute ('value', $curso->getCargaHoraria());
 			$form->get ( 'submit' )->setAttribute ( 'value', 'Edit' );
 		}
 		$renderer = $this->getServiceLocator ()->get ( 'Zend\View\Renderer\PhpRenderer' );

@@ -5,6 +5,7 @@ namespace Application\Form;
 use Zend\Form\Form;
 use Zend\Form\Element;
 use Zend\Stdlib\Hydrator\ClassMethods;
+use Zend\InputFilter\InputFilterProviderInterface;
 
 class Curso extends Form {
 	public function __construct($em) {
@@ -24,9 +25,10 @@ class Curso extends Form {
 		$this->add ( array (
 				'name' => 'descricao',
 				'attributes' => array (
+						'required' => true,
 						'style' => 'width:800px',
 						'type' => 'text',
-						'id' => 'descricao'
+						'id' => 'descricao' 
 				),
 				'options' => array (
 						'label' => 'Descricao:' 
@@ -36,6 +38,7 @@ class Curso extends Form {
 		$this->add ( array (
 				'name' => 'cargaHoraria',
 				'attributes' => array (
+						'required' => true,
 						'type' => 'text',
 						'id' => 'cargaHoraria',
 						'style' => 'width:800px' 
@@ -45,22 +48,22 @@ class Curso extends Form {
 				) 
 		) );
 		
-		$this->add(array(
-				'name'       => 'cursoTipo',
-				'type'       => 'DoctrineModule\Form\Element\ObjectSelect',
-				'attributes' => array(
+		$this->add ( array (
+				'name' => 'cursoTipo',
+				'type' => 'DoctrineModule\Form\Element\ObjectSelect',
+				'attributes' => array (
 						'style' => 'width:800px',
 						'required' => true,
-						'id' => 'cursoTipo'
+						'id' => 'cursoTipo' 
 				),
-				'options'    => array(
-						'label'           => 'Tipo de curso:*',
-						'empty_option'    => '--- Escolha um Tipo ---',
-						'object_manager'  => $em,
-						'target_class'    => 'Application\Model\CursoTipo',
-						'property'        => 'descricao'
-				)
-		));
+				'options' => array (
+						'label' => 'Tipo de curso:*',
+						'empty_option' => '--- Escolha um Tipo ---',
+						'object_manager' => $em,
+						'target_class' => 'Application\Model\CursoTipo',
+						'property' => 'descricao' 
+				) 
+		) );
 		// $this->add(array(
 		// 'name' => 'modalidadeCapacitacao',
 		// 'attributes' => array(

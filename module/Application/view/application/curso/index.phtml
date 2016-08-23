@@ -20,8 +20,7 @@
 			//Sem $this->escapeHtml (remove os codigo html do echo
 			//quebra de linhas do elemento foreach e mostrar na página
 			 echo $competencia->getTitulo()."<br>";
-			 endforeach;
-			 ?></td>
+			endforeach;?></td>
 			<td><?php echo $this->escapeHtml($curso->getCargaHoraria());?></td>
 			<td style="text-align:center">
 				<a href="/application/curso/save/id/<?php echo $curso->getId();?>"><span title="Editar" class="ui-icon ui-icon-pencil"/></a>

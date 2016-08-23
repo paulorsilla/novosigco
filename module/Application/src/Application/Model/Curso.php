@@ -27,7 +27,7 @@ class Curso extends Entity {
 	protected $id;
 	
 	/**
-	 * @ORM\Column(type="float", name="carga_horaria")
+	 * @ORM\Column(type="integer", name="carga_horaria")
 	 */
 	protected $cargaHoraria;
 	
