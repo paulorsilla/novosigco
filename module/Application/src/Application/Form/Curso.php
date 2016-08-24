@@ -52,18 +52,18 @@ class Curso extends Form {
 				) 
 		) );
 		
-		$this->add ( array (
-				'name' => 'cargaHoraria',
-				'attributes' => array (
-						'required' => true,
-						'type' => 'text',
-						'id' => 'cargaHoraria',
-						'style' => 'width:800px'
-				),
-				'options' => array (
-						'label' => 'Carga horaria:'
-				)
-		) );
+// 		$this->add ( array (
+// 				'name' => 'cargaHoraria',
+// 				'attributes' => array (
+// 						'required' => true,
+// 						'type' => 'text',
+// 						'id' => 'cargaHoraria',
+// 						'style' => 'width:800px'
+// 				),
+// 				'options' => array (
+// 						'label' => 'Carga horaria:'
+// 				)
+// 		) );
 		
 		
 		$this->add ( array (

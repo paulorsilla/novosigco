@@ -45,10 +45,10 @@ class Curso extends Entity {
 	 */
 	protected $competencias;
 
-	/**
-	 * @ORM\Column(type="integer", name="carga_horaria")
-	 */
-	protected $cargaHoraria;
+// 	/**
+// 	 * @ORM\Column(type="integer", name="carga_horaria")
+// 	 */
+// 	protected $cargaHoraria;
 	
 	public function __construct(){
 		$this->competencias = new \Doctrine\Common\Collections\ArrayCollection();
@@ -78,26 +78,26 @@ class Curso extends Entity {
 	public function setCompetencias($competencias) {
 		$this->competencias = $competencias;
 	}
-	public function getCargaHoraria() {
-		return $this->cargaHoraria;
-	}
-	public function setCargaHoraria($cargaHoraria) {
-		$this->cargaHoraria = $cargaHoraria;
-	}
+// 	public function getCargaHoraria() {
+// 		return $this->cargaHoraria;
+// 	}
+// 	public function setCargaHoraria($cargaHoraria) {
+// 		$this->cargaHoraria = $cargaHoraria;
+// 	}
 	
 	public function getInputFilter() {
 		if (! $this->inputFilter) {
 			$inputFilter = new InputFilter ();
 			$factory = new InputFactory ();
 			
-// 			$inputFilter->add ( $factory->createInput ( array (
-// 					'name' => 'id',
-// 					'required' => true
-// 			) ) );
 			$inputFilter->add ( $factory->createInput ( array (
-					'name' => 'cargaHoraria',
+					'name' => 'id',
 					'required' => true
 			) ) );
+// 			$inputFilter->add ( $factory->createInput ( array (
+// 					'name' => 'cargaHoraria',
+// 					'required' => true
+// 			) ) );
 			
 // 			$inputFilter->add ( $factory->createInput ( array (
 // 					'name' => 'modalidadeCapacitacao',

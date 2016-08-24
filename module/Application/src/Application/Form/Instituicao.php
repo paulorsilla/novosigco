@@ -8,7 +8,7 @@ use Zend\Stdlib\Hydrator\ClassMethods;
 use Application\Validator\Cnpj;
 use Zend\InputFilter\InputFilterProviderInterface;
 
-class Instituicao extends Form implements InputFilterProviderInterface {
+class Instituicao extends Form{// implements InputFilterProviderInterface {
 	
 	public function __construct() {
 		parent::__construct ( 'Instituicao' );
@@ -230,17 +230,17 @@ class Instituicao extends Form implements InputFilterProviderInterface {
 		) );
 	}
 	
-	public function getInputFilterSpecification() {
-		return array (
-				array (
-						'name' => 'cnpj',
-						'required' => true,
-						'validators' => array (
-								array (
-										'name' => 'Application\Validator\Cnpj' 
-								) 
-						) 
-				) 
-		);
-	}
+// 	public function getInputFilterSpecification() {
+// 		return array (
+// 				array (
+// 						'name' => 'cnpj',
+// 						'required' => true,
+// 						'validators' => array (
+// 								array (
+// 										'name' => 'Application\Validator\Cnpj' 
+// 								) 
+// 						) 
+//				) 
+//		);
+//	}
 }

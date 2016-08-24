@@ -181,9 +181,27 @@ class InstituicaoController extends ActionController
 				$cnpj = preg_replace('/[^0-9]/', '',  $this->params()->fromPost("cnpj"));
 				unset($data['submit']);
 				unset($data['cnpj']);
+				
+				//codigo para salvar seção caso haja alterações
+				$session = $this->getServiceLocator()->get('Zend\ServiceManager\ServiceManager')->get('Session');
+				$usuario = $session->offsetGet('user');
+				$data = date("Y-m-d H:i:s");
+				
 				if (isset($data['codigo']) && $data['codigo'] > 0) {
 					$instituicao = $this->getEntityManager()->find('Application\Model\Instituicao', $data['codigo']);
+					//codigo para salvar seção caso haja alterações
+					$instituicao->setAlteracao($usuario->getLogin());
+					$instituicao->setDataAlteracao($data);
+					$instituicao->setDataAtualizacao($data);
 				}
+				else {
+					//codigo para salvar seção caso haja alterações
+					$instituicao->setInclusao($usuario->getLogin());
+					$instituicao->setDataInclusao($data);
+					$instituicao->setRecebeNewsletter('N');
+					$instituicao->setLideranca('N');
+				}
+				
 				$instituicao->setData($data);
 				$instituicao->setCnpj($cnpj);
 				$instituicao->setTipoPessoa('Pessoa Jurídica');
@@ -193,9 +211,9 @@ class InstituicaoController extends ActionController
 			} else {
 			}
 		}
-		$id = (int) $this->params()->fromRoute('id', 0);
-		if ($id > 0) {
-			$instituicao = $this->getEntityManager()->find('Application\Model\Instituicao', $id);
+		$codigo = (int) $this->params()->fromRoute('codigo', 0);
+		if ($codigo > 0) {
+			$instituicao = $this->getEntityManager()->find('Application\Model\Instituicao', $codigo);
 			$form->bind($instituicao);
 			$form->get('submit')->setAttribute('value', 'Edit');
 		}
