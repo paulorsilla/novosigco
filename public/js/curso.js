@@ -36,22 +36,24 @@ $(document).ready(function() {
         }
 	});
 	
-	//busca competencias do curso
-	$.ajax({
-        type: 'POST',
-        dataType: "json",
-        async: false,
-        data: {cursoId:cursoId},
-        url: "/application/curso/buscacompetencias",
-        success: function(d) {
-        	var comp = $.parseJSON(d.competencias);
-        	$.each(comp, function (index, value){
-        		competenciasSelecionadas.push(value.id);
-        	});
-        	adicionaCompetencia();
-        }
-	});
 	
+	if (cursoId > 0) {
+		//busca competencias do curso, em caso de edição
+		$.ajax({
+	        type: 'POST',
+	        dataType: "json",
+	        async: false,
+	        data: {cursoId:cursoId},
+	        url: "/application/curso/buscacompetencias",
+	        success: function(d) {
+	        	var comp = $.parseJSON(d.competencias);
+	        	$.each(comp, function (index, value){
+	        		competenciasSelecionadas.push(value.id);
+	        	});
+	        	adicionaCompetencia();
+	        }
+		});
+	}	
 	//janela modal para seleção de competências
 	var dialogCompetencias = $("#modal-competencia").dialog({
 		autoOpen : false,

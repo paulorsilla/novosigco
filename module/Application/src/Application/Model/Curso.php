@@ -27,16 +27,6 @@ class Curso extends Entity {
 	protected $id;
 	
 	/**
-	 * @ORM\Column(type="integer", name="carga_horaria")
-	 */
-	protected $cargaHoraria;
-	
-// 	/**
-// 	 * @ORM\Column(type="string", name="modalidade_capacitacao")
-// 	 */
-// 	protected $modalidadeCapacitacao;
-	
-	/**
 	 * @ORM\ManyToOne(targetEntity="CursoTipo")
      * @ORM\JoinColumn(name="curso_tipo_id", referencedColumnName="id")
 	 */
@@ -54,33 +44,21 @@ class Curso extends Entity {
 	 * )
 	 */
 	protected $competencias;
+
+	/**
+	 * @ORM\Column(type="integer", name="carga_horaria")
+	 */
+	protected $cargaHoraria;
 	
 	public function __construct(){
 		$this->competencias = new \Doctrine\Common\Collections\ArrayCollection();
-	}	
+	}
+	
 	public function getId() {
 		return $this->id;
 	}
 	public function setId($id) {
 		$this->id = $id;
-	}
-	public function getCargaHoraria() {
-		return $this->cargaHoraria;
-	}
-	public function setCargaHoraria($cargaHoraria) {
-		$this->cargaHoraria = $cargaHoraria;
-	}
-// 	public function getModalidadeCapacitacao() {
-// 		return $this->modalidadeCapacitacao;
-// 	}
-// 	public function setModalidadeCapacitacao($modalidadeCapacitacao) {
-// 		$this->modalidadeCapacitacao = $modalidadeCapacitacao;
-// 	}
-	public function getDescricao() {
-		return $this->descricao;
-	}
-	public function setDescricao($descricao) {
-		$this->descricao = $descricao;
 	}
 	public function getCursoTipo() {
 		return $this->cursoTipo;
@@ -88,34 +66,37 @@ class Curso extends Entity {
 	public function setCursoTipo($cursoTipo) {
 		$this->cursoTipo = $cursoTipo;
 	}
+	public function getDescricao() {
+		return $this->descricao;
+	}
+	public function setDescricao($descricao) {
+		$this->descricao = $descricao;
+	}
 	public function getCompetencias() {
 		return $this->competencias;
 	}
 	public function setCompetencias($competencias) {
 		$this->competencias = $competencias;
 	}
-		public function getInputFilter() {
+	public function getCargaHoraria() {
+		return $this->cargaHoraria;
+	}
+	public function setCargaHoraria($cargaHoraria) {
+		$this->cargaHoraria = $cargaHoraria;
+	}
+	
+	public function getInputFilter() {
 		if (! $this->inputFilter) {
 			$inputFilter = new InputFilter ();
 			$factory = new InputFactory ();
 			
-			$inputFilter->add ( $factory->createInput ( array (
-					'name' => 'id',
-					'required' => true,
-					'filters' => array (
-							array (
-									'name' => 'Int' 
-							) 
-					) 
-			) ) );
+// 			$inputFilter->add ( $factory->createInput ( array (
+// 					'name' => 'id',
+// 					'required' => true
+// 			) ) );
 			$inputFilter->add ( $factory->createInput ( array (
 					'name' => 'cargaHoraria',
-					'required' => true,
-					'filters' => array (
-							array (
-									'name' => 'Int' 
-							) 
-					) 
+					'required' => true
 			) ) );
 			
 // 			$inputFilter->add ( $factory->createInput ( array (
@@ -168,4 +149,5 @@ class Curso extends Entity {
 		}
 		return $this->inputFilter;
 	}
+	
 }

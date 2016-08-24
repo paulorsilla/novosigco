@@ -5,7 +5,6 @@ namespace Application\Form;
 use Zend\Form\Form;
 use Zend\Form\Element;
 use Zend\Stdlib\Hydrator\ClassMethods;
-use Zend\InputFilter\InputFilterProviderInterface;
 
 class Curso extends Form {
 	public function __construct($em) {
@@ -35,18 +34,6 @@ class Curso extends Form {
 				) 
 		) );
 		
-		$this->add ( array (
-				'name' => 'cargaHoraria',
-				'attributes' => array (
-						'required' => true,
-						'type' => 'text',
-						'id' => 'cargaHoraria',
-						'style' => 'width:800px' 
-				),
-				'options' => array (
-						'label' => 'Carga horaria:' 
-				) 
-		) );
 		
 		$this->add ( array (
 				'name' => 'cursoTipo',
@@ -64,15 +51,21 @@ class Curso extends Form {
 						'property' => 'descricao' 
 				) 
 		) );
-		// $this->add(array(
-		// 'name' => 'modalidadeCapacitacao',
-		// 'attributes' => array(
-		// 'style' => 'width:800px',
-		// 'type'=> 'text',
-		// ),
-		// 'options' => array(
-		// 'label' => 'Modalidade de capacitação:'
-		// )));
+		
+		$this->add ( array (
+				'name' => 'cargaHoraria',
+				'attributes' => array (
+						'required' => true,
+						'type' => 'text',
+						'id' => 'cargaHoraria',
+						'style' => 'width:800px'
+				),
+				'options' => array (
+						'label' => 'Carga horaria:'
+				)
+		) );
+		
+		
 		$this->add ( array (
 				'name' => 'submit',
 				'attributes' => array (

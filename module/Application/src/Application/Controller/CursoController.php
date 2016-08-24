@@ -22,9 +22,11 @@ class CursoController extends ActionController {
 	 * @var Doctrine\ORM\EntityManager
 	 */
 	protected $em;
+	
 	public function setEntityManager(EntityManager $em) {
 		$this->em = $em;
 	}
+	
 	public function getEntityManager() {
 		if (null === $this->em) {
 			$this->em = $this->getServiceLocator ()->get ( 'doctrine.entitymanager.orm_default' );
@@ -60,8 +62,8 @@ class CursoController extends ActionController {
 		if ($request->isPost ()) {
 			$cursoId = $this->params ()->fromPost ( "cursoId" );
 			$curso = $this->getEntityManager ()->find ( 'Application\Model\Curso', $cursoId );
+			$stringCompetencias = '[';
 			if ($curso) {
-				$stringCompetencias = '[';
 				$competencias = $curso->getCompetencias ();
 				foreach ( $curso->getCompetencias () as $key => $competencia ) { // array de tipoCompetencia definido na linha 60
 					$stringCompetencias .= '{"id": "' . $competencia->getId () . '"}';
@@ -80,8 +82,10 @@ class CursoController extends ActionController {
 		}
 		return $response;
 	}
+	
 	public function saveAction() {
 		$form = new CursoForm ( $this->getEntityManager () );
+		$form->setHydrator(new \Zend\Stdlib\Hydrator\ClassMethods(false));
 		$request = $this->getRequest ();
 		if ($request->isPost ()) {
 			$curso = new Curso ();
@@ -89,9 +93,8 @@ class CursoController extends ActionController {
 			$form->setData ( $request->getPost () );
 			if ($form->isValid ()) {
 				$data = $form->getData ();
-				$cursoTipo = $this->getEntityManager ()->find ( 'Application\Model\Curso', $data ['cursoTipo'] );
+				$cursoTipo = $this->getEntityManager ()->find ( 'Application\Model\CursoTipo', $data ['cursoTipo'] );
 				unset ( $data ['cursoTipo'] );
-				unset ($data ['cargaHoraria']);
 				unset ( $data ['submit'] );
 				$competencias = $this->params ()->fromPost ( "competencia" );
 				if (isset ( $data ['id'] ) && $data ['id'] > 0) {
@@ -99,7 +102,6 @@ class CursoController extends ActionController {
 					$curso->getCompetencias ()->clear ();
 				}
 				$curso->setData ( $data );
-				$curso->setCargaHoraria ($cargaHoraria);
 				$curso->setCursoTipo ( $cursoTipo );
 				foreach ( $competencias as $competenciaid ) {
 					$competencia = $this->getEntityManager ()->find ( "Application\Model\Competencia", $competenciaid );
@@ -114,10 +116,6 @@ class CursoController extends ActionController {
 		if ($id > 0) {
 			$curso = $this->getEntityManager ()->find ( 'Application\Model\Curso', $id );
 			$form->bind ( $curso );
-			//forçando dados aparecerem na tela
-			$form->get('cursoTipo')->setAttribute ('value', $curso->getCursoTipo());
-			$form->get('cargaHoraria')->setAttribute ('value', $curso->getCargaHoraria());
-			$form->get ( 'submit' )->setAttribute ( 'value', 'Edit' );
 		}
 		$renderer = $this->getServiceLocator ()->get ( 'Zend\View\Renderer\PhpRenderer' );
 		$renderer->headScript ()->appendFile ( '/js/jquery.dataTables.min.js' );

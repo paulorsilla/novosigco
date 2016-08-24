@@ -6,7 +6,6 @@ use Zend\InputFilter\Factory as InputFactory;
 use Zend\InputFilter\InputFilter;
 use Core\Model\Entity;
 use Doctrine\ORM\Mapping as ORM;
-use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Entidade Tipo de Curso
@@ -49,12 +48,7 @@ class CursoTipo extends Entity {
 			
 			$inputFilter->add ( $factory->createInput ( array (
 					'name' => 'id',
-					'required' => true,
-					'filters' => array (
-							array (
-									'name' => 'Int' 
-							) 
-					) 
+					'required' => true
 			) ) );
 			
 			$inputFilter->add ( $factory->createInput ( array (
