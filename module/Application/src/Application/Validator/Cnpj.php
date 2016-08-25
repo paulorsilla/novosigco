@@ -15,13 +15,12 @@ class Cnpj extends AbstractValidator {
 	public function isValid($cnpj = null) {
 		$cnpj = preg_replace ( '/[^0-9]/', '', $cnpj );
 		$cnpj = str_pad ( $cnpj, 14, '0', STR_PAD_LEFT );
-		
 		// Valida tamanho
 		if (strlen ( $cnpj ) != 14) {
 			$this->error ( self::INVALIDO );
 			return false;
 		}
-		if($cnpj == 00000000000000 || 11111111111111){
+		if(($cnpj == "00000000000000") || ($cnpj == "11111111111111")){
 			$this->error ( self::INVALIDO );
 			return false;
 		}
@@ -44,8 +43,9 @@ class Cnpj extends AbstractValidator {
 		
 		if ($cnpj {13} == ($resto < 2 ? 0 : 11 - $resto)) {
 			return true;
-		}
+		}else{
 		$this->error ( self::INVALIDO );
 		return false;
+		}
 	}
 }
