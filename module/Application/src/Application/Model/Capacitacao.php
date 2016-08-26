@@ -9,15 +9,15 @@ use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 
 /**
- * Entidade Curso
+ * Entidade Capacitacao
  *
  * @category Application
  * @package Model
  *         
  *          @ORM\Entity
- *          @ORM\Table(name="curso")
+ *          @ORM\Table(name="capacitacao")
  */
-class Curso extends Entity {
+class Capacitacao extends Entity {
 	
 	/**
 	 * @ORM\Id
@@ -27,10 +27,10 @@ class Curso extends Entity {
 	protected $id;
 	
 	/**
-	 * @ORM\ManyToOne(targetEntity="CursoTipo")
-     * @ORM\JoinColumn(name="curso_tipo_id", referencedColumnName="id")
+	 * @ORM\ManyToOne(targetEntity="CapacitacaoTipo")
+     * @ORM\JoinColumn(name="capacitacao_tipo_id", referencedColumnName="id")
 	 */
-	protected $cursoTipo;
+	protected $capacitacaoTipo;
 	
 	/**
 	 * @ORM\Column(type="string", name="descricao")
@@ -38,8 +38,8 @@ class Curso extends Entity {
 	protected $descricao;
 	/**
 	 * @ORM\ManyToMany(targetEntity="Competencia")
-	 * @ORM\JoinTable(name="curso_competencia",
-	 * 		joinColumns={@ORM\JoinColumn(name="curso_id", referencedColumnName="id")},
+	 * @ORM\JoinTable(name="capacitacao_competencia",
+	 * 		joinColumns={@ORM\JoinColumn(name="capacitacao_id", referencedColumnName="id")},
 	 * 		inverseJoinColumns={@ORM\JoinColumn(name="competencia_id", referencedColumnName="id")}
 	 * )
 	 */
@@ -60,11 +60,11 @@ class Curso extends Entity {
 	public function setId($id) {
 		$this->id = $id;
 	}
-	public function getCursoTipo() {
-		return $this->cursoTipo;
+	public function getCapacitacaoTipo() {
+		return $this->capacitacaoTipo;
 	}
-	public function setCursoTipo($cursoTipo) {
-		$this->cursoTipo = $cursoTipo;
+	public function setCapacitacaoTipo($capacitacaoTipo) {
+		$this->capacitacaoTipo = $capacitacaoTipo;
 	}
 	public function getDescricao() {
 		return $this->descricao;

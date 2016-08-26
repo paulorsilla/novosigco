@@ -1,5 +1,5 @@
 $(document).ready(function() {
-	var tabelaComp = $("#competenciasCurso").DataTable({
+	var tabelaComp = $("#competenciasCapacitacao").DataTable({
       "bSort":false,
       "bInfo": false,
       "bFilter": false,
@@ -13,7 +13,7 @@ $(document).ready(function() {
                  { className: "dt-body-center", targets: [2] }
              ]
 	});
-	var cursoId = $("#id").val();
+	var capacitacaoId = $("#id").val();
 	var competenciasSelecionadas = [];
 	var competenciasMap = [];
 	var tabelaSelecaoCompetencias = "<table id='selecaoCompetencias'><thead><tr><th>Descrição</th><th>Tipo de competência</th></tr></thead><tbody>";
@@ -37,14 +37,14 @@ $(document).ready(function() {
 	});
 	
 	
-	if (cursoId > 0) {
-		//busca competencias do curso, em caso de edição
+	if (capacitacaoId > 0) {
+		//busca competencias da capacitacao, em caso de edição
 		$.ajax({
 	        type: 'POST',
 	        dataType: "json",
 	        async: false,
-	        data: {cursoId:cursoId},
-	        url: "/application/curso/buscacompetencias",
+	        data: {capacitacaoId:capacitacaoId},
+	        url: "/application/capacitacao/buscacompetencias",
 	        success: function(d) {
 	        	var comp = $.parseJSON(d.competencias);
 	        	$.each(comp, function (index, value){

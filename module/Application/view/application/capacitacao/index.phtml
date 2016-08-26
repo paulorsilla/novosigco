@@ -1,30 +1,30 @@
-<div id="tituloPagina">Cadastro de cursos<br/><br/>Cursos cadastrados</div>
+<div id="tituloPagina">Cadastro de capacitações<br/><br/>Capacitações cadastradas</div>
 
 
 <table class="hover" id="consulta">
 <thead>
 <tr>
 <th style="text-align: left;">Descrição</th>
-<th style="text-align: left;">Tipo de curso</th>
+<th style="text-align: left;">Tipo de cpacitação</th>
 <th style="text-align: left;">Competências</th>
 <!-- <th style="text-align: left;">Carga horaria</th> -->
 <th width="90" class="center">Opções</th>
 </tr>
 </thead>
 <tbody>
-<?php foreach($cursos as $curso):?>
+<?php foreach($capacitacoes as $capacitacao):?>
 		<tr>
-			<td><?php echo $this->escapeHtml($curso->getDescricao());?></td>
-			<td><?php echo $this->escapeHtml($curso->getCursoTipo()->getDescricao());?></td>
-			<td><?php foreach ($curso->getCompetencias() as $competencia): 
+			<td><?php echo $this->escapeHtml($capacitacao->getDescricao());?></td>
+			<td><?php echo $this->escapeHtml($capacitacao->getCapacitacaoTipo()->getDescricao());?></td>
+			<td><?php foreach ($capacitacao->getCompetencias() as $competencia): 
 			//Sem $this->escapeHtml (remove os codigo html do echo
 			//quebra de linhas do elemento foreach e mostrar na página
 			 echo $competencia->getTitulo()."<br>";
 			endforeach;?></td>
-			<!-- <td><?php // echo $this->escapeHtml($curso->getCargaHoraria());?></td> -->
+			<!-- <td><?php // echo $this->escapeHtml($capacitacao->getCargaHoraria());?></td> -->
 			<td style="text-align:center">
-				<a href="/application/curso/save/id/<?php echo $curso->getId();?>"><span title="Editar" class="ui-icon ui-icon-pencil"/></a>
-				<a href="/application/curso/delete/id/<?php echo $curso->getId();?>" id="excluir"><span title="Excluir" class="ui-icon ui-icon-trash"/></a>
+				<a href="/application/capacitacao/save/id/<?php echo $capacitacao->getId();?>"><span title="Editar" class="ui-icon ui-icon-pencil"/></a>
+				<a href="/application/capacitacao/delete/id/<?php echo $capacitacao->getId();?>" id="excluir"><span title="Excluir" class="ui-icon ui-icon-trash"/></a>
 			</td> 
 		</tr>
 	<?php endforeach;?>
@@ -45,7 +45,7 @@
 	});
 	$("#novo").click(function(e) {
 		e.preventDefault();
-		window.location ="/application/curso/save";
+		window.location ="/application/capacitacao/save";
 	});
 
     $("input[type=submit], a" ).button();

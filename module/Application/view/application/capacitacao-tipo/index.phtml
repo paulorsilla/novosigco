@@ -1,4 +1,4 @@
-<div id="tituloPagina">Cadastro tipos de cursos<br/><br/>Tipos de cursos cadastrados</div>
+<div id="tituloPagina">Cadastro tipos de capacitações<br/><br/>Tipos de capacitações cadastradas</div>
 
 
 <table class="hover" id="consulta">
@@ -9,12 +9,12 @@
 </tr>
 </thead>
 <tbody>
-<?php foreach($cursosTipo as $cursoTipo):?>
+<?php foreach($capacitacoesTipo as $capacitacaoTipo):?>
 		<tr>
-		<td id="descricao"><?php echo $this->escapeHtml($cursoTipo->getDescricao());?></td>
+		<td id="descricao"><?php echo $this->escapeHtml($capacitacaoTipo->getDescricao());?></td>
 			<td style="text-align:center">
-				<a href="/application/curso-tipo/save/id/<?php echo $cursoTipo->getId();?>"><span title="Editar" class="ui-icon ui-icon-pencil"/></a>
-				<a href="/application/curso-tipo/delete/id/<?php echo $cursoTipo->getId();?>" id="excluir"><span title="Excluir" class="ui-icon ui-icon-trash"/></a>
+				<a href="/application/capacitacao-tipo/save/id/<?php echo $capacitacaoTipo->getId();?>"><span title="Editar" class="ui-icon ui-icon-pencil"/></a>
+				<a href="/application/capacitacao-tipo/delete/id/<?php echo $capacitacaoTipo->getId();?>" id="excluir"><span title="Excluir" class="ui-icon ui-icon-trash"/></a>
 			</td> 
 		</tr>
 	<?php endforeach;?>
@@ -35,7 +35,7 @@ text: true,
 });
 $("#novo").click(function(e) {
 	e.preventDefault();
-	window.location ="/application/curso-tipo/save";
+	window.location ="/application/capacitacao-tipo/save";
 });
 
 $("input[type=submit], a" ).button();

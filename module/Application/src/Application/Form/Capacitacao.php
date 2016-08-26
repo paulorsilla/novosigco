@@ -6,12 +6,12 @@ use Zend\Form\Form;
 use Zend\Form\Element;
 use Zend\Stdlib\Hydrator\ClassMethods;
 
-class Curso extends Form {
+class Capacitacao extends Form {
 	public function __construct($em) {
-		parent::__construct ( 'Curso' );
+		parent::__construct ( 'Capacitacao' );
 		$this->setHydrator ( new ClassMethods () );
 		$this->setAttribute ( 'method', 'post' );
-		$this->setAttribute ( 'action', '/application/curso/save' );
+		$this->setAttribute ( 'action', '/application/capacitacao/save' );
 		
 		$this->add ( array (
 				'name' => 'id',
@@ -36,18 +36,20 @@ class Curso extends Form {
 		
 		
 		$this->add ( array (
-				'name' => 'cursoTipo',
+				'name' => 'capacitacaoTipo',
+				
+				
 				'type' => 'DoctrineModule\Form\Element\ObjectSelect',
 				'attributes' => array (
 						'style' => 'width:800px',
 						'required' => true,
-						'id' => 'cursoTipo' 
+						'id' => 'capacitacaoTipo' 
 				),
 				'options' => array (
-						'label' => 'Tipo de curso:*',
+						'label' => 'Tipo de capacitação:*',
 						'empty_option' => '--- Escolha um Tipo ---',
 						'object_manager' => $em,
-						'target_class' => 'Application\Model\CursoTipo',
+						'target_class' => 'Application\Model\CapacitacaoTipo',
 						'property' => 'descricao' 
 				) 
 		) );

@@ -4,19 +4,19 @@ namespace Application\Controller;
 
 use Zend\View\Model\ViewModel;
 use Core\Controller\ActionController;
-use Application\Model\CursoTipo;
-use Application\Form\CursoTipo as CursoTipoForm;
+use Application\Model\CapacitacaoTipo;
+use Application\Form\CapacitacaoTipo as CapacitacaoTipoForm;
 use Doctrine\ORM\EntityManager;
 
 /**
- * Controlador que gerencia o cadastro de tipos de cursos
+ * Controlador que gerencia o cadastro de tipos de capacitações
  *
  * @category Application
  * @package Controller
  * @author Paulo R. Silla <paulo.silla@embrapa.br>
  * @author William Gerenutti <william.alves@colaborador.embrapa.br>
  */
-class CursoTipoController extends ActionController {
+class CapacitacaoTipoController extends ActionController {
 	/**
 	 *
 	 * @var Doctrine\ORM\EntityManager
@@ -32,7 +32,7 @@ class CursoTipoController extends ActionController {
 		return $this->em;
 	}
 	public function indexAction() {
-		$cursosTipo = $this->getEntityManager ()->getRepository ( "Application\Model\CursoTipo" )->findAll ( array (), array (
+		$capacitacoesTipo = $this->getEntityManager ()->getRepository ( "Application\Model\CapacitacaoTipo" )->findAll ( array (), array (
 				'descricao' => 'ASC' 
 		) );
 		// adiciona os arquivos indexcomum.js e jquery.dataTable.min.js
@@ -41,33 +41,33 @@ class CursoTipoController extends ActionController {
 		$renderer->headScript ()->appendFile ( '/js/jquery.dataTables.min.js' );
 		$renderer->headScript ()->appendFile ( '/js/indexcomum.js' );
 		return new ViewModel ( array (
-				'cursosTipo' => $cursosTipo 
+				'capacitacoessTipo' => $capacitacoesTipo 
 		) );
 	}
 	public function saveAction() {
-		$form = new CursoTipoForm ();
+		$form = new CapacitacaoTipoForm ();
 		$request = $this->getRequest ();
 		if ($request->isPost ()) {
-			$cursoTipo = new CursoTipo ();
-			$form->setInputFilter ( $cursoTipo->getInputFilter () );
+			$capacitacaoTipo = new CapacitacaoTipo ();
+			$form->setInputFilter ( $capacitacaoTipo->getInputFilter () );
 			$form->setData ( $request->getPost () );
 			if ($form->isValid ()) {
 				$data = $form->getData ();
 				unset ( $data ['submit'] );
 				if (isset ( $data ['id'] ) && $data ['id'] > 0) {
-					$cursoTipo = $this->getEntityManager ()->find ( 'Application\Model\CursoTipo', $data ['id'] );
+					$capacitacaoTipo = $this->getEntityManager ()->find ( 'Application\Model\CapacitacaoTipo', $data ['id'] );
 				}
-				$cursoTipo->setData ( $data );
-				$this->getEntityManager ()->persist ( $cursoTipo );
+				$capacitacaoTipo->setData ( $data );
+				$this->getEntityManager ()->persist ( $capacitacaoTipo );
 				$this->getEntityManager ()->flush ();
 				
-				return $this->redirect ()->toUrl ( '/application/curso-tipo' );
+				return $this->redirect ()->toUrl ( '/application/capacitacao-tipo' );
 			}
 		}
 		$id = ( int ) $this->params ()->fromRoute ( 'id', 0 );
 		if ($id > 0) {
-			$cursoTipo = $this->getEntityManager ()->find ( 'Application\Model\CursoTipo', $id );
-			$form->bind ( $cursoTipo );
+			$capacitacaoTipo = $this->getEntityManager ()->find ( 'Application\Model\CapacitacaoTipo', $id );
+			$form->bind ( $capacitacaoTipo );
 			$form->get ( 'submit' )->setAttribute ( 'value', 'Edit' );
 		}
 		return new ViewModel ( array (
@@ -79,11 +79,11 @@ class CursoTipoController extends ActionController {
 		if ($id == 0) {
 			throw new \exception ( "Código obrigatório" );
 		}
-		$cursoTipo = $this->getEntityManager ()->find ( 'Application\Model\CursoTipo', $id );
-		if ($curso) {
-			$this->getEntityManager ()->remove ( $cursoTipo );
+		$capacitacaoTipo = $this->getEntityManager ()->find ( 'Application\Model\CapacitacaoTipo', $id );
+		if ($capacitacao) {
+			$this->getEntityManager ()->remove ( $capacitacaoTipo );
 			$this->getEntityManager ()->flush ();
 		}
-		return $this->redirect ()->toUrl ( '/application/curso-tipo' );
+		return $this->redirect ()->toUrl ( '/application/capacitacao-tipo' );
 	}
 }

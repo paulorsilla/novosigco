@@ -4,19 +4,19 @@ namespace Application\Controller;
 
 use Zend\View\Model\ViewModel;
 use Core\Controller\ActionController;
-use Application\Model\Curso;
-use Application\Form\Curso as CursoForm;
+use Application\Model\Capacitacao;
+use Application\Form\Capacitacao as CapacitacaoForm;
 use Doctrine\ORM\EntityManager;
 
 /**
- * Controlador que gerencia o cadastro de cursos
+ * Controlador que gerencia o cadastro de capacitações
  *
  * @category Application
  * @package Controller
  * @author Paulo R. Silla <paulo.silla@embrapa.br>
  * @author William Gerenutti <william.alves@colaborador.embrapa.br>
  */
-class CursoController extends ActionController {
+class CapacitacaoController extends ActionController {
 	/**
 	 *
 	 * @var Doctrine\ORM\EntityManager
@@ -34,12 +34,12 @@ class CursoController extends ActionController {
 		return $this->em;
 	}
 	/**
-	 * Mostra os cursos cadastrados
+	 * Mostra as capacitações cadastrados
 	 *
 	 * @return void
 	 */
 	public function indexAction() {
-		$cursos = $this->getEntityManager ()->getRepository ( "Application\Model\Curso" )->findAll ( array (), array (
+		$capacitacoes = $this->getEntityManager ()->getRepository ( "Application\Model\Capacitacao" )->findAll ( array (), array (
 				'descricao' => 'ASC' 
 		) );
 		
@@ -49,7 +49,7 @@ class CursoController extends ActionController {
 		$renderer->headScript ()->appendFile ( '/js/jquery.dataTables.min.js' );
 		$renderer->headScript ()->appendFile ( '/js/indexcomum.js' );
 		return new ViewModel ( array (
-				'cursos' => $cursos 
+				'capacitacoes' => $capacitacoes 
 		) );
 	}
 	public function buscacompetenciasAction() {
@@ -60,12 +60,12 @@ class CursoController extends ActionController {
 				'response' => false 
 		) ) );
 		if ($request->isPost ()) {
-			$cursoId = $this->params ()->fromPost ( "cursoId" );
-			$curso = $this->getEntityManager ()->find ( 'Application\Model\Curso', $cursoId );
+			$capacitacaoId = $this->params ()->fromPost ( "capacitacaoId" );
+			$capacitacao = $this->getEntityManager ()->find ( 'Application\Model\Capacitacao', $capacitacaoId );
 			$stringCompetencias = '[';
-			if ($curso) {
-				$competencias = $curso->getCompetencias ();
-				foreach ( $curso->getCompetencias () as $key => $competencia ) { // array de tipoCompetencia definido na linha 60
+			if ($capacitacao) {
+				$competencias = $capacitacao->getCompetencias ();
+				foreach ( $capacitacao->getCompetencias () as $key => $competencia ) { // array de tipoCompetencia definido na linha 60
 					$stringCompetencias .= '{"id": "' . $competencia->getId () . '"}';
 					if (isset ( $competencias [$key + 1] )) {
 						$stringCompetencias .= ',';
@@ -84,43 +84,43 @@ class CursoController extends ActionController {
 	}
 	
 	public function saveAction() {
-		$form = new CursoForm ( $this->getEntityManager () );
+		$form = new CapacitacaoForm ( $this->getEntityManager () );
 		//Hidratação para verificar o nome das classes
 		$form->setHydrator(new \Zend\Stdlib\Hydrator\ClassMethods(false));
 		$request = $this->getRequest ();
 		if ($request->isPost ()) {
-			$curso = new Curso ();
-			$form->setInputFilter ( $curso->getInputFilter () );
+			$capacitacao = new Capacitacao ();
+			$form->setInputFilter ( $capacitacao->getInputFilter () );
 			$form->setData ( $request->getPost () );
 			if ($form->isValid ()) {
 				$data = $form->getData ();
-				$cursoTipo = $this->getEntityManager ()->find ( 'Application\Model\CursoTipo', $data ['cursoTipo'] );
-				unset ( $data ['cursoTipo'] );
+				$capacitacaoTipo = $this->getEntityManager ()->find ( 'Application\Model\CapacitacaoTipo', $data ['capacitacaoTipo'] );
+				unset ( $data ['capacitacaoTipo'] );
 				unset ( $data ['submit'] );
 				$competencias = $this->params ()->fromPost ( "competencia" );
 				if (isset ( $data ['id'] ) && $data ['id'] > 0) {
-					$curso = $this->getEntityManager ()->find ( 'Application\Model\Curso', $data ['id'] );
-					$curso->getCompetencias ()->clear ();
+					$capacitacao = $this->getEntityManager ()->find ( 'Application\Model\Capacitacao', $data ['id'] );
+					$capacitacao->getCompetencias ()->clear ();
 				}
-				$curso->setData ( $data );
-				$curso->setCursoTipo ( $cursoTipo );
+				$capacitacao->setData ( $data );
+				$capacitacao->setCapacitacaoTipo ( $capacitacaoTipo );
 				foreach ( $competencias as $competenciaid ) {
 					$competencia = $this->getEntityManager ()->find ( "Application\Model\Competencia", $competenciaid );
-					$curso->getCompetencias ()->add ( $competencia );
+					$capacitacao->getCompetencias ()->add ( $competencia );
 				}
-				$this->getEntityManager ()->persist ( $curso );
+				$this->getEntityManager ()->persist ( $capacitacao );
 				$this->getEntityManager ()->flush ();
-				return $this->redirect ()->toUrl ( '/application/curso' );
+				return $this->redirect ()->toUrl ( '/application/capacitacao' );
 			}
 		}
 		$id = ( int ) $this->params ()->fromRoute ( 'id', 0 );
 		if ($id > 0) {
-			$curso = $this->getEntityManager ()->find ( 'Application\Model\Curso', $id );
-			$form->bind ( $curso );
+			$capacitacao = $this->getEntityManager ()->find ( 'Application\Model\Capacitacao', $id );
+			$form->bind ( $capacitacao );
 		}
 		$renderer = $this->getServiceLocator ()->get ( 'Zend\View\Renderer\PhpRenderer' );
 		$renderer->headScript ()->appendFile ( '/js/jquery.dataTables.min.js' );
-		$renderer->headScript ()->appendFile ( '/js/curso.js' );
+		$renderer->headScript ()->appendFile ( '/js/capacitacao.js' );
 		return new ViewModel ( array (
 				'form' => $form 
 		) );
@@ -130,12 +130,12 @@ class CursoController extends ActionController {
 		if ($id == 0) {
 			throw new \exception ( "Código obrigatório" );
 		}
-		$curso = $this->getEntityManager ()->find ( 'Application\Model\Curso', $id );
-		if ($curso) {
-			$this->getEntityManager ()->remove ( $curso );
+		$capacitacao = $this->getEntityManager ()->find ( 'Application\Model\Capacitacao', $id );
+		if ($capacitacao) {
+			$this->getEntityManager ()->remove ( $capacitacao );
 			$this->getEntityManager ()->flush ();
 		}
-		return $this->redirect ()->toUrl ( '/application/curso' );
+		return $this->redirect ()->toUrl ( '/application/capacitacao' );
 	}
 	
 	

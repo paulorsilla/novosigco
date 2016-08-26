@@ -4,11 +4,11 @@ namespace Application\Form;
 
 use Zend\Form\Form;
 
-class CursoTipo extends Form {
+class CapacitacaoTipo extends Form {
 	public function __construct() {
-		parent::__construct ( 'CursoTipo' );
+		parent::__construct ( 'CapacitacaoTipo' );
 		$this->setAttribute ( 'method', 'post' );
-		$this->setAttribute ( 'action', '/application/curso-tipo/save' );
+		$this->setAttribute ( 'action', '/application/capacitacao-tipo/save' );
 		
 		$this->add ( array (
 				'name' => 'id',

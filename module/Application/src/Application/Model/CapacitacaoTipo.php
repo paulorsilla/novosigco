@@ -8,15 +8,15 @@ use Core\Model\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Entidade Tipo de Curso
+ * Entidade Tipo de Capacitacação
  *
  * @category Application
  * @package Model
  *         
  *          @ORM\Entity
- *          @ORM\Table(name="curso_tipo")
+ *          @ORM\Table(name="capacitacao_tipo")
  */
-class CursoTipo extends Entity {
+class CapacitacaoTipo extends Entity {
 	
 	/**
 	 * @ORM\Id
