@@ -92,7 +92,7 @@ class Capacitacao extends Entity {
 			
 			$inputFilter->add ( $factory->createInput ( array (
 					'name' => 'id',
-					'required' => true
+					'required' => false
 			) ) );
 // 			$inputFilter->add ( $factory->createInput ( array (
 // 					'name' => 'cargaHoraria',
