@@ -41,7 +41,7 @@ class CapacitacaoTipoController extends ActionController {
 		$renderer->headScript ()->appendFile ( '/js/jquery.dataTables.min.js' );
 		$renderer->headScript ()->appendFile ( '/js/indexcomum.js' );
 		return new ViewModel ( array (
-				'capacitacoessTipo' => $capacitacoesTipo 
+				'capacitacoesTipo' => $capacitacoesTipo 
 		) );
 	}
 	public function saveAction() {

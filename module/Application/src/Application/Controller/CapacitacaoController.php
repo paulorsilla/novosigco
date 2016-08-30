@@ -52,37 +52,7 @@ class CapacitacaoController extends ActionController {
 				'capacitacoes' => $capacitacoes 
 		) );
 	}
-	public function buscacompetenciasAction() {
-		$request = $this->getRequest ();
-		$response = $this->getResponse ();
-		$response->setContent ( \Zend\Json\Json::encode ( array (
-				'dataType' => 'json',
-				'response' => false 
-		) ) );
-		if ($request->isPost ()) {
-			$capacitacaoId = $this->params ()->fromPost ( "capacitacaoId" );
-			$capacitacao = $this->getEntityManager ()->find ( 'Application\Model\Capacitacao', $capacitacaoId );
-			$stringCompetencias = '[';
-			if ($capacitacao) {
-				$competencias = $capacitacao->getCompetencias ();
-				foreach ( $capacitacao->getCompetencias () as $key => $competencia ) { // array de tipoCompetencia definido na linha 60
-					$stringCompetencias .= '{"id": "' . $competencia->getId () . '"}';
-					if (isset ( $competencias [$key + 1] )) {
-						$stringCompetencias .= ',';
-					}
-				}
-				
-				$stringCompetencias .= ']';
-			}
-			$response->setContent ( \Zend\Json\Json::encode ( array (
-					'dataType' => 'json',
-					'response' => true,
-					'competencias' => $stringCompetencias 
-			) ) );
-		}
-		return $response;
-	}
-	
+		
 	public function saveAction() {
 		$form = new CapacitacaoForm ( $this->getEntityManager () );
 		//Hidratação para verificar o nome das classes

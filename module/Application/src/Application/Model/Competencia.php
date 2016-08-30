@@ -32,7 +32,8 @@ class Competencia extends Entity {
 	protected $titulo;
 	
 	/**
-	 * @ORM\Column(type="integer", name="tipo_competencia")
+	 * @ORM\ManyToOne(targetEntity="CompetenciaTipo")
+     * @ORM\JoinColumn(name="tipo_competencia_id", referencedColumnName="id")
 	 */
 	protected $tipoCompetencia;
 	public function getId() {

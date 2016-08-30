@@ -14,10 +14,10 @@ use Doctrine\ORM\Mapping as ORM;
  * @package Model
  *         
  *          @ORM\Entity
- *          @ORM\Table(name="competencia")
+ *          @ORM\Table(name="competencia_tipo")
  *         
  */
-class Competencia extends Entity {
+class CompetenciaTipo extends Entity {
 	/**
 	 * @ORM\Id
 	 * @ORM\Column(type="integer");
@@ -26,20 +26,20 @@ class Competencia extends Entity {
 	protected $id;
 	
 	/**
-	 * @ORM\Column(type="string", name="descricao")
+	 * @ORM\Column(type="string", name="titulo")
 	 */
-	protected $descricao;
+	protected $titulo;
 	public function getId() {
 		return $this->id;
 	}
 	public function setId($id) {
 		$this->id = $id;
 	}
-	public function getDescricao() {
-		return $this->descricao;
+	public function getTitulo() {
+		return $this->titulo;
 	}
-	public function setDescricao($descricao) {
-		$this->descricao = $descricao;
+	public function setDescricao($titulo) {
+		$this->descricao = $titulo;
 	}
 	public function getInputFilter() {
 		if (! $this->inputFilter) {

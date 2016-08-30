@@ -2,13 +2,15 @@
 namespace Application\Form;
 
 use Zend\Form\Form;
+use Zend\Form\Element;
+use Zend\Stdlib\Hydrator\ClassMethods;
 
-class Competencia extends Form{
-	public function __construct()
-	{
-		parent::__construct('Competencia');
-		$this->setAttribute('method', 'post');
-		$this->setAttribute('action', '/application/competencia/save');
+class Competencia extends Form {
+	public function __construct($em) {
+		parent::__construct ( 'Competencia' );
+		$this->setHydrator ( new ClassMethods () );
+		$this->setAttribute ( 'method', 'post' );
+		$this->setAttribute ( 'action', '/application/competencia/save' );
 		
 		$this->add(array(
 				'name'=> 'id',
@@ -26,23 +28,24 @@ class Competencia extends Form{
 						'label' => 'Competência:'
 				)));
 		
-		$this->add(array(
-						'name' => 'tipoCompetencia',
-						'type' => 'Zend\Form\Element\Select',
-						'attributes' => array(
-								'style' => 'width:820px',
-								'required' => true,
-						),
-						'options' => array(
-								'label'   => 'Tipo de Competência',
-								'options' => array(
-										'' => 'Selecione a Competência',
-										'1' => 'Competência Comportamental',
-										'2' => 'Competência Gerencial',
-										'3' => 'Competência Técnica'
-								),
-						),
-				));
+		$this->add ( array (
+				'name' => 'tipoCompetencia',
+		
+		
+				'type' => 'DoctrineModule\Form\Element\ObjectSelect',
+				'attributes' => array (
+						'style' => 'width:800px',
+						'required' => true,
+						'id' => 'competenciaTipo'
+				),
+				'options' => array (
+						'label' => 'Tipo de competência:*',
+						'empty_option' => '--- Escolha um Tipo ---',
+						'object_manager' => $em,
+						'target_class' => 'Application\Model\CompetenciaTipo',
+						'property' => 'titulo'
+				)
+		) );
 		$this->add(array(
 				'name'=>'submit',
 				'attributes' => array(

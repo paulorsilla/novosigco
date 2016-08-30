@@ -18,7 +18,7 @@ use Doctrine\ORM\Query\AST\Functions\SubstringFunction;
 <tbody>
 <?php foreach($facilitadores as $facilitador):?>
 		<tr>
-			<td><?php echo $this->escapeHtml($facilitador->getNome());?></td>
+			<td id="nome"><?php echo $this->escapeHtml($facilitador->getNome());?></td>
 			<td><?php echo $this->escapeHtml($facilitador->getEmail());?></td>
 			<td><?php echo $this->escapeHtml($facilitador->getCelular());?></td>
 			<td><?php echo $this->escapeHtml(substr($facilitador->getCurriculo(),0,60).

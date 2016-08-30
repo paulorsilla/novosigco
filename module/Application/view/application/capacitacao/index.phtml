@@ -14,7 +14,7 @@
 <tbody>
 <?php foreach($capacitacoes as $capacitacao):?>
 		<tr>
-			<td><?php echo $this->escapeHtml($capacitacao->getDescricao());?></td>
+			<td id="descricao"><?php echo $this->escapeHtml($capacitacao->getDescricao());?></td>
 			<td><?php echo $this->escapeHtml($capacitacao->getCapacitacaoTipo()->getDescricao());?></td>
 			<td><?php foreach ($capacitacao->getCompetencias() as $competencia): 
 			//Sem $this->escapeHtml (remove os codigo html do echo

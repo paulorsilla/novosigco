@@ -44,7 +44,7 @@ $("a#excluir").on("click", function(e) {
     e.preventDefault();
     var link = $(this).attr('href');
     var nome = $(this).closest('tr').find('#descricao').text();
-    $("#texto").html("Deseja realmente excluir '"+descricao+"'?");
+    $("#texto").html("Deseja realmente excluir '"+nome+"'?");
     $("#dialog-form").data("link", link);
     $("#dialog-form").dialog("open");
 });

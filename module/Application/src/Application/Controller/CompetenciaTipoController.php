@@ -38,7 +38,7 @@ class CompetenciaTipoController extends ActionController {
 	 */
 	public function indexAction() {
 		$competenciasTipo = $this->getEntityManager ()->getRepository ( "Application\Model\CompetenciaTipo" )->findAll ( array (), array (
-				'descricao' => 'ASC'
+				'titulo' => 'ASC'
 		) );
 
 		// adiciona os arquivos indexcomum.js e jquery.dataTable.min.js
