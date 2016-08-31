@@ -87,7 +87,7 @@ class CompetenciaController extends ActionController {
 				unset ( $data ['submit'] );
 				if (isset ( $data ['id'] ) && $data ['id'] > 0) {
 					$competencia = $this->getEntityManager ()->find ( 'Application\Model\Competencia', $data ['id'] );
-					$capacitacao->getCompetencias ()->clear ();
+					$competencia->getCompetencias ()->clear ();
 				}
 				$competencia->setData ( $data );
 				$competencia->setCompetenciaTipo ( $competenciaTipo );

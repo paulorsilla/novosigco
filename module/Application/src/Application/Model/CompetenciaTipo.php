@@ -57,7 +57,7 @@ class CompetenciaTipo extends Entity {
 			) ) );
 			
 			$inputFilter->add ( $factory->createInput ( array (
-					'name' => 'descricao',
+					'name' => 'titulo',
 					'required' => true,
 					'filters' => array (
 							array (

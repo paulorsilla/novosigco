@@ -66,7 +66,7 @@ class CompetenciaTipoController extends ActionController {
 				if (isset ( $data ['id'] ) && $data ['id'] > 0) {
 					$competenciaTipo = $this->getEntityManager ()->find ( 'Application\Model\CompetenciaTipo', $data ['id'] );
 				}
-				$competenciaTIpo->setData ( $data );
+				$competenciaTipo->setData ( $data );
 				$this->getEntityManager ()->persist ( $competenciaTipo );
 				$this->getEntityManager ()->flush ();
 				return $this->redirect ()->toUrl ( '/application/competencia-tipo' );
