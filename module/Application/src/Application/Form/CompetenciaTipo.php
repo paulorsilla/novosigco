@@ -17,7 +17,7 @@ class CompetenciaTipo extends Form{
 				),
 		));
 		$this->add(array(
-				'name' => 'descricao',
+				'name' => 'titulo',
 				'attributes' => array(
 						'style' => 'width:800px',
 						'type'=> 'text',

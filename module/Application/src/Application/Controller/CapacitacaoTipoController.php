@@ -51,7 +51,7 @@ class CapacitacaoTipoController extends ActionController {
 		$request = $this->getRequest ();
 		if ($request->isPost ()) {
 			$capacitacaoTipo = new CapacitacaoTipo ();
-			//$form->setInputFilter ( $capacitacaoTipo->getInputFilter () );
+			$form->setInputFilter ( $capacitacaoTipo->getInputFilter () );
 			$form->setData ( $request->getPost () );
 			if ($form->isValid ()) {
 				$data = $form->getData ();
@@ -62,7 +62,6 @@ class CapacitacaoTipoController extends ActionController {
 				$capacitacaoTipo->setData ( $data );
 				$this->getEntityManager ()->persist ( $capacitacaoTipo );
 				$this->getEntityManager ()->flush ();
-				
 				return $this->redirect ()->toUrl ( '/application/capacitacao-tipo' );
 			}
 		}

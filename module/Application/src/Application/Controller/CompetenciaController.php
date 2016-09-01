@@ -50,27 +50,26 @@ class CompetenciaController extends ActionController {
 				'competencias' => $competencias 
 		) );
 	}
-// 	public function buscacompetenciaAction()
-// 	{
-// 		$request = $this->getRequest();
-// 		$response = $this->getResponse();
-// 		$response->setContent(\Zend\Json\Json::encode(array('dataType' => 'json', 'response' => false)));
-// 		if ($request->isPost()) {
-// 			$competencias = $this->getEntityManager()->getRepository("Application\Model\Competencia")->findAll(array(), array('titulo' => 'ASC'));
-// 			$tipoCompetencia = array("1"=> "Competência Comportamental", "2" => "Competêncial Gerencial", "3" => "Competência Técnica");
-// 			$stringCompetencias = '[';
-// 			foreach ($competencias as $key=>$competencia){																					//array de tipoCompetencia definido na linha 60
-// 				$stringCompetencias .= '{"id": "' . $competencia->getId() .'", "titulo": "' . $competencia->getTitulo(). '", "tipo": " '. $tipoCompetencia [$competencia->getTipoCompetencia()]. '"}';
-// 				if(isset($competencias[$key+1])){
-// 					$stringCompetencias.=',';
-// 				}
-// 			}
-// 			$stringCompetencias.=']';
-// 			$response->setContent(\Zend\Json\Json::encode(array('dataType' => 'json', 'response' => true, 'competencias' => $stringCompetencias)));
-// 		}
+	public function buscacompetenciaAction()
+	{
+		$request = $this->getRequest();
+		$response = $this->getResponse();
+		$response->setContent(\Zend\Json\Json::encode(array('dataType' => 'json', 'response' => false)));
+		if ($request->isPost()) {
+			$competencias = $this->getEntityManager()->getRepository("Application\Model\Competencia")->findAll(array(), array('titulo' => 'ASC'));
+			$stringCompetencias = '[';
+			foreach ($competencias as $key=>$competencia){																					//array de tipoCompetencia definido na linha 60
+				$stringCompetencias .= '{"id": "' . $competencia->getId() .'", "titulo": "' . $competencia->getTitulo(). '", "tipo": " '.$competencia->getTipoCompetencia()->getTitulo() . '"}';
+				if(isset($competencias[$key+1])){
+					$stringCompetencias.=',';
+				}
+			}
+			$stringCompetencias.=']';
+			$response->setContent(\Zend\Json\Json::encode(array('dataType' => 'json', 'response' => true, 'competencias' => $stringCompetencias)));
+		}
 		
-// 		return $response;
-// 	}
+		return $response;
+	}
 	public function saveAction() {
 		$form = new CompetenciaForm ($this->getEntityManager());
 		//Hidratação para verificar o nome das classes

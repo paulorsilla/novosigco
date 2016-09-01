@@ -8,7 +8,7 @@ use Core\Model\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Entidade Tipo de Capacitacação
+ * Entidade Tipo de tipo de Capacitacação
  *
  * @category Application
  * @package Model
@@ -32,9 +32,10 @@ class CapacitacaoTipo extends Entity {
 	public function getId() {
 		return $this->id;
 	}
-	public function setId($id) {
+	public function setId($id){
 		$this->id = $id;
 	}
+	
 	public function getDescricao() {
 		return $this->descricao;
 	}
@@ -48,7 +49,12 @@ class CapacitacaoTipo extends Entity {
 			
 			$inputFilter->add ( $factory->createInput ( array (
 					'name' => 'id',
-					'required' => true
+					'required' => false,
+					'filters' => array (
+							array (
+									'name' => 'Int'
+							)
+					)
 			) ) );
 			
 			$inputFilter->add ( $factory->createInput ( array (
