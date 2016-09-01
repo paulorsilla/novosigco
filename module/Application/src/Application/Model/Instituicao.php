@@ -253,12 +253,12 @@ class Instituicao extends Entity {
 	protected $categoria;
 	
 	/**
-	 * @ORM\OneToMany(targetEntity="Facilitador", mappedBy="instituicao")
+	 * @ORM\OneToMany(targetEntity="Instrutor", mappedBy="instituicao")
 	 */
-	protected $facilitadores;
+	protected $instrutoreses;
 	public function __construct() {
 		$this->empregados = new ArrayCollection ();
-		$this->facilitadores = new ArrayCollection ();
+		$this->instrutores = new ArrayCollection ();
 	}
 	public function getCodigo() {
 		return $this->codigo;

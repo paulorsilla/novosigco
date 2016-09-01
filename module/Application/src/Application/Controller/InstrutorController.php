@@ -4,19 +4,19 @@ namespace Application\Controller;
 
 use Zend\View\Model\ViewModel;
 use Core\Controller\ActionController;
-use Application\Model\Facilitador;
-use Application\Form\Facilitador as FacilitadorForm;
+use Application\Model\Instrutor;
+use Application\Form\Instrutor as InstrutorForm;
 use Doctrine\ORM\EntityManager;
 
 /**
- * Controlador que gerencia o cadastro de Facilitadores
+ * Controlador que gerencia o cadastro de Instrutores
  *
  * @category Application
  * @package Controller
  * @author Paulo R. Silla <paulo.silla@embrapa.br>
  * @author William Gerenutti <william.alves@colaborador.embrapa.br>
  */
-class FacilitadorController extends ActionController {
+class InstrutorController extends ActionController {
 	/**
 	 *
 	 * @var Doctrine\ORM\EntityManager
@@ -43,7 +43,7 @@ class FacilitadorController extends ActionController {
 	}
 	
 	public function indexAction() {
-		$facilitadores = $this->getEntityManager ()->getRepository ( "Application\Model\Facilitador" )->findAll ( array (), array (
+		$instrutores = $this->getEntityManager ()->getRepository ( "Application\Model\Instrutor" )->findAll ( array (), array (
 				'ordem' => 'ASC' 
 		) );
 		// adiciona os arquivos indexcomum.js e jquery.dataTable.min.js
@@ -52,15 +52,15 @@ class FacilitadorController extends ActionController {
 		$renderer->headScript ()->appendFile ( '/js/jquery.dataTables.min.js' );
 		$renderer->headScript ()->appendFile ( '/js/indexcomum.js' );
 		return new ViewModel ( array (
-				'facilitadores' => $facilitadores,
+				'instrutores' => $instrutores,
 		) );
 	}
 	public function saveAction() {
-		$form = new FacilitadorForm ($this->getEntityManager2());
+		$form = new InstrutorForm ($this->getEntityManager2());
 		$request = $this->getRequest ();
 		if ($request->isPost ()) {
-			$facilitador = new Facilitador ();
-			$form->setInputFilter ( $facilitador->getInputFilter () );
+			$instrutor = new Instrutor ();
+			$form->setInputFilter ( $instrutor->getInputFilter () );
 			$form->setData ( $request->getPost () );
 			if ($form->isValid ()) {
 				$data = $form->getData ();
@@ -73,22 +73,22 @@ class FacilitadorController extends ActionController {
 // 				unset ($data["cpf"]);
 				unset ($data["instituicao"]);
 				if (isset ( $data ['id'] ) && $data ['id'] > 0) {
-					$facilitador = $this->getEntityManager ()->find ( 'Application\Model\Facilitador', $data ['id'] );
+					$instrutor = $this->getEntityManager ()->find ( 'Application\Model\Instrutor', $data ['id'] );
 				}
-				$facilitador->setData ( $data );
-//				$facilitador->setNascimento($nascimento);
-//				$facilitador->setCpf($cpf);
-				$facilitador->setInstituicao($instituicao);
-				$this->getEntityManager ()->persist ( $facilitador );
+				$instrutor->setData ( $data );
+//				$instrutor->setNascimento($nascimento);
+//				$instrutor->setCpf($cpf);
+				$instrutor->setInstituicao($instituicao);
+				$this->getEntityManager ()->persist ( $instrutor );
 				$this->getEntityManager ()->flush ();
-				return $this->redirect ()->toUrl ( '/application/facilitador' );
+				return $this->redirect ()->toUrl ( '/application/instrutor' );
 			}
 		}
 		$id = ( int ) $this->params ()->fromRoute ( 'id', 0 );
 		if ($id > 0) {
-			$facilitador = $this->getEntityManager ()->find ( 'Application\Model\Facilitador', $id );
-			$form->bind ( $facilitador );
-//			$form->get('nascimento') ->setAttribute( 'value', $facilitador->getNascimento());
+			$instrutor = $this->getEntityManager ()->find ( 'Application\Model\Instrutor', $id );
+			$form->bind ( $instrutor );
+//			$form->get('nascimento') ->setAttribute( 'value', $instrutor->getNascimento());
 			$form->get ( 'submit' )->setAttribute ( 'value', 'Edit' );
 		}
 		$renderer = $this->getServiceLocator ()->get ( 'Zend\View\Renderer\PhpRenderer' );
@@ -98,7 +98,7 @@ class FacilitadorController extends ActionController {
 		) );
 	}
 	/**
-	 * Exclui um Facilitador
+	 * Exclui um Instrutor
 	 *
 	 * @return void
 	 */
@@ -107,11 +107,11 @@ class FacilitadorController extends ActionController {
 		if ($id == 0) {
 			throw new \exception ( "Código obrigatório" );
 		}
-		$facilitador = $this->getEntityManager ()->find ( 'Application\Model\Facilitador', $id );
-		if ($facilitador) {
-			$this->getEntityManager ()->remove ( $facilitador );
+		$instrutor = $this->getEntityManager ()->find ( 'Application\Model\Instrutor', $id );
+		if ($instrutor) {
+			$this->getEntityManager ()->remove ( $instrutor );
 			$this->getEntityManager ()->flush ();
 		}
-		return $this->redirect ()->toUrl ( '/application/facilitador' );
+		return $this->redirect ()->toUrl ( '/application/instrutor' );
 	}
 }

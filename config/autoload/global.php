@@ -66,9 +66,9 @@ return array (
 						'Application\Controller\Escolaridade.save',
 						'Application\Controller\Escolaridade.delete',
 						'Application\Controller\Escolaridade.buscaescolaridades',
-						'Application\Controller\Facilitador.index',
-						'Application\Controller\Facilitador.save',
-						'Application\Controller\Facilitador.delete',
+						'Application\Controller\Instrutor.index',
+						'Application\Controller\Instrutor.save',
+						'Application\Controller\Instrutor.delete',
 						'Application\Controller\Funcao.index',
 						'Application\Controller\Funcao.save',
 						'Application\Controller\Funcao.delete',
@@ -238,9 +238,9 @@ return array (
 										'Application\Controller\Empregado.deleteescolaridade',
 										'Application\Controller\Empregado.addlotacaoanterior',
 										'Application\Controller\Empregado.deletelotacaoanterior',
-										'Application\Controller\Facilitador.index',
-										'Application\Controller\Facilitador.save',
-										'Application\Controller\Facilitador.delete',
+										'Application\Controller\Instrutor.index',
+										'Application\Controller\Instrutor.save',
+										'Application\Controller\Instrutor.delete',
 								) 
 						) 
 				) 

@@ -7,12 +7,12 @@ use Zend\Form\Element;
 use Zend\Stdlib\Hydrator\ClassMethods;
 use Zend\InputFilter\InputFilterProviderInterface;
 
-class Facilitador extends Form{ //implements InputFilterProviderInterface {
+class Instrutor extends Form{ //implements InputFilterProviderInterface {
 	public function __construct($em) {
-		parent::__construct ( 'Facilitador' );
+		parent::__construct ( 'Instrutor' );
 		$this->setHydrator ( new ClassMethods () );
 		$this->setAttribute ( 'method', 'post' );
-		$this->setAttribute ( 'action', '/application/facilitador/save' );
+		$this->setAttribute ( 'action', '/application/instrutor/save' );
 		
 		$this->add ( array (
 				'name' => 'id',

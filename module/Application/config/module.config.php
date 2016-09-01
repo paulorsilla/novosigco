@@ -83,7 +83,7 @@ return array(
 					'Application\Controller\CompetenciaTipo'         => 'Application\Controller\CompetenciaTipoController',
 		            'Application\Controller\EquipeTecnica' 			 => 'Application\Controller\EquipeTecnicaController',
 		            'Application\Controller\Escolaridade' 			 => 'Application\Controller\EscolaridadeController',
-					'Application\Controller\Facilitador'    		 => 'Application\Controller\FacilitadorController',
+					'Application\Controller\Instrutor'    		 	 => 'Application\Controller\InstrutorController',
 		            'Application\Controller\Funcao'    				 => 'Application\Controller\FuncaoController',
 		            'Application\Controller\OutraFuncao'			 => 'Application\Controller\OutraFuncaoController',
 		            'Application\Controller\Sublotacao' 			 => 'Application\Controller\SublotacaoController',

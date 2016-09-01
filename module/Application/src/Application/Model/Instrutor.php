@@ -8,15 +8,15 @@ use Core\Model\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Entidade Facilitador
+ * Entidade Instrutor
  *
  * @category Application
  * @package Model
  *         
  *          @ORM\Entity
- *          @ORM\Table(name="facilitador")
+ *          @ORM\Table(name="instrutor")
  */
-class Facilitador extends Entity {
+class Instrutor extends Entity {
 	
 	/**
 	 * @ORM\Id
@@ -61,7 +61,7 @@ class Facilitador extends Entity {
 	protected $curriculo;
 	
 	/**
-	 * @ORM\ManyToOne(targetEntity="Instituicao", inversedBy="facilitadores")
+	 * @ORM\ManyToOne(targetEntity="Instituicao", inversedBy="instrutores")
 	 * @ORM\JoinColumn(name="instituicao_codigo", referencedColumnName="cod_instituicao")
 	 */
 	protected $instituicao;

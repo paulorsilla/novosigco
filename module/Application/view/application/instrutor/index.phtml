@@ -1,7 +1,7 @@
 <?php
 use Doctrine\ORM\Query\AST\Functions\SubstringFunction;
 ?>
-<div id="tituloPagina">Cadastro de facilitadores<br/><br/>Facilitadores cadastrados</div>
+<div id="tituloPagina">Cadastro de Instrutores<br/><br/>Instrutores cadastrados</div>
 
 
 <table class="hover" id="consulta">
@@ -16,17 +16,17 @@ use Doctrine\ORM\Query\AST\Functions\SubstringFunction;
 </tr>
 </thead>
 <tbody>
-<?php foreach($facilitadores as $facilitador):?>
+<?php foreach($instrutores as $instrutor):?>
 		<tr>
-			<td id="nome"><?php echo $this->escapeHtml($facilitador->getNome());?></td>
-			<td><?php echo $this->escapeHtml($facilitador->getEmail());?></td>
-			<td><?php echo $this->escapeHtml($facilitador->getCelular());?></td>
-			<td><?php echo $this->escapeHtml(substr($facilitador->getCurriculo(),0,60).
+			<td id="nome"><?php echo $this->escapeHtml($instrutor->getNome());?></td>
+			<td><?php echo $this->escapeHtml($instrutor->getEmail());?></td>
+			<td><?php echo $this->escapeHtml($instrutor->getCelular());?></td>
+			<td><?php echo $this->escapeHtml(substr($instrutor->getCurriculo(),0,60).
 					"...");?></td>
-			<td><?php echo $this->escapeHtml($facilitador->getInstituicao()->getRazao());?></td>
+			<td><?php echo $this->escapeHtml($instrutor->getInstituicao()->getRazao());?></td>
 			<td style="text-align:center">
-				<a href="/application/facilitador/save/id/<?php echo $facilitador->getId();?>"><span title="Editar" class="ui-icon ui-icon-pencil"/></a>
-				<a href="/application/facilitador/delete/id/<?php echo $facilitador->getId();?>" id="excluir"><span title="Excluir" class="ui-icon ui-icon-trash"/></a>
+				<a href="/application/instrutor/save/id/<?php echo $instrutor->getId();?>"><span title="Editar" class="ui-icon ui-icon-pencil"/></a>
+				<a href="/application/instrutor/delete/id/<?php echo $instrutor->getId();?>" id="excluir"><span title="Excluir" class="ui-icon ui-icon-trash"/></a>
 			</td> 
 		</tr>
 	<?php endforeach;?>
@@ -47,7 +47,7 @@ use Doctrine\ORM\Query\AST\Functions\SubstringFunction;
 	});
 	$("#novo").click(function(e) {
 		e.preventDefault();
-		window.location ="/application/facilitador/save";
+		window.location ="/application/instrutor/save";
 	});
 	
     $("input[type=submit], a" ).button();
