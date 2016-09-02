@@ -13,8 +13,8 @@
 	<?php 
 	foreach($competencias as $competencia):?>
 		<tr>
-			<td id="descricao"><?php echo $this->escapeHtml($competencia->getTitulo());?></td>
-			<td><?php echo $this->escapeHtml($competencia->getTipoCompetencia());?></td>
+			<td><?php echo $this->escapeHtml($competencia->getTitulo());?></td>
+			<td><?php echo $this->escapeHtml($competencia->getCompetenciaTipo()->getTitulo());?></td>
 			<td style="text-align:center">
 				<a href="/application/competencia/save/id/<?php echo $competencia->getId();?>"><span title="Editar" class="ui-icon ui-icon-pencil"/></a>
 				<a href="/application/competencia/delete/id/<?php echo $competencia->getId();?>" id="excluir"><span title="Excluir" class="ui-icon ui-icon-trash"/></a>

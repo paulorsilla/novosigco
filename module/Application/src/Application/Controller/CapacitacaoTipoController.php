@@ -81,7 +81,7 @@ class CapacitacaoTipoController extends ActionController {
 			throw new \exception ( "Código obrigatório" );
 		}
 		$capacitacaoTipo = $this->getEntityManager ()->find ( 'Application\Model\CapacitacaoTipo', $id );
-		if ($capacitacao) {
+		if ($capacitacaoTipo) {
 			$this->getEntityManager ()->remove ( $capacitacaoTipo );
 			$this->getEntityManager ()->flush ();
 		}

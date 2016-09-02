@@ -29,7 +29,7 @@ class Competencia extends Form {
 				)));
 		
 		$this->add ( array (
-				'name' => 'tipoCompetencia',
+				'name' => 'competenciaTipo',
 		
 		
 				'type' => 'DoctrineModule\Form\Element\ObjectSelect',

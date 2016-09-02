@@ -59,7 +59,7 @@ class CompetenciaController extends ActionController {
 			$competencias = $this->getEntityManager()->getRepository("Application\Model\Competencia")->findAll(array(), array('titulo' => 'ASC'));
 			$stringCompetencias = '[';
 			foreach ($competencias as $key=>$competencia){																					//array de tipoCompetencia definido na linha 60
-				$stringCompetencias .= '{"id": "' . $competencia->getId() .'", "titulo": "' . $competencia->getTitulo(). '", "tipo": " '.$competencia->getTipoCompetencia()->getTitulo() . '"}';
+				$stringCompetencias .= '{"id": "' . $competencia->getId() .'", "titulo": "' . $competencia->getTitulo(). '", "tipo": " '.$competencia->CompetenciaTipo()->getTitulo() . '"}';
 				if(isset($competencias[$key+1])){
 					$stringCompetencias.=',';
 				}
@@ -81,12 +81,12 @@ class CompetenciaController extends ActionController {
 			$form->setData ( $request->getPost () );
 			if ($form->isValid ()) {
 				$data = $form->getData ();
-				$competenciaTipo = $this->getEntityManager ()->find ( 'Application\Model\CompetenciaTipo', $data ['competenciaTipo'] );
+				$competenciaTipo = $this->getEntityManager ()->find ( 'Application\Model\CompetenciaTipo', $data['competenciaTipo'] );
+				error_log($data['competenciaTipo']);
 				unset ( $data ['competenciaTipo'] );
 				unset ( $data ['submit'] );
 				if (isset ( $data ['id'] ) && $data ['id'] > 0) {
-					$competencia = $this->getEntityManager ()->find ( 'Application\Model\Competencia', $data ['id'] );
-					$competencia->getCompetencias ()->clear ();
+					$competencia = $this->getEntityManager ()->find ( 'Application\Model\Competencia', $data ['id'] );	
 				}
 				$competencia->setData ( $data );
 				$competencia->setCompetenciaTipo ( $competenciaTipo );
