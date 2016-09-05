@@ -1,4 +1,4 @@
-<div id="tituloPagina">Cadastro de tipos de competências<br/><br/>Tipo de competências cadastradas</div>
+<div id="tituloPagina">Cadastro de Modalidades<br/><br/>Tipo de modalidades cadastradas</div>
 
 
 <table class="hover" id="consulta">
@@ -9,12 +9,12 @@
 </tr>
 </thead>
 <tbody>
-<?php foreach($competenciasTipo as $competenciaTipo):?>
+<?php foreach($modalidades as $modalidade):?>
 		<tr>
-		<td id="descricao"><?php echo $this->escapeHtml($competenciaTipo->getTitulo());?></td>
+		<td id="descricao"><?php echo $this->escapeHtml($modalidade->getTitulo());?></td>
 			<td style="text-align:center">
-				<a href="/application/competencia-tipo/save/id/<?php echo $competenciaTipo->getId();?>"><span title="Editar" class="ui-icon ui-icon-pencil"/></a>
-				<a href="/application/competencia-tipo/delete/id/<?php echo $competenciaTipo->getId();?>" id="excluir"><span title="Excluir" class="ui-icon ui-icon-trash"/></a>
+				<a href="/application/modalidade/save/id/<?php echo $modalidade->getId();?>"><span title="Editar" class="ui-icon ui-icon-pencil"/></a>
+				<a href="/application/modalidade/delete/id/<?php echo $modalidade->getId();?>" id="excluir"><span title="Excluir" class="ui-icon ui-icon-trash"/></a>
 			</td> 
 		</tr>
 	<?php endforeach;?>
@@ -36,7 +36,7 @@ text: true,
 });
 $("#novo").click(function(e) {
 	e.preventDefault();
-	window.location ="/application/competencia-tipo/save";
+	window.location ="/application/modalidade/save";
 });
 
 $("input[type=submit], a" ).button();

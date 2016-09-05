@@ -29,20 +29,20 @@ class Competencia extends Form {
 				)));
 		
 		$this->add ( array (
-				'name' => 'competenciaTipo',
+				'name' => 'modalidade',
 		
 		
 				'type' => 'DoctrineModule\Form\Element\ObjectSelect',
 				'attributes' => array (
 						'style' => 'width:800px',
 						'required' => true,
-						'id' => 'competenciaTipo'
+						'id' => 'modalidade'
 				),
 				'options' => array (
 						'label' => 'Tipo de competência:*',
 						'empty_option' => '--- Escolha um Tipo ---',
 						'object_manager' => $em,
-						'target_class' => 'Application\Model\CompetenciaTipo',
+						'target_class' => 'Application\Model\Modalidade',
 						'property' => 'titulo'
 				)
 		) );

@@ -4,19 +4,19 @@ namespace Application\Controller;
 
 use Zend\View\Model\ViewModel;
 use Core\Controller\ActionController;
-use Application\Model\CompetenciaTipo;
-use Application\Form\CompetenciaTipo as CompetenciaTipoForm;
+use Application\Model\Modalidade;
+use Application\Form\Modalidade as ModalidadeForm;
 use Doctrine\ORM\EntityManager;
 
 /**
- * Controlador que gerencia o cadastro de tipo de competencias
+ * Controlador que gerencia o cadastro de modalidades
  *
  * @category Application
  * @package Controller
  * @author Paulo R. Silla <paulo.silla@embrapa.br>
  * @author William Gerenutti <william.alves@colaborador.embrapa.br>
  */
-class CompetenciaTipoController extends ActionController {
+class ModalidadeController extends ActionController {
 	/**
 	 *
 	 * @var Doctrine\ORM\EntityManager
@@ -32,12 +32,12 @@ class CompetenciaTipoController extends ActionController {
 		return $this->em;
 	}
 	/**
-	 * Mostra os Tipos de Competencias cadastradas
+	 * Mostra os Tipos de modalidades cadastradas
 	 *
 	 * @return void
 	 */
 	public function indexAction() {
-		$competenciasTipo = $this->getEntityManager ()->getRepository ( "Application\Model\CompetenciaTipo" )->findAll ( array (), array (
+		$modalidade = $this->getEntityManager ()->getRepository ( "Application\Model\Modalidade" )->findAll ( array (), array (
 				'titulo' => 'ASC'
 		) );
 
@@ -47,35 +47,35 @@ class CompetenciaTipoController extends ActionController {
 		$renderer->headScript ()->appendFile ( '/js/jquery.dataTables.min.js' );
 		$renderer->headScript ()->appendFile ( '/js/indexcomum.js' );
 		return new ViewModel ( array (
-				'competenciasTipo' => $competenciasTipo
+				'modalidades' => $modalidade
 		) );
 	}
 	
 	public function saveAction() {
-		$form = new CompetenciaTipoForm ();
+		$form = new ModalidadeForm ();
 		$request = $this->getRequest ();
 		//Hidratar classe
 		$form->setHydrator(new \Zend\Stdlib\Hydrator\ClassMethods(false));
 		if ($request->isPost ()) {
-			$competenciaTipo = new CompetenciaTipo ();
-			$form->setInputFilter ( $competenciaTipo->getInputFilter () );
+			$modalidade = new Modalidade ();
+			$form->setInputFilter ( $modalidade->getInputFilter () );
 			$form->setData ( $request->getPost () );
 			if ($form->isValid ()) {
 				$data = $form->getData ();
 				unset ( $data ['submit'] );
 				if (isset ( $data ['id'] ) && $data ['id'] > 0) {
-					$competenciaTipo = $this->getEntityManager ()->find ( 'Application\Model\CompetenciaTipo', $data ['id'] );
+					$modalidade = $this->getEntityManager ()->find ( 'Application\Model\Modalidade', $data ['id'] );
 				}
-				$competenciaTipo->setData ( $data );
-				$this->getEntityManager ()->persist ( $competenciaTipo );
+				$modalidade->setData ( $data );
+				$this->getEntityManager ()->persist ( $modalidade );
 				$this->getEntityManager ()->flush ();
-				return $this->redirect ()->toUrl ( '/application/competencia-tipo' );
+				return $this->redirect ()->toUrl ( '/application/modalidade' );
 			}
 		}
 		$id = ( int ) $this->params ()->fromRoute ( 'id', 0 );
 		if ($id > 0) {
-			$competenciaTipo = $this->getEntityManager ()->find ( 'Application\Model\CompetenciaTipo', $id );
-			$form->bind ( $competenciaTipo );
+			$modalidade = $this->getEntityManager ()->find ( 'Application\Model\Modalidade', $id );
+			$form->bind ( $modalidade);
 			$form->get ( 'submit' )->setAttribute ( 'value', 'Edit' );
 		}
 		return new ViewModel ( array (
@@ -88,11 +88,11 @@ class CompetenciaTipoController extends ActionController {
 		if ($id == 0) {
 			throw new \exception ( "Código obrigatório" );
 		}
-		$competenciaTipo = $this->getEntityManager ()->find ( 'Application\Model\CompetenciaTipo', $id );
-		if ($competenciaTipo) {
-			$this->getEntityManager ()->remove ( $competenciaTipo );
+		$modalidade = $this->getEntityManager ()->find ( 'Application\Model\Modalidade', $id );
+		if ($modalidade) {
+			$this->getEntityManager ()->remove ( $modalidade );
 			$this->getEntityManager ()->flush ();
 		}
-		return $this->redirect ()->toUrl ( '/application/competencia-tipo' );
+		return $this->redirect ()->toUrl ( '/application/modalidade' );
 	}
 }

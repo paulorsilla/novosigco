@@ -3,12 +3,12 @@ namespace Application\Form;
 
 use Zend\Form\Form;
 
-class CompetenciaTipo extends Form{
+class Modalidade extends Form{
 	public function __construct()
 	{
-		parent::__construct('CompetenciaTipo');
+		parent::__construct('Modalidade');
 		$this->setAttribute('method', 'post');
-		$this->setAttribute('action', '/application/competencia-tipo/save');
+		$this->setAttribute('action', '/application/modalidade/save');
 
 		$this->add(array(
 				'name'=> 'id',
@@ -23,7 +23,7 @@ class CompetenciaTipo extends Form{
 						'type'=> 'text',
 				),
 				'options' => array(
-						'label' => 'Titulo da competência:'
+						'label' => 'Titulo da modalidade:'
 				)));
 
 		$this->add(array(

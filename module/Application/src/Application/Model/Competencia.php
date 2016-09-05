@@ -32,10 +32,10 @@ class Competencia extends Entity {
 	protected $titulo;
 	
 	/**
-	 * @ORM\ManyToOne(targetEntity="CompetenciaTipo")
-     * @ORM\JoinColumn(name="tipo_competencia_id", referencedColumnName="id")
+	 * @ORM\ManyToOne(targetEntity="Modalidade")
+     * @ORM\JoinColumn(name="modalidade_id", referencedColumnName="id")
 	 */
-	protected $competenciaTipo;
+	protected $modalidade;
 	public function getId() {
 		return $this->id;
 	}
@@ -48,11 +48,11 @@ class Competencia extends Entity {
 	public function setTitulo($titulo) {
 		$this->titulo = $titulo;
 	}
-	public function getCompetenciaTipo() {
-		return $this->competenciaTipo;
+	public function getModalidade() {
+		return $this->modalidade;
 	}
-	public function setCompetenciaTipo($competenciaTipo) {
-		$this->competenciaTipo = $competenciaTipo;
+	public function setModalidade($modalidade) {
+		$this->modalidade = $modalidade;
 	}
 	public function getInputFilter()
 	{
@@ -88,7 +88,7 @@ class Competencia extends Entity {
 			)));
 				
 			$inputFilter->add($factory->createInput(array(
-					'name' => 'competenciaTipo',
+					'name' => 'modalidade',
 					'required' => true
 			)));
 				

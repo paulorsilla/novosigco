@@ -8,16 +8,16 @@ use Core\Model\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Entidade Tipo de Competencia
+ * Entidade Modadelidade
  *
  * @category Application
  * @package Model
  *         
  *          @ORM\Entity
- *          @ORM\Table(name="competencia_tipo")
+ *          @ORM\Table(name="modalidade")
  *         
  */
-class CompetenciaTipo extends Entity {
+class Modalidade extends Entity {
 	/**
 	 * @ORM\Id
 	 * @ORM\Column(type="integer");
