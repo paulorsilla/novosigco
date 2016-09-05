@@ -39,8 +39,8 @@ class Competencia extends Form {
 						'id' => 'modalidade'
 				),
 				'options' => array (
-						'label' => 'Tipo de competência:*',
-						'empty_option' => '--- Escolha um Tipo ---',
+						'label' => 'Modalidade:*',
+						'empty_option' => '--- Escolha uma modalidade ---',
 						'object_manager' => $em,
 						'target_class' => 'Application\Model\Modalidade',
 						'property' => 'titulo'

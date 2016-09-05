@@ -16,7 +16,7 @@ $(document).ready(function() {
 	var capacitacaoId = $("#id").val();
 	var competenciasSelecionadas = [];
 	var competenciasMap = [];
-	var tabelaSelecaoCompetencias = "<table id='selecaoCompetencias'><thead><tr><th>Descrição</th><th>Tipo de competência</th></tr></thead><tbody>";
+	var tabelaSelecaoCompetencias = "<table id='selecaoCompetencias'><thead><tr><th>Descrição</th><th>Modalidade</th></tr></thead><tbody>";
 
 	//busca as competências no banco de dados
 	$.ajax({
