@@ -546,12 +546,7 @@ class Instituicao extends Entity {
 			
 			$inputFilter->add ( $factory->createInput ( array (
 					'name' => 'codigo',
-					'required' => true,
-					'filters' => array (
-							array (
-									'name' => 'Int' 
-							) 
-					) 
+					'required' => false 
 			) ) );
 			
 			$inputFilter->add ( $factory->createInput ( array (

@@ -28,7 +28,7 @@ class Capacitacao extends Entity {
 	
 	/**
 	 * @ORM\ManyToOne(targetEntity="CapacitacaoTipo")
-     * @ORM\JoinColumn(name="capacitacao_tipo_id", referencedColumnName="id")
+	 * @ORM\JoinColumn(name="capacitacao_tipo_id", referencedColumnName="id")
 	 */
 	protected $capacitacaoTipo;
 	
@@ -39,21 +39,19 @@ class Capacitacao extends Entity {
 	/**
 	 * @ORM\ManyToMany(targetEntity="Competencia")
 	 * @ORM\JoinTable(name="capacitacao_competencia",
-	 * 		joinColumns={@ORM\JoinColumn(name="capacitacao_id", referencedColumnName="id")},
-	 * 		inverseJoinColumns={@ORM\JoinColumn(name="competencia_id", referencedColumnName="id")}
+	 * joinColumns={@ORM\JoinColumn(name="capacitacao_id", referencedColumnName="id")},
+	 * inverseJoinColumns={@ORM\JoinColumn(name="competencia_id", referencedColumnName="id")}
 	 * )
 	 */
 	protected $competencias;
-
-// 	/**
-// 	 * @ORM\Column(type="integer", name="carga_horaria")
-// 	 */
-// 	protected $cargaHoraria;
 	
-	public function __construct(){
-		$this->competencias = new \Doctrine\Common\Collections\ArrayCollection();
+	// /**
+	// * @ORM\Column(type="integer", name="carga_horaria")
+	// */
+	// protected $cargaHoraria;
+	public function __construct() {
+		$this->competencias = new \Doctrine\Common\Collections\ArrayCollection ();
 	}
-	
 	public function getId() {
 		return $this->id;
 	}
@@ -78,13 +76,12 @@ class Capacitacao extends Entity {
 	public function setCompetencias($competencias) {
 		$this->competencias = $competencias;
 	}
-// 	public function getCargaHoraria() {
-// 		return $this->cargaHoraria;
-// 	}
-// 	public function setCargaHoraria($cargaHoraria) {
-// 		$this->cargaHoraria = $cargaHoraria;
-// 	}
-	
+	// public function getCargaHoraria() {
+	// return $this->cargaHoraria;
+	// }
+	// public function setCargaHoraria($cargaHoraria) {
+	// $this->cargaHoraria = $cargaHoraria;
+	// }
 	public function getInputFilter() {
 		if (! $this->inputFilter) {
 			$inputFilter = new InputFilter ();
@@ -92,35 +89,35 @@ class Capacitacao extends Entity {
 			
 			$inputFilter->add ( $factory->createInput ( array (
 					'name' => 'id',
-					'required' => false
+					'required' => false 
 			) ) );
-// 			$inputFilter->add ( $factory->createInput ( array (
-// 					'name' => 'cargaHoraria',
-// 					'required' => true
-// 			) ) );
+			// $inputFilter->add ( $factory->createInput ( array (
+			// 'name' => 'cargaHoraria',
+			// 'required' => true
+			// ) ) );
 			
-// 			$inputFilter->add ( $factory->createInput ( array (
-// 					'name' => 'modalidadeCapacitacao',
-// 					'required' => true,
-// 					'filters' => array (
-// 							array (
-// 									'name' => 'StripTags' 
-// 							),
-// 							array (
-// 									'name' => 'StringTrim' 
-// 							) 
-// 					),
-// 					'validators' => array (
-// 							array (
-// 									'name' => 'StringLength',
-// 									'options' => array (
-// 											'encoding' => 'UTF-8',
-// 											'min' => 5,
-// 											'max' => 200 
-// 									) 
-// 							) 
-// 					) 
-// 			) ) );
+			// $inputFilter->add ( $factory->createInput ( array (
+			// 'name' => 'modalidadeCapacitacao',
+			// 'required' => true,
+			// 'filters' => array (
+			// array (
+			// 'name' => 'StripTags'
+			// ),
+			// array (
+			// 'name' => 'StringTrim'
+			// )
+			// ),
+			// 'validators' => array (
+			// array (
+			// 'name' => 'StringLength',
+			// 'options' => array (
+			// 'encoding' => 'UTF-8',
+			// 'min' => 5,
+			// 'max' => 200
+			// )
+			// )
+			// )
+			// ) ) );
 			
 			$inputFilter->add ( $factory->createInput ( array (
 					'name' => 'descricao',

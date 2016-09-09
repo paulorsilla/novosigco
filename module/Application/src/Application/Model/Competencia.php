@@ -33,7 +33,7 @@ class Competencia extends Entity {
 	
 	/**
 	 * @ORM\ManyToOne(targetEntity="Modalidade")
-     * @ORM\JoinColumn(name="modalidade_id", referencedColumnName="id")
+	 * @ORM\JoinColumn(name="modalidade_id", referencedColumnName="id")
 	 */
 	protected $modalidade;
 	public function getId() {
@@ -54,40 +54,40 @@ class Competencia extends Entity {
 	public function setModalidade($modalidade) {
 		$this->modalidade = $modalidade;
 	}
-	public function getInputFilter()
-	{
-		if (!$this->inputFilter) {
-			$inputFilter = new InputFilter();
-			$factory = new InputFactory();
-	
-			$inputFilter->add($factory->createInput(array(
+	public function getInputFilter() {
+		if (! $this->inputFilter) {
+			$inputFilter = new InputFilter ();
+			$factory = new InputFactory ();
+			
+			$inputFilter->add ( $factory->createInput ( array (
 					'name' => 'id',
-					'required' => false,
-					'filters' => array(
-							array('name' => 'Int'),
-					),
-			)));
-				
-			$inputFilter->add($factory->createInput(array(
+					'required' => false 
+			) ) );
+			
+			$inputFilter->add ( $factory->createInput ( array (
 					'name' => 'titulo',
 					'required' => true,
-					'filters' => array(
-							array('name' => 'StripTags'),
-							array('name' => 'StringTrim'),
+					'filters' => array (
+							array (
+									'name' => 'StripTags' 
+							),
+							array (
+									'name' => 'StringTrim' 
+							) 
 					),
-					'validators' => array(
-							array(
+					'validators' => array (
+							array (
 									'name' => 'StringLength',
-									'options' => array(
+									'options' => array (
 											'encoding' => 'UTF-8',
 											'min' => 2,
-											'max' => 200,
-									),
-							),
-					),
-			)));
-				
-			$inputFilter->add($factory->createInput(array(
+											'max' => 200 
+									) 
+							) 
+					) 
+			) ) );
+			
+			$inputFilter->add ( $factory->createInput ( array (
 					'name' => 'modalidade',
 					'required' => true
 			)));

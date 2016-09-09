@@ -78,6 +78,7 @@ return array(
 		            'Application\Controller\Subarea'     	   	 	 => 'Application\Controller\SubareaController',
 		            'Application\Controller\Cargo'     				 => 'Application\Controller\CargoController',
 					'Application\Controller\Capacitacao'       		 => 'Application\Controller\CapacitacaoController',
+					'Application\Controller\CapacitacaoTipo'       	 => 'Application\Controller\CapacitacaoTipoController',
 					'Application\Controller\Competencia'             => 'Application\Controller\CompetenciaController',
 					'Application\Controller\CompetenciaTipo'         => 'Application\Controller\CompetenciaTipoController',
 		            'Application\Controller\EquipeTecnica' 			 => 'Application\Controller\EquipeTecnicaController',

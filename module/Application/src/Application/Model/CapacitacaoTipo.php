@@ -32,10 +32,9 @@ class CapacitacaoTipo extends Entity {
 	public function getId() {
 		return $this->id;
 	}
-	public function setId($id){
+	public function setId($id) {
 		$this->id = $id;
 	}
-	
 	public function getDescricao() {
 		return $this->descricao;
 	}
@@ -49,12 +48,7 @@ class CapacitacaoTipo extends Entity {
 			
 			$inputFilter->add ( $factory->createInput ( array (
 					'name' => 'id',
-					'required' => false,
-					'filters' => array (
-							array (
-									'name' => 'Int'
-							)
-					)
+					'required' => false 
 			) ) );
 			
 			$inputFilter->add ( $factory->createInput ( array (

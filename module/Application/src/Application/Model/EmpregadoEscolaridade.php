@@ -46,7 +46,7 @@ class EmpregadoEscolaridade extends Entity {
 	
 	/**
 	 * @ORM\Column(type="integer", name="ano_conclusao")
-	 */
+	 **/
 	protected $anoConclusao;
 	public function getId() {
 		return $this->id;

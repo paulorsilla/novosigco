@@ -40,9 +40,7 @@ class EmpregadoLotacaoAnterior extends Entity {
 	/**
 	 * @ORM\Column(type="string", name="data_final");
 	 */
-	
 	protected $dataFinal;
-	
 	public function getId() {
 		return $this->id;
 	}

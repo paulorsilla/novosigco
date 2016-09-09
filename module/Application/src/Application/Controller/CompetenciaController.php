@@ -59,7 +59,7 @@ class CompetenciaController extends ActionController {
 			$competencias = $this->getEntityManager()->getRepository("Application\Model\Competencia")->findAll(array(), array('titulo' => 'ASC'));
 			$stringCompetencias = '[';
 			foreach ($competencias as $key=>$competencia){																					//array de tipoCompetencia definido na linha 60
-				$stringCompetencias .= '{"id": "' . $competencia->getId() .'", "titulo": "' . $competencia->getTitulo(). '", "tipo": " '.$competencia->Modalidade()->getTitulo() . '"}';
+				$stringCompetencias .= '{"id": "' . $competencia->getId() .'", "titulo": "' . $competencia->getTitulo(). '", "tipo": " '.$competencia->getModalidade()->getTitulo() . '"}';
 				if(isset($competencias[$key+1])){
 					$stringCompetencias.=',';
 				}

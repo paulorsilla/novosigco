@@ -48,12 +48,7 @@ class Modalidade extends Entity {
 			
 			$inputFilter->add ( $factory->createInput ( array (
 					'name' => 'id',
-					'required' => false,
-					'filters' => array (
-							array (
-									'name' => 'Int' 
-							) 
-					) 
+					'required' => false 
 			) ) );
 			
 			$inputFilter->add ( $factory->createInput ( array (
