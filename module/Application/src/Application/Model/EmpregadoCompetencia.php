@@ -59,7 +59,7 @@ class EmpregadoCompetencia extends Entity {
 		return $this->escala;
 	}
 	public function setEscala($escala) {
-		$this->dataAquisicao = $dataAquisicao;
+		$this->escala = $escala;
 	}
 	public function getValidacao() {
 		return $this->validacao;
