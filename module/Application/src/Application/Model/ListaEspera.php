@@ -25,7 +25,7 @@ class ListaEspera extends Entity {
 	protected $id;
 	
 	/**
-	 * @ORM\ManyToOne(targetEntity="capacitacao")
+	 * @ORM\ManyToOne(targetEntity="Capacitacao")
 	 * @ORM\JoinColumn(name="capacitacao_id", referencedColumnName="id")
 	 */
 	protected $capacitacao;
@@ -33,22 +33,12 @@ class ListaEspera extends Entity {
 	/**
 	 * @ORM\ManyToMany(targetEntity="Empregado")
 	 * @ORM\JoinTable(name="empregado_lista",
-	 * joinColumns={@JoinColumn(name="empregado_matricula", referencedColumnName="matricula")},
-	 * inverseJoinColumns={@JoinColumn(name="lista_id", referencedColumnName="id")}
+	 * joinColumns={@ORM\JoinColumn(name="empregado_matricula", referencedColumnName="matricula")},
+	 * inverseJoinColumns={@ORM\JoinColumn(name="lista_id", referencedColumnName="id")}
 	 * )
 	 */
 	protected $matricula;
 	
-	/**
-	 * Refere-se a data de inclusão
-	 * @ORM\Column(type="date" name="data_inclusao")
-	 */
-	protected $inclusao;
-	
-	/**
-	 * @ORM\Column(type="integer" name="prioridade")
-	 */
-	protected $prioridade;
 	public function getMatricula() {
 		return $this->matricula;
 	}
@@ -64,11 +54,11 @@ class ListaEspera extends Entity {
 	public function setId($id) {
 		$this->id = $id;
 	}
-	public function getCurso() {
-		return $this->curso;
+	public function getCapacitacao() {
+		return $this->capacitacao;
 	}
-	public function setCurso($curso) {
-		$this->curso = $curso;
+	public function setCapacitacao($capacitacao) {
+		$this->capacitacao = $capacitacao;
 	}
 	public function getInclusao() {
 		return $this->inclusao->format ( "d-m-Y" );

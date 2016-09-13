@@ -8,10 +8,10 @@ use Zend\Stdlib\Hydrator\ClassMethods;
 
 class ListaEspera extends Form {
 	public function __construct($em) {
-		parent::__construct ( 'Capacitacao' );
+		parent::__construct ( 'espera' );
 		$this->setHydrator ( new ClassMethods () );
 		$this->setAttribute ( 'method', 'post' );
-		$this->setAttribute ( 'action', '/application/capacitacao/save' );
+		$this->setAttribute ( 'action', '/application/lista-espera/save' );
 		
 		$this->add ( array (
 				'name' => 'id',
@@ -36,26 +36,6 @@ class ListaEspera extends Form {
 						'object_manager' => $em,
 						'target_class' => 'Application\Model\Capacitacao',
 						'property' => 'descricao' 
-				) 
-		) );
-		
-		$this->add ( array (
-				'name' => 'prioridade',
-				'type' => 'Zend\Form\Element\Select',
-				'attributes' => array (
-						'style' => 'width:820px',
-						'required' => true 
-				),
-				'options' => array (
-						'label' => 'prioridade',
-						'options' => array (
-								'' => 'Selecione a prioridade',
-								'1' => '1',
-								'2' => '2',
-								'3' => '3',
-								'4' => '4',
-								'5' => '5' 
-						) 
 				) 
 		) );
 		

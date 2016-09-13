@@ -1,0 +1,75 @@
+<?php
+use Zend\Form\Element\Submit;
+?>
+<div id="tituloPagina">Cadastro de Lista de Espera</div>
+<div id="tabs">
+	<ul>
+		<li><a href="#dados">Lista de Espera</a></li>
+	</ul>
+	<div id="dados">
+		<?php
+		echo $this->form ()->openTag ( $form );
+		echo $this->formInput ( $form->get ( 'id' ) );
+		
+		echo $this->formLabel($form->get('capacitacao'))."<br />";
+		echo $this->formSelect($form->get('capacitacao'))."<br />";
+		echo $this->formElementErrors($form->get('capacitacao'))."<br />";
+		
+		
+		echo $this->formInput ($form->get ("submit"));
+		?>
+		<table id="empregadoCapacitacao">
+			<thead>
+				<tr>
+					<th>Matrícula</th>
+					<th>Nome</th>
+					<th>Opções</th>
+				</tr>
+			
+			</thead>
+			<tbody>
+			</tbody>
+		</table>
+		<?php
+		
+echo $this->form ()->closeTag ();
+		?>
+		<button id="adicionarParticipantes">Adicionar Participantes</button>
+	</div>
+</div>
+<div id="barraBotoes">
+	<button id="cancelar">Cancelar</button>
+	<button id="salvar">Salvar</button>
+</div>
+<div id="modal-participantes" title="Adicionar Participantes"
+	class="ui-widget">
+	<div id="listaEspera"></div>
+</div>
+<script>
+	$("#submit").hide();
+	$("#cancelar").button({
+		icons: {
+			primary: "ui-icon-close",
+		},
+	text: true,
+	});
+	$("#salvar").button({
+		icons: {
+			primary: "ui-icon-disk",
+		},
+	text: true,
+	});
+
+	$("#cancelar").click(function(e) {
+		e.preventDefault();
+		window.location ="/application/lista-espera";
+	});
+
+	$("#salvar").click(function(e) {
+		e.preventDefault();
+		$("#submit").click();
+	});
+
+	$("#tabs").tabs();
+	
+</script>

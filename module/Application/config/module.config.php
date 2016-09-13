@@ -84,6 +84,7 @@ return array(
 		            'Application\Controller\EquipeTecnica' 			 => 'Application\Controller\EquipeTecnicaController',
 		            'Application\Controller\Escolaridade' 			 => 'Application\Controller\EscolaridadeController',
 					'Application\Controller\Instrutor'    		 	 => 'Application\Controller\InstrutorController',
+					'Application\Controller\ListaEspera'      		 => 'Application\Controller\ListaEsperaController',
 					'Application\Controller\Modalidade'       		 => 'Application\Controller\ModalidadeController',
 		            'Application\Controller\Funcao'    				 => 'Application\Controller\FuncaoController',
 		            'Application\Controller\OutraFuncao'			 => 'Application\Controller\OutraFuncaoController',

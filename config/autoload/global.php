@@ -138,6 +138,9 @@ return array (
 						'Application\Controller\Instituicao.buscadados', 
 						'Application\Controller\Instituicao.buscainstituicoes',
 						'Application\Controller\Instituicao.buscainstituicaoprincipal',
+						'Application\Controller\ListaEspera.index',
+						'Application\Controller\ListaEspera.save',
+						'Application\Controller\ListaEspera.delete',
 				),
 				'privilege' => array (
 						'comum' => array (
@@ -241,6 +244,9 @@ return array (
 										'Application\Controller\Instrutor.index',
 										'Application\Controller\Instrutor.save',
 										'Application\Controller\Instrutor.delete',
+										'Application\Controller\ListaEspera.index',
+										'Application\Controller\ListaEspera.save',
+										'Application\Controller\ListaEspera.delete',
 								) 
 						) 
 				) 
