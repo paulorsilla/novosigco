@@ -64,11 +64,14 @@ class ListaEsperaController extends ActionController {
 			$form->setData ( $request->getPost () );
 			if ($form->isValid ()) {
 				$data = $form->getData ();
+				$capacitacao = $this->getEntityManager ()->find ( 'Application\Model\Capacitacao', $data ['capacitacao'] );
+				unset ( $data ['capacitacao'] );
 				unset ( $data ['submit'] );
 				if (isset ( $data ['id'] ) && $data ['id'] > 0) {
 					$espera = $this->getEntityManager ()->find ( 'Application\Model\ListaEspera', $data ['id'] );
 				}
 				$espera->setData ( $data );
+				$espera->setCapacitacao ( $capacitacao);
 				$this->getEntityManager ()->persist ( $espera );
 				$this->getEntityManager ()->flush ();
 				return $this->redirect ()->toUrl ( '/application/lista-espera' );
@@ -80,25 +83,24 @@ class ListaEsperaController extends ActionController {
 			$form->bind ( $espera);
 			$form->get ( 'submit' )->setAttribute ( 'value', 'Edit' );
 		}
+		$renderer = $this->getServiceLocator ()->get ( 'Zend\View\Renderer\PhpRenderer' );
+		$renderer->headScript ()->appendFile ( '/js/jquery.dataTables.min.js' );
+		$renderer->headScript ()->appendFile ( '/js/listaEspera.js' );
 		return new ViewModel ( array (
 				'form' => $form
 		) );
 	}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+	public function deleteAction() {
+		$id = ( int ) $this->params ()->fromRoute ( 'id', 0 );
+		if ($id == 0) {
+			throw new \exception ( "Código obrigatório" );
+		}
+		$espera = $this->getEntityManager ()->find ( 'Application\Model\ListaEspera', $id );
+		if ($espera) {
+			$this->getEntityManager ()->remove ( $espera );
+			$this->getEntityManager ()->flush ();
+		}
+		return $this->redirect ()->toUrl ( '/application/lista-espera' );
+	}
 
 }
