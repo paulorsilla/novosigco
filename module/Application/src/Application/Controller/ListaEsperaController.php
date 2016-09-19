@@ -65,13 +65,16 @@ class ListaEsperaController extends ActionController {
 			if ($form->isValid ()) {
 				$data = $form->getData ();
 				$capacitacao = $this->getEntityManager ()->find ( 'Application\Model\Capacitacao', $data ['capacitacao'] );
+				$matricula = $this->getEntityManager ()->find ( 'Application\Model\Empregado', $data ['matricula'] );
 				unset ( $data ['capacitacao'] );
+				unset ( $data ['matricula'] );
 				unset ( $data ['submit'] );
 				if (isset ( $data ['id'] ) && $data ['id'] > 0) {
 					$espera = $this->getEntityManager ()->find ( 'Application\Model\ListaEspera', $data ['id'] );
 				}
 				$espera->setData ( $data );
 				$espera->setCapacitacao ( $capacitacao);
+				$espera->setMatricula ( $matricula );	
 				$this->getEntityManager ()->persist ( $espera );
 				$this->getEntityManager ()->flush ();
 				return $this->redirect ()->toUrl ( '/application/lista-espera' );

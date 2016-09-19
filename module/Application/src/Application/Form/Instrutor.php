@@ -5,7 +5,6 @@ namespace Application\Form;
 use Zend\Form\Form;
 use Zend\Form\Element;
 use Zend\Stdlib\Hydrator\ClassMethods;
-use Zend\InputFilter\InputFilterProviderInterface;
 
 class Instrutor extends Form{ //implements InputFilterProviderInterface {
 	public function __construct($em) {

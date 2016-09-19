@@ -32,7 +32,7 @@ class ListaEspera extends Form {
 				),
 				'options' => array (
 						'label' => 'Capacitação:*',
-						'empty_option' => '--- Escolha um Tipo ---',
+						'empty_option' => '--- Escolha uma capacitação ---',
 						'object_manager' => $em,
 						'target_class' => 'Application\Model\Capacitacao',
 						'property' => 'descricao' 

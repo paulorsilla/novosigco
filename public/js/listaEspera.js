@@ -1,5 +1,5 @@
 $(document).ready(function() {
-	var tabelaComp = $("#listaEmpregado").DataTable({
+	var tabelaEmp = $("#listaEmpregado").DataTable({
       "bSort":false,
       "bInfo": false,
       "bFilter": false,
@@ -13,7 +13,7 @@ $(document).ready(function() {
                  { className: "dt-body-center", targets: [2] }
              ]
 	});
-	var empregadoMatricula = $("#id").val();
+	var empregadoMatricula = $("#matricula").val();
 	var empregadosSelecionados = [];
 	var empregadosMap = [];
 	var tabelaSelecaoEmpregados = "<table id='selecaoEmpregados'><thead><tr><th>Matricula</th><th>Nome</th></tr></thead><tbody>";
@@ -23,22 +23,50 @@ $(document).ready(function() {
         type: 'POST',
         dataType: "json",
         async: false,
-        url: "/application/empregado/buscaempregado",
+        url: "/application/empregado/buscaempregados",
         success: function(d) {
         	empregados = $.parseJSON(d.empregados);
         	$.each(empregados, function (index, value){
-        		tabelaSelecaoEmpregados += "<tr><td><input type = 'hidden' id='idCompetencia' value='"+value.id+"'>"+value.titulo+"</td>" +
-        				"<td>"+value.tipo+"</td>" +
-        				"</tr>";
-        		empregadosMap[value.id] = value.titulo +"&&&"+ value.tipo;
+        		tabelaSelecaoEmpregados += "<tr><td><input type = 'hidden' id='idEmpregado' value='"+value.matricula+"'>"+value.matricula+"</td>" +
+				"<td>"+value.nome+"</td>" +
+				"</tr>";
         	});
         	tabelaSelecaoEmpregados += "</tbody></table>";
         }
 	});
 	
+	if (empregadoMatricula > 0) {
+		//busca empregados, em caso de edição
+		$.ajax({
+	        type: 'POST',
+	        dataType: "json",
+	        async: false,
+	        data: {empregadoMatricula:empregadoMatricula},
+	        url: "/application/empregado/buscaempregados",
+	        success: function(d) {
+	        	var emp = $.parseJSON(d.empregados);
+	        	$.each(emp, function (index, value){
+	        		empregadosSelecionados.push(value.matricula); //alterado
+	        	});
+	        	adicionaEmpregado();
+	        }
+		});
+	}	
 	
-	
-	//Função do botão adicionar participantes para abrir janela modal
+	//janela modal para seleção de empregados
+	var dialogEmpregados = $("#modal-participantes").dialog({
+		autoOpen : false,
+		height : 624,
+		width : 924,
+		modal : true,
+		buttons : {
+			"Concluir" : function(e) {
+				e.preventDefault();
+				adicionaEmpregado();
+    			$(this).dialog("close");
+			}
+		}
+	});
 	$("#adicionarParticipantes").button({
 		icons : {
 			primary : "ui-icon-plus",
@@ -46,8 +74,49 @@ $(document).ready(function() {
 	}).on('click', function( e ) {
 		e.preventDefault();
 		empregadosSelecionados = [];
+		
+		$("#empregados").html(tabelaSelecaoEmpregados);
+    	$("#selecaoEmpregados").DataTable({
+    		"bLengthChange": false,
+    		"bInfo": false,
+    	});
 	
+    	dialogEmpregados.dialog("open");
+		$("#selecaoEmpregados tbody").on('click','tr',function(e){
+			 var id = $(this).find("#idEmpregado").val();
+			 $(this).toggleClass('selected');
+			 var indice = empregadosSelecionados.indexOf(matricula); //matricula
+			 if(indice === -1){
+				 empregadosSelecionados.push(matricula); //matricula
+			 }
+			 else{
+				 empregadosSelecionados.splice(indice, 1);
+			 }
+		});
+	});
 	
+	function adicionaEmpregado(){	
+		$.each(empregadosSelecionados, function (index, value){
+			var aux = empregadosMap[value].split("&&&");
+			if($("#excluirEmpregado_"+value).length == 0){
+				tabelaEmp
+				 .row
+				 .add (["<input type= 'hidden' id= 'empregado' name= 'empregado[]' value = '"+value+"'>"+aux[0], aux[1], '<button id="excluirEmpregado_'+value+'">Remover empregado</button>'])
+				 .draw();
+				$("#excluirEmpregado_"+value).button({
+					icons: {
+						primary: "ui-icon-trash",
+				},
+				text: false
+				}).click(function(e) {
+					e.preventDefault();
+					if(confirm("Deseja realmente excluir?")) {
+						tabelaEmp.row($(this).parents('tr')).remove().draw();
+						}
+					});
+				}
+		});
+	}
 	
 //fechar documento	
 });
