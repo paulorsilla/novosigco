@@ -30,6 +30,7 @@ $(document).ready(function() {
         		tabelaSelecaoEmpregados += "<tr><td><input type = 'hidden' id='idEmpregado' value='"+value.matricula+"'>"+value.matricula+"</td>" +
 				"<td>"+value.nome+"</td>" +
 				"</tr>";
+        		empregadosMap[value.matricula] = value.matricula +"&&&"+ value.nome;
         	});
         	tabelaSelecaoEmpregados += "</tbody></table>";
         }
@@ -83,7 +84,7 @@ $(document).ready(function() {
 	
     	dialogEmpregados.dialog("open");
 		$("#selecaoEmpregados tbody").on('click','tr',function(e){
-			 var id = $(this).find("#idEmpregado").val();
+			 var matricula = $(this).find("#idEmpregado").val();
 			 $(this).toggleClass('selected');
 			 var indice = empregadosSelecionados.indexOf(matricula); //matricula
 			 if(indice === -1){
@@ -101,7 +102,7 @@ $(document).ready(function() {
 			if($("#excluirEmpregado_"+value).length == 0){
 				tabelaEmp
 				 .row
-				 .add (["<input type= 'hidden' id= 'empregado' name= 'empregado[]' value = '"+value+"'>"+aux[0], aux[1], '<button id="excluirEmpregado_'+value+'">Remover empregado</button>'])
+				 .add (["<input type= 'hidden' id= 'empregado' name= 'matricula[]' value = '"+value+"'>"+aux[0], aux[1], '<button id="excluirEmpregado_'+value+'">Remover empregado</button>'])
 				 .draw();
 				$("#excluirEmpregado_"+value).button({
 					icons: {
