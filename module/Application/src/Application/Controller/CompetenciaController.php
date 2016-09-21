@@ -50,30 +50,38 @@ class CompetenciaController extends ActionController {
 				'competencias' => $competencias 
 		) );
 	}
-	public function buscacompetenciaAction()
-	{
-		$request = $this->getRequest();
-		$response = $this->getResponse();
-		$response->setContent(\Zend\Json\Json::encode(array('dataType' => 'json', 'response' => false)));
-		if ($request->isPost()) {
-			$competencias = $this->getEntityManager()->getRepository("Application\Model\Competencia")->findAll(array(), array('titulo' => 'ASC'));
+	public function buscacompetenciaAction() {
+		$request = $this->getRequest ();
+		$response = $this->getResponse ();
+		$response->setContent ( \Zend\Json\Json::encode ( array (
+				'dataType' => 'json',
+				'response' => false 
+		) ) );
+		if ($request->isPost ()) {
+			$competencias = $this->getEntityManager ()->getRepository ( "Application\Model\Competencia" )->findAll ( array (), array (
+					'titulo' => 'ASC' 
+			) );
 			$stringCompetencias = '[';
-			foreach ($competencias as $key=>$competencia){																					//array de tipoCompetencia definido na linha 60
-				$stringCompetencias .= '{"id": "' . $competencia->getId() .'", "titulo": "' . $competencia->getTitulo(). '", "tipo": " '.$competencia->getModalidade()->getTitulo() . '"}';
-				if(isset($competencias[$key+1])){
-					$stringCompetencias.=',';
+			foreach ( $competencias as $key => $competencia ) { // array de tipoCompetencia definido na linha 60
+				$stringCompetencias .= '{"id": "' . $competencia->getId () . '", "titulo": "' . $competencia->getTitulo () . '", "tipo": " ' . $competencia->getModalidade ()->getTitulo () . '"}';
+				if (isset ( $competencias [$key + 1] )) {
+					$stringCompetencias .= ',';
 				}
 			}
-			$stringCompetencias.=']';
-			$response->setContent(\Zend\Json\Json::encode(array('dataType' => 'json', 'response' => true, 'competencias' => $stringCompetencias)));
+			$stringCompetencias .= ']';
+			$response->setContent ( \Zend\Json\Json::encode ( array (
+					'dataType' => 'json',
+					'response' => true,
+					'competencias' => $stringCompetencias 
+			) ) );
 		}
 		
 		return $response;
 	}
 	public function saveAction() {
-		$form = new CompetenciaForm ($this->getEntityManager());
-		//Hidratação para verificar o nome das classes
-		$form->setHydrator(new \Zend\Stdlib\Hydrator\ClassMethods(false));
+		$form = new CompetenciaForm ( $this->getEntityManager () );
+		// Hidratação para verificar o nome das classes
+		$form->setHydrator ( new \Zend\Stdlib\Hydrator\ClassMethods ( false ) );
 		$request = $this->getRequest ();
 		if ($request->isPost ()) {
 			$competencia = new Competencia ();
@@ -81,11 +89,11 @@ class CompetenciaController extends ActionController {
 			$form->setData ( $request->getPost () );
 			if ($form->isValid ()) {
 				$data = $form->getData ();
-				$modalidade = $this->getEntityManager ()->find ( 'Application\Model\Modalidade', $data['modalidade'] );
+				$modalidade = $this->getEntityManager ()->find ( 'Application\Model\Modalidade', $data ['modalidade'] );
 				unset ( $data ['modalidade'] );
 				unset ( $data ['submit'] );
 				if (isset ( $data ['id'] ) && $data ['id'] > 0) {
-					$competencia = $this->getEntityManager ()->find ( 'Application\Model\Competencia', $data ['id'] );	
+					$competencia = $this->getEntityManager ()->find ( 'Application\Model\Competencia', $data ['id'] );
 				}
 				$competencia->setData ( $data );
 				$competencia->setModalidade ( $modalidade );
@@ -103,9 +111,9 @@ class CompetenciaController extends ActionController {
 		$renderer->headScript ()->appendFile ( '/js/jquery.dataTables.min.js' );
 		$renderer->headScript ()->appendFile ( '/js/capacitacao.js' );
 		return new ViewModel ( array (
-				'form' => $form
+				'form' => $form 
 		) );
-		}
+	}
 	public function deleteAction() {
 		$id = ( int ) $this->params ()->fromRoute ( 'id', 0 );
 		if ($id == 0) {

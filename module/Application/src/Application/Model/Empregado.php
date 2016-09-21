@@ -12,7 +12,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @package Model
  *         
  *          @ORM\Entity
- *          @ORM\Table(name="rh_tb_funcionario")
+ *          @ORM\Table(name="rh.rh_tb_funcionario")
  *          @ORM\Entity(repositoryClass="Application\Repository\EmpregadoRepository")
  *         
  */

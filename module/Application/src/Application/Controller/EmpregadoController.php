@@ -23,7 +23,8 @@ use Application\Model\EmpregadoLotacaoAnterior;
  * @category Application
  * @package Controller
  * @author Paulo R. Silla <paulo.silla@embrapa.br>
- *        
+ * @author William Gerenutti <william.alves@colaborador.embrapa.br>
+ *      
  */
 class EmpregadoController extends ActionController {
 	/**
@@ -51,8 +52,8 @@ class EmpregadoController extends ActionController {
 		$qb = $this->getEntityManager ()->createQueryBuilder ();
 		$qb->select ( 'e' )->from ( 'Application\Model\Empregado', 'e' )->where ( 'e.matricula < 500000' )->andWhere ( 'e.ativo = :ativo' )->setParameter ( "ativo", "S" )->orderby ( 'e.nome' );
 		$empregados = $qb->getQuery ()->getResult ();
-		
-		// adiciona os arquivos indexcomum.js e jquery.dataTable.min.js ao head da página
+			
+			// adiciona os arquivos indexcomum.js e jquery.dataTable.min.js ao head da página
 		$renderer = $this->getServiceLocator ()->get ( 'Zend\View\Renderer\PhpRenderer' );
 		$renderer->headScript ()->appendFile ( '/js/jquery.dataTables.min.js' );
 		// $renderer->headScript()->appendFile('/js/indexcomum.js');
@@ -71,14 +72,18 @@ class EmpregadoController extends ActionController {
 			$qb = $this->getEntityManager ()->createQueryBuilder ();
 			$qb->select ( 'e' )->from ( 'Application\Model\Empregado', 'e' )->where ( 'e.matricula < 500000' )->andWhere ( 'e.ativo = :ativo' )->setParameter ( "ativo", "S" )->orderby ( 'e.nome' );
 			$empregados = $qb->getQuery ()->getResult ();
-			$representantes = array ();
-			foreach ( $empregados as $key => $empregado ) {
-				$representantes [$key] = $empregado->getMatricula () . "&" . $empregado->getNome () . "& &" . $empregado->getEmail () . "&" . $empregado->getRamal () . "&";
+			$stringEmpregados = '[';
+			foreach ($empregados as $key=>$empregado){																					//array de tipoCompetencia definido na linha 60
+				$stringEmpregados .= '{"matricula": "' . $empregado->getMatricula() .'", "nome": "' . $empregado->getNome(). '"}';
+				if(isset($empregados[$key+1])){
+					$stringEmpregados.=',';
+				}
 			}
+			$stringEmpregados.=']';
 			$response->setContent ( \Zend\Json\Json::encode ( array (
 					'dataType' => 'json',
 					'response' => true,
-					'empregados' => $representantes 
+					'empregados' => $stringEmpregados
 			) ) );
 		}
 		return $response;

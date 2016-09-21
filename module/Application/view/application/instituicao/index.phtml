@@ -3,7 +3,6 @@
 <table class="hover" id="consulta">
 	<thead>
 		<tr>
-			<th style="text-align: left;">Código</th>
 			<th style="text-align: left;">CNPJ</th>
 			<th style="text-align: left;">Razão Social</th>
 			<th style="text-align: left;">Nome Fantasia</th>
@@ -13,8 +12,7 @@
 	<tbody>
 	<?php foreach($instituicoes as $instituicao):?>
 		<tr>
-			<td id="codigo"><?php echo $this->escapeHtml($instituicao->getCodigo());?></td>
-			<td id="cnpj"><?php echo $this->escapeHtml(substr($instituicao->getCnpj(),0,2).
+						<td id="cnpj"><?php echo $this->escapeHtml(substr($instituicao->getCnpj(),0,2).
 					".".substr($instituicao->getCnpj(),2,3).
 					".".substr($instituicao->getCnpj(),5,3).
 					"/".substr($instituicao->getCnpj(),8,4).
