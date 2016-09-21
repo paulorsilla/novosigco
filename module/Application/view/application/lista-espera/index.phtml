@@ -11,7 +11,7 @@
 <tbody>
 <?php foreach($esperas as $espera):?>
 		<tr>
-		<td id="descricao"><?php echo $this->escapeHtml($espera->getCapacitacao());?></td>
+		<td id="descricao"><?php echo $this->escapeHtml($espera->getCapacitacao()->getDescricao());?></td>
 			<td style="text-align:center">
 				<a href="/application/lista-espera/save/id/<?php echo $espera->getId();?>"><span title="Editar" class="ui-icon ui-icon-pencil"/></a>
 				<a href="/application/lista-espera/delete/id/<?php echo $espera->getId();?>" id="excluir"><span title="Excluir" class="ui-icon ui-icon-trash"/></a>

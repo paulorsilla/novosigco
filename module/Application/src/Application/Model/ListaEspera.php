@@ -33,18 +33,12 @@ class ListaEspera extends Entity {
 	/**
 	 * @ORM\ManyToMany(targetEntity="Empregado")
 	 * @ORM\JoinTable(name="empregado_lista",
-	 * joinColumns={@ORM\JoinColumn(name="empregado_matricula", referencedColumnName="matricula")},
-	 * inverseJoinColumns={@ORM\JoinColumn(name="lista_id", referencedColumnName="id")}
+	 * joinColumns={@ORM\JoinColumn(name="lista_id", referencedColumnName="id")},
+	 * inverseJoinColumns={@ORM\JoinColumn(name="empregado_matricula", referencedColumnName="cod_func")}
 	 * )
 	 */
 	protected $matricula;
 	
-	public function getMatricula() {
-		return $this->matricula;
-	}
-	public function setMatricula($matricula) {
-		$this->matricula = $matricula;
-	}
 	public function __construct() {
 		$this->matricula = new \Doctrine\Common\Collections\ArrayCollection ();
 	}
@@ -54,23 +48,17 @@ class ListaEspera extends Entity {
 	public function setId($id) {
 		$this->id = $id;
 	}
+	public function getMatricula() {
+		return $this->matricula;
+	}
+	public function setMatricula($matricula) {
+		$this->matricula = $matricula;
+	}
 	public function getCapacitacao() {
 		return $this->capacitacao;
 	}
 	public function setCapacitacao($capacitacao) {
 		$this->capacitacao = $capacitacao;
-	}
-	public function getInclusao() {
-		return $this->inclusao->format ( "d-m-Y" );
-	}
-	public function setInclusao($inclusao) {
-		$this->inclusao = $inclusao;
-	}
-	public function getPrioridade() {
-		return $this->prioridade;
-	}
-	public function setPrioridade($prioridade) {
-		$this->prioridade = $prioridade;
 	}
 	public function getInputFilter() {
 		if (! $this->inputFilter) {

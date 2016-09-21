@@ -13,7 +13,7 @@ $(document).ready(function() {
                  { className: "dt-body-center", targets: [2] }
              ]
 	});
-	var empregadoMatricula = $("#matricula").val();
+	var listaId = $("#id").val();
 	var empregadosSelecionados = [];
 	var empregadosMap = [];
 	var tabelaSelecaoEmpregados = "<table id='selecaoEmpregados'><thead><tr><th>Matricula</th><th>Nome</th></tr></thead><tbody>";
@@ -36,13 +36,13 @@ $(document).ready(function() {
         }
 	});
 	
-	if (empregadoMatricula > 0) {
+	if (listaId > 0) {
 		//busca empregados, em caso de edição
 		$.ajax({
 	        type: 'POST',
 	        dataType: "json",
 	        async: false,
-	        data: {empregadoMatricula:empregadoMatricula},
+	        data: {listaId:listaId},
 	        url: "/application/empregado/buscaempregados",
 	        success: function(d) {
 	        	var emp = $.parseJSON(d.empregados);
