@@ -8,10 +8,10 @@ use Zend\Stdlib\Hydrator\ClassMethods;
 
 class Capacitacao extends Form {
 	public function __construct($em) {
-		parent::__construct ( 'ListaEspera' );
+		parent::__construct ( 'Capacitacao' );
 		$this->setHydrator ( new ClassMethods () );
 		$this->setAttribute ( 'method', 'post' );
-		$this->setAttribute ( 'action', '/application/lista-espera/save' );
+		$this->setAttribute ( 'action', '/application/capacitacao/save' );
 		
 		$this->add ( array (
 				'name' => 'id',
