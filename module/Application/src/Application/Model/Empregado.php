@@ -38,7 +38,7 @@ class Empregado extends Entity {
 	 * @ORM\Column(type="string")
 	 */
 	protected $ramal;
-	
+
 	/**
 	 * @ORM\Column(type="string", name="ativo_func")
 	 */
