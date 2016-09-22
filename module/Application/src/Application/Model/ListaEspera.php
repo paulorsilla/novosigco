@@ -37,22 +37,22 @@ class ListaEspera extends Entity {
 	 * inverseJoinColumns={@ORM\JoinColumn(name="empregado_matricula", referencedColumnName="cod_func")}
 	 * )
 	 */
-	protected $empregados;
+	protected $matricula;
 	
-	public function getEmpregados() {
-		return $this->empregados;
-	}
-	public function setEmpregados($empregados) {
-		$this->empregados = $empregados;
-	}
 	public function __construct() {
-		$this->empregados = new \Doctrine\Common\Collections\ArrayCollection ();
+		$this->matricula = new \Doctrine\Common\Collections\ArrayCollection ();
 	}
 	public function getId() {
 		return $this->id;
 	}
 	public function setId($id) {
 		$this->id = $id;
+	}
+	public function getMatricula() {
+		return $this->matricula;
+	}
+	public function setMatricula($matricula) {
+		$this->matricula = $matricula;
 	}
 	public function getCapacitacao() {
 		return $this->capacitacao;

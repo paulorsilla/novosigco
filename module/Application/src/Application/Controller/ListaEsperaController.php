@@ -59,7 +59,6 @@ class ListaEsperaController extends ActionController {
 		$form->setHydrator(new \Zend\Stdlib\Hydrator\ClassMethods(false));
 		if ($request->isPost ()) {
 			$espera = new ListaEspera();
-			//unset em capacitação.
 			$form->setInputFilter ( $espera->getInputFilter () );
 			$form->setData ( $request->getPost () );
 			if ($form->isValid ()) {
