@@ -43,7 +43,7 @@ $(document).ready(function() {
 	        dataType: "json",
 	        async: false,
 	        data: {listaId:listaId},
-	        url: "/application/empregado/buscaempregados",
+	        url: "/application/empregado/buscaempregado",
 	        success: function(d) {
 	        	var emp = $.parseJSON(d.empregados);
 	        	$.each(emp, function (index, value){
