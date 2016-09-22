@@ -11,19 +11,19 @@ use Zend\Form\Element\Submit;
 		echo $this->form ()->openTag ( $form );
 		echo $this->formInput ( $form->get ( 'id' ) );
 		
-		echo $this->formLabel($form->get('capacitacaoTipo'))."<br />";
-		echo $this->formSelect($form->get('capacitacaoTipo'))."<br />";
-		echo $this->formElementErrors($form->get('capacitacaoTipo'))."<br />";
+		echo $this->formLabel ( $form->get ( 'capacitacaoTipo' ) ) . "<br />";
+		echo $this->formSelect ( $form->get ( 'capacitacaoTipo' ) ) . "<br />";
+		echo $this->formElementErrors ( $form->get ( 'capacitacaoTipo' ) ) . "<br />";
 		
 		echo $this->formLabel ( $form->get ( 'descricao' ) ) . "<br />";
 		echo $this->formInput ( $form->get ( 'descricao' ) ) . "<br />";
 		echo $this->formElementErrors ( $form->get ( 'descricao' ) ) . "<br />";
-
-// 		echo $this->formLabel ( $form->get ( 'cargaHoraria' ) ) . "<br />";
-// 		echo $this->formInput ( $form->get ( 'cargaHoraria' ) ) . "<br />";
-// 		echo $this->formElementErrors ( $form->get ( 'cargaHoraria' ) ) . "<br />";	
 		
-		echo $this->formInput ($form->get ("submit"));
+		// echo $this->formLabel ( $form->get ( 'cargaHoraria' ) ) . "<br />";
+		// echo $this->formInput ( $form->get ( 'cargaHoraria' ) ) . "<br />";
+		// echo $this->formElementErrors ( $form->get ( 'cargaHoraria' ) ) . "<br />";
+		
+		echo $this->formInput ( $form->get ( "submit" ) );
 		?>
 		<table id="competenciasCapacitacao">
 			<thead>
@@ -32,14 +32,23 @@ use Zend\Form\Element\Submit;
 					<th>Modalidade</th>
 					<th>Opções</th>
 				</tr>
-			
 			</thead>
 			<tbody>
+			<?php foreach ($this->competencias as $competencia):?>
+			<tr>
+					<td><input id="competencia" name="competencia[]"
+						value="<?php echo $competencia->getId();?>" type="hidden"><?php echo $this->escapeHtml($competencia->getTitulo());?></td>
+					<td><?php echo $this->escapeHtml($competencia->getModalidade()->getTitulo());?></td>
+					<td><button
+							id="excluirCompetencia_<?php echo $competencia->getId();?>">Remover
+							competência</button></td>
+				</tr>
+			<?php endforeach;?>			
 			</tbody>
 		</table>
 		<?php
 		
-echo $this->form ()->closeTag ();
+		echo $this->form ()->closeTag ();
 		?>
 		<button id="novaCompetencia">Adicionar competência</button>
 	</div>
@@ -52,31 +61,3 @@ echo $this->form ()->closeTag ();
 	class="ui-widget">
 	<div id="competencias"></div>
 </div>
-<script>
-	$("#submit").hide();
-	$("#cancelar").button({
-		icons: {
-			primary: "ui-icon-close",
-		},
-	text: true,
-	});
-	$("#salvar").button({
-		icons: {
-			primary: "ui-icon-disk",
-		},
-	text: true,
-	});
-
-	$("#cancelar").click(function(e) {
-		e.preventDefault();
-		window.location ="/application/capacitacao";
-	});
-
-	$("#salvar").click(function(e) {
-		e.preventDefault();
-		$("#submit").click();
-	});
-
-	$("#tabs").tabs();
-	
-</script>

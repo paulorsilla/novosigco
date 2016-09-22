@@ -84,15 +84,19 @@ class CapacitacaoController extends ActionController {
 			}
 		}
 		$id = ( int ) $this->params ()->fromRoute ( 'id', 0 );
+		$competencias = array();
 		if ($id > 0) {
 			$capacitacao = $this->getEntityManager ()->find ( 'Application\Model\Capacitacao', $id );
 			$form->bind ( $capacitacao );
+			$competencias = $capacitacao->getCompetencias();
+			
 		}
 		$renderer = $this->getServiceLocator ()->get ( 'Zend\View\Renderer\PhpRenderer' );
 		$renderer->headScript ()->appendFile ( '/js/jquery.dataTables.min.js' );
 		$renderer->headScript ()->appendFile ( '/js/capacitacao.js' );
 		return new ViewModel ( array (
-				'form' => $form 
+				'form' => $form,
+				'competencias' => $competencias
 		) );
 	}
 	public function deleteAction() {

@@ -13,6 +13,45 @@ $(document).ready(function() {
                  { className: "dt-body-center", targets: [2] }
              ]
 	});
+	
+	$("#submit").hide();
+	$("#cancelar").button({
+		icons: {
+			primary: "ui-icon-close",
+		},
+	text: true,
+	});
+	$("#salvar").button({
+		icons: {
+			primary: "ui-icon-disk",
+		},
+	text: true,
+	});
+
+	$("#cancelar").click(function(e) {
+		e.preventDefault();
+		window.location ="/application/capacitacao";
+	});
+
+	$("#salvar").click(function(e) {
+		e.preventDefault();
+		$("#submit").click();
+	});
+
+	$('button[id^="excluirCompetencia_"]').button({
+		icons: {
+			primary: "ui-icon-trash",
+		},
+	text: false,
+	}).click(function(e) {
+		e.preventDefault();
+		if(confirm("Deseja realmente excluir?")) {
+			tabelaComp.row($(this).parents('tr')).remove().draw();
+			}
+		});
+
+	$("#tabs").tabs();
+	
 	var capacitacaoId = $("#id").val();
 	var competenciasSelecionadas = [];
 	var competenciasMap = [];
