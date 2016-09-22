@@ -75,9 +75,8 @@ class ListaEsperaController extends ActionController {
 				$espera->setData ( $data );
 				$espera->setCapacitacao ( $capacitacao);
 				foreach ( $matriculas as $matricula ) {
-					error_log($matricula);
 					$empregado = $this->getEntityManager ()->find ( "Application\Model\Empregado", $matricula );
-					$espera->getMatricula ()->add ( $empregado);
+					$espera->getEmpregados ()->add ( $empregado);
 				}
 				$this->getEntityManager ()->persist ( $espera );
 				$this->getEntityManager ()->flush ();

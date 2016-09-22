@@ -20,7 +20,7 @@ class Empregado extends Entity {
 	
 	/**
 	 * @ORM\Id
-	 * @ORM\Column(type="integer", name="cod_func");
+	 * @ORM\Column(type="string", name="cod_func");
 	 */
 	protected $matricula;
 	
@@ -48,6 +48,7 @@ class Empregado extends Entity {
 	 * @ORM\JoinColumn(name="supervisor", referencedColumnName="cod_func")
 	 */
 	protected $supervisorSaad;
+	
 	public function getMatricula() {
 		return $this->matricula;
 	}
