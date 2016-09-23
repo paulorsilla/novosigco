@@ -13,6 +13,47 @@ $(document).ready(function() {
                  { className: "dt-body-center", targets: [2] }
              ]
 	});
+	
+	$("#submit").hide();
+	$("#cancelar").button({
+		icons: {
+			primary: "ui-icon-close",
+		},
+	text: true,
+	});
+	$("#salvar").button({
+		icons: {
+			primary: "ui-icon-disk",
+		},
+	text: true,
+	});
+
+	$("#cancelar").click(function(e) {
+		e.preventDefault();
+		window.location ="/application/lista-espera";
+	});
+
+	$("#salvar").click(function(e) {
+		e.preventDefault();
+		$("#submit").click();
+	});
+
+	$('button[id^="excluirEmpregado_"]').button({
+		icons: {
+			primary: "ui-icon-trash",
+		},
+	text: false,
+	}).click(function(e) {
+		e.preventDefault();
+		if(confirm("Deseja realmente excluir?")) {
+			tabelaEmp.row($(this).parents('tr')).remove().draw();
+			}
+		});
+
+	
+	$("#tabs").tabs();
+	
+	
 	var listaId = $("#id").val();
 	var empregadosSelecionados = [];
 	var empregadosMap = [];

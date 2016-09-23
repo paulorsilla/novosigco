@@ -28,6 +28,15 @@ use Zend\Form\Element\Submit;
 			
 			</thead>
 			<tbody>
+				<?php foreach ($this->empregados as $empregado):?>
+			<tr>
+					<td><input id="empregado" name="empregado[]"
+						value="<?php echo $empregado->getMatricula();?>" type="hidden"><?php echo $this->escapeHtml($empregado->getMatricula());?></td>
+					<td><?php echo $this->escapeHtml($empregado->getNome());?></td>
+					<td><button
+							id="excluirEmpregado_<?php echo $empregado->getMatricula();?>">Remover participante</button></td>
+				</tr>
+			<?php endforeach;?>		
 			</tbody>
 		</table>
 		<?php
@@ -45,31 +54,3 @@ echo $this->form ()->closeTag ();
 	class="ui-widget">
 	<div id="empregados"></div>
 </div>
-<script>
-	$("#submit").hide();
-	$("#cancelar").button({
-		icons: {
-			primary: "ui-icon-close",
-		},
-	text: true,
-	});
-	$("#salvar").button({
-		icons: {
-			primary: "ui-icon-disk",
-		},
-	text: true,
-	});
-
-	$("#cancelar").click(function(e) {
-		e.preventDefault();
-		window.location ="/application/lista-espera";
-	});
-
-	$("#salvar").click(function(e) {
-		e.preventDefault();
-		$("#submit").click();
-	});
-
-	$("#tabs").tabs();
-	
-</script>

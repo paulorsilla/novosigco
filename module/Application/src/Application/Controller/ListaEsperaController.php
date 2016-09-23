@@ -75,7 +75,7 @@ class ListaEsperaController extends ActionController {
 				$espera->setCapacitacao ( $capacitacao);
 				foreach ( $matriculas as $matricula ) {
 					$empregado = $this->getEntityManager ()->find ( "Application\Model\Empregado", $matricula );
-					$espera->getEmpregados ()->add ( $empregado);
+					$espera->getMatricula ()->add ( $empregado);
 				}
 				$this->getEntityManager ()->persist ( $espera );
 				$this->getEntityManager ()->flush ();
@@ -86,13 +86,14 @@ class ListaEsperaController extends ActionController {
 		if ($id > 0) {
 			$espera = $this->getEntityManager ()->find ( 'Application\Model\ListaEspera', $id );
 			$form->bind ( $espera);
-			$form->get ( 'submit' )->setAttribute ( 'value', 'Edit' );
+			$empregados = $espera->getMatricula();
 		}
 		$renderer = $this->getServiceLocator ()->get ( 'Zend\View\Renderer\PhpRenderer' );
 		$renderer->headScript ()->appendFile ( '/js/jquery.dataTables.min.js' );
 		$renderer->headScript ()->appendFile ( '/js/listaEspera.js' );
 		return new ViewModel ( array (
-				'form' => $form
+				'form' => $form,
+				'empregados' => $empregados
 		) );
 	}
 	public function deleteAction() {
