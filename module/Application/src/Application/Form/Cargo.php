@@ -29,6 +29,18 @@ class Cargo extends Form
 			),
 		));
 
+		$this->add(array(
+				'name' => 'pce',
+				'attributes' => array(
+						'style' => 'width:80px',
+						'type' => 'text',
+				),
+				'options' => array(
+						'label' => 'PCS/PCE:*',
+				),
+		));
+		
+		
         $this->add(array(
             'name' => 'submit',
 			'attributes' => array(

@@ -30,6 +30,12 @@ class Cargo extends Entity {
 	 * @ORM\Column(type="string")
 	 */
 	protected $descricao;
+	
+	/**
+	 * @ORM\Column(type="string")
+	 */
+	protected $pce;
+	
 	public function getId() {
 		return $this->id;
 	}
@@ -41,6 +47,13 @@ class Cargo extends Entity {
 	}
 	public function setDescricao($descricao) {
 		$this->descricao = $descricao;
+	}
+	public function getPce() {
+		return $this->pce;
+	}
+	public function setPce($pce) {
+		$this->pce = $pce;
+		return $this;
 	}
 	
 	/**
@@ -80,6 +93,30 @@ class Cargo extends Entity {
 							),
 				),
 			)));
+			
+			$inputFilter->add ( $factory->createInput ( array (
+					'name' => 'pce',
+					'required' => true,
+					'filters' => array (
+							array (
+									'name' => 'StripTags'
+							),
+							array (
+									'name' => 'StringTrim'
+							)
+					),
+					'validators' => array (
+							array (
+									'name' => 'StringLength',
+									'options' => array (
+											'encoding' => 'UTF-8',
+											'min' => 1,
+											'max' => 4
+									)
+							),
+					),
+			)));
+			
 			$this->inputFilter = $inputFilter;
 		}
 		return $this->inputFilter;

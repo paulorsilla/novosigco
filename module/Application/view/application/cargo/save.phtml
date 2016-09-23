@@ -6,7 +6,9 @@
 	<div id="dados">
 		<?php
 			echo $this->form()->openTag($form);
-			echo $this->formCollection($form);
+//			echo $this->formCollection($form);
+			echo $this->formRow($form->get("descricao"))."<br />"; 
+			echo $this->formRow($form->get("pce"));
 			echo $this->form()->closeTag();
 		?>
 	</div>

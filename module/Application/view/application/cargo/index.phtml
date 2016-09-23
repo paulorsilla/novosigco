@@ -5,6 +5,7 @@
 	<thead>
 		<tr>
 			<th style="text-align: left;">Descrição</th>
+			<th>PCS/PCE</th>
 			<th width="90" class="center">Opções</th>
 		</tr>
 	</thead>
@@ -12,6 +13,7 @@
 	<?php foreach($cargos as $cargo):?>
 		<tr>
 			<td id="descricao"><?php echo $this->escapeHtml($cargo->getDescricao());?></td>
+			<td><?php echo $this->escapeHtml($cargo->getPce());?></td>
 			<td style="text-align:center">
 				<a href="/application/cargo/save/id/<?php echo $cargo->getId();?>"><span title="Editar" class="ui-icon ui-icon-pencil"/></a>
 				<!-- Remoção do botão delete
