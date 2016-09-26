@@ -42,13 +42,11 @@ class CargoController extends ActionController
 	{
         $cargos = $this->getEntityManager()
                        ->getRepository("Application\Model\Cargo")
-                       ->findAll(array(), array('descricao' => 'ASC'));
+                       ->findAll(array(), array('pce' => 'ASC'));
 
-        //adiciona os arquivos indexcomum.js e jquery.dataTable.min.js
-        //ao head da página
+        //adiciona os arquivos indexcomum.js e jquery.dataTable.min.js ao head da página
         $renderer = $this->getServiceLocator()->get('Zend\View\Renderer\PhpRenderer');
         $renderer->headScript()->appendFile('/js/jquery.dataTables.min.js');
-        $renderer->headScript()->appendFile('/js/indexcomum.js');
         return new ViewModel(array(
 			'cargos' => $cargos
 		));
@@ -62,10 +60,10 @@ class CargoController extends ActionController
 				
         	$cargos = $this->getEntityManager()
                            ->getRepository("Application\Model\Cargo")
-                           ->findAll(array(), array('descricao' => 'ASC'));
+                           ->findBy(array(), array('pce' => 'DESC'));
 			$cargosOption = "<option value=''>Selecione um cargo...</option>";
 			foreach($cargos as $cargo) {
-				$cargosOption .= "<option value='".$cargo->getId()."'>".$cargo->getDescricao()."</option>";
+				$cargosOption .= "<option value='".$cargo->getId()."'>".$cargo->getDescricao()." - ".$cargo->getPce()."</option>";
 			}
 			$response->setContent(\Zend\Json\Json::encode(array('dataType' => 'json',
 					'response' => true,
@@ -97,7 +95,7 @@ class CargoController extends ActionController
 				$this->getEntityManager()->flush();
 				
 				return $this->redirect()->toUrl('/application/cargo');
-			}
+			} 
 		}
 		$id = (int) $this->params()->fromRoute('id', 0);
 		if ($id > 0) {

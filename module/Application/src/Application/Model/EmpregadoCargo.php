@@ -35,14 +35,15 @@ class EmpregadoCargo extends Entity {
 	protected $cargo;
 	
 	/**
-	 * @ORM\Column(type="string", name="data_inicial")
+	 * @ORM\Column(type="datetime", name="data_inicial")
 	 */
 	protected $dataInicial;
 	
 	/**
-	 * @ORM\Column(type="string", name="data_final")
+	 * @ORM\Column(type="datetime", name="data_final")
 	 */
 	protected $dataFinal;
+	
 	public function getId() {
 		return $this->id;
 	}

@@ -32,7 +32,7 @@ class Cargo extends Entity {
 	protected $descricao;
 	
 	/**
-	 * @ORM\Column(type="string")
+	 * @ORM\Column(type="integer")
 	 */
 	protected $pce;
 	

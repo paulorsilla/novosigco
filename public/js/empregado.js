@@ -22,8 +22,7 @@ $(document).ready(function() {
 					return false;
 					alert("Data invalida");
 				}
-			
-});
+	});
 	
 		
 	$("#submit").hide();

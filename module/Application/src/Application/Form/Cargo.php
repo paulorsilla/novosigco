@@ -40,7 +40,6 @@ class Cargo extends Form
 				),
 		));
 		
-		
         $this->add(array(
             'name' => 'submit',
 			'attributes' => array(

@@ -24,7 +24,7 @@ use Application\Model\EmpregadoLotacaoAnterior;
  * @package Controller
  * @author Paulo R. Silla <paulo.silla@embrapa.br>
  * @author William Gerenutti <william.alves@colaborador.embrapa.br>
- *      
+ *        
  */
 class EmpregadoController extends ActionController {
 	/**
@@ -52,8 +52,8 @@ class EmpregadoController extends ActionController {
 		$qb = $this->getEntityManager ()->createQueryBuilder ();
 		$qb->select ( 'e' )->from ( 'Application\Model\Empregado', 'e' )->where ( 'e.matricula < 500000' )->andWhere ( 'e.ativo = :ativo' )->setParameter ( "ativo", "S" )->orderby ( 'e.nome' );
 		$empregados = $qb->getQuery ()->getResult ();
-			
-			// adiciona os arquivos indexcomum.js e jquery.dataTable.min.js ao head da página
+		
+		// adiciona os arquivos indexcomum.js e jquery.dataTable.min.js ao head da página
 		$renderer = $this->getServiceLocator ()->get ( 'Zend\View\Renderer\PhpRenderer' );
 		$renderer->headScript ()->appendFile ( '/js/jquery.dataTables.min.js' );
 		// $renderer->headScript()->appendFile('/js/indexcomum.js');
@@ -73,17 +73,17 @@ class EmpregadoController extends ActionController {
 			$qb->select ( 'e' )->from ( 'Application\Model\Empregado', 'e' )->where ( 'e.matricula < 500000' )->andWhere ( 'e.ativo = :ativo' )->setParameter ( "ativo", "S" )->orderby ( 'e.nome' );
 			$empregados = $qb->getQuery ()->getResult ();
 			$stringEmpregados = '[';
-			foreach ($empregados as $key=>$empregado){																					//array de tipoCompetencia definido na linha 60
-				$stringEmpregados .= '{"matricula": "' . $empregado->getMatricula() .'", "nome": "' . $empregado->getNome(). '"}';
-				if(isset($empregados[$key+1])){
-					$stringEmpregados.=',';
+			foreach ( $empregados as $key => $empregado ) { // array de tipoCompetencia definido na linha 60
+				$stringEmpregados .= '{"matricula": "' . $empregado->getMatricula () . '", "nome": "' . $empregado->getNome () . '"}';
+				if (isset ( $empregados [$key + 1] )) {
+					$stringEmpregados .= ',';
 				}
 			}
-			$stringEmpregados.=']';
+			$stringEmpregados .= ']';
 			$response->setContent ( \Zend\Json\Json::encode ( array (
 					'dataType' => 'json',
 					'response' => true,
-					'empregados' => $stringEmpregados
+					'empregados' => $stringEmpregados 
 			) ) );
 		}
 		return $response;
@@ -155,8 +155,6 @@ class EmpregadoController extends ActionController {
 				'form' => $form,
 				'optionEmpregados' => $optionEmpregados 
 		) );
-
-		
 	}
 	public function addcargoAction() {
 		$request = $this->getRequest ();
@@ -170,8 +168,21 @@ class EmpregadoController extends ActionController {
 			
 			$matricula = $this->params ()->fromPost ( 'matricula' );
 			$cargo_id = $this->params ()->fromPost ( 'cargo' );
-			$dataInicial = \Admin\Model\Util::converteData ( $this->params ()->fromPost ( "dataInicialCargo" ) );
-			$dataFinal = \Admin\Model\Util::converteData ( $this->params ()->fromPost ( "dataFinalCargo" ) );
+			
+			$dataInicial = $this->params ()->fromPost ( "dataInicialCargo" );
+			$dataFinal = $this->params ()->fromPost ( "dataFinalCargo" );
+				
+			if ($dataInicial != "") {
+				$dataInicial = \DateTime::createFromFormat ( "d/m/Y", $dataInicial );
+			} else {
+				$dataInicial = null;
+			}
+			if ($dataFinal != "") {
+				$dataFinal = \DateTime::createFromFormat ( "d/m/Y", $dataFinal ); 
+			} else {
+				$dataFinal = null;
+			}
+				
 			$cargo = $em->find ( 'Application\Model\Cargo', $cargo_id );
 			
 			$id = $this->params ()->fromPost ( 'id' );
@@ -180,14 +191,15 @@ class EmpregadoController extends ActionController {
 			} else {
 				$empregadocargo = new EmpregadoCargo ();
 			}
-			
+				
 			$empregadocargo->setEmpregado ( $matricula );
 			$empregadocargo->setCargo ( $cargo );
 			$empregadocargo->setDataInicial ( $dataInicial );
 			$empregadocargo->setDataFinal ( $dataFinal );
+			error_log("Aqui5");
 			$em->persist ( $empregadocargo );
 			$em->flush ();
-			
+				
 			$response->setContent ( \Zend\Json\Json::encode ( array (
 					'dataType' => 'json',
 					'response' => true 
@@ -483,9 +495,9 @@ class EmpregadoController extends ActionController {
 			) );
 			$cargos = array ();
 			foreach ( $empregadoCargos as $empregadoCargo ) {
-				$dataInicial = \Admin\Model\Util::converteData ( str_replace ( "-", "/", $empregadoCargo->getDataInicial () ) );
-				$dataFinal = \Admin\Model\Util::converteData ( str_replace ( "-", "/", $empregadoCargo->getDataFinal () ) );
-				array_push ( $cargos, $empregadoCargo->getId () . ";" . $empregadoCargo->getCargo ()->getDescricao () . ";" . $dataInicial . ";" . $dataFinal . ";" . $empregadoCargo->getCargo ()->getId () );
+				($empregadoCargo->getDataInicial() != null) ? $dataInicial = $empregadoCargo->getDataInicial()->format("d/m/Y") : $dataInicial = "";
+				($empregadoCargo->getDataFinal() != null) ? $dataFinal = $empregadoCargo->getDataFinal ()->format("d/m/Y"): $dataFinal = "";
+				array_push ( $cargos, $empregadoCargo->getId () . ";" . $empregadoCargo->getCargo ()->getDescricao () . " - " . $empregadoCargo->getCargo ()->getPce () . ";" . $dataInicial . ";" . $dataFinal . ";" . $empregadoCargo->getCargo ()->getId () );
 			}
 			
 			$response->setContent ( \Zend\Json\Json::encode ( array (
@@ -689,22 +701,21 @@ class EmpregadoController extends ActionController {
 		}
 		return $response;
 	}
-	
 	public function buscalotacoesanterioresAction() {
 		$request = $this->getRequest ();
 		$response = $this->getResponse ();
 		$response->setContent ( \Zend\Json\Json::encode ( array (
 				'dataType' => 'json',
-				'response' => false
+				'response' => false 
 		) ) );
 		if ($request->isPost ()) {
 			$em = $this->getServiceLocator ()->get ( 'doctrine.entitymanager.orm_default' );
 			$em2 = $this->getServiceLocator ()->get ( 'doctrine.entitymanager.orm_nco' );
 			$matricula = $this->params ()->fromPost ( 'matricula' );
 			$empregadosLotacoesAnteriores = $em->getRepository ( 'Application\Model\EmpregadoLotacaoAnterior' )->findBy ( array (
-					'empregado' => $matricula
+					'empregado' => $matricula 
 			), array (
-					'dataInicial' => 'DESC'
+					'dataInicial' => 'DESC' 
 			) );
 			$lotacoes = array ();
 			foreach ( $empregadosLotacoesAnteriores as $empregadoLotacaoAnterior ) {
@@ -718,23 +729,17 @@ class EmpregadoController extends ActionController {
 				}
 				$dataInicial = \Admin\Model\Util::converteData ( str_replace ( "-", "/", $empregadoLotacaoAnterior->getDataInicial () ) );
 				$dataFinal = \Admin\Model\Util::converteData ( str_replace ( "-", "/", $empregadoLotacaoAnterior->getDataFinal () ) );
-				array_push ($lotacoes, $empregadoLotacaoAnterior->getId() 
-						. ";" . $razaoInstituicao 
-						. ";" . $codigoInstituicao
-						. ";" . $dataInicial
-						. ";" . $dataFinal );
+				array_push ( $lotacoes, $empregadoLotacaoAnterior->getId () . ";" . $razaoInstituicao . ";" . $codigoInstituicao . ";" . $dataInicial . ";" . $dataFinal );
 			}
-				
+			
 			$response->setContent ( \Zend\Json\Json::encode ( array (
 					'dataType' => 'json',
 					'response' => true,
-					'lotacoes' => $lotacoes
+					'lotacoes' => $lotacoes 
 			) ) );
 		}
 		return $response;
 	}
-	
-	
 	public function deletecargoAction() {
 		$request = $this->getRequest ();
 		$response = $this->getResponse ();
@@ -889,8 +894,7 @@ class EmpregadoController extends ActionController {
 		}
 		return $response;
 	}
-	
-public function deletelotacaoanteriorAction() {
+	public function deletelotacaoanteriorAction() {
 		$request = $this->getRequest ();
 		$response = $this->getResponse ();
 		$response->setContent ( \Zend\Json\Json::encode ( array (
@@ -902,7 +906,7 @@ public function deletelotacaoanteriorAction() {
 			$id = $this->params ()->fromPost ( 'id' );
 			$empregadoLotacaoAnterior = $em->find ( 'Application\Model\EmpregadoLotacaoAnterior', $id );
 			if ($empregadoLotacaoAnterior) {
-				$em->remove ( $empregadoLotacaoAnterior);
+				$em->remove ( $empregadoLotacaoAnterior );
 				$em->flush ();
 				$response->setContent ( \Zend\Json\Json::encode ( array (
 						'dataType' => 'json',
@@ -912,5 +916,4 @@ public function deletelotacaoanteriorAction() {
 		}
 		return $response;
 	}
-	
 }
