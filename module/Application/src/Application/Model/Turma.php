@@ -30,6 +30,10 @@ class Turma extends Entity {
 	protected $valor;
 	
 	/**
+	 * @ORM\column(type="string" name="forma")
+	 */
+	protected $forma;
+	/**
 	 * Refere-se a data incial da turma
 	 * @ORM\Column(type="date" name="data_inicial")
 	 */
@@ -42,18 +46,15 @@ class Turma extends Entity {
 	protected $final;
 	
 	/**
-	 * @ORM\Column(type="string" name="instrutores")
-	 */
-	protected $instrutores;
-	
-	/**
-	 * @ORM\Column(type="integer" name="capacitacao_id")
+	 * @ManyToOne(targetEntity="Capacitacao")
+	 * @JoinColumn(name="capacitacao_id", referencedColumnName="id")
 	 */
 	protected $capacitacao;
 	
 	/**
-	 * @ORM\Column(type="integer" name="instituicao_codigo")
-	 */
+     * @ManyToOne(targetEntity="Instituicao")
+     * @JoinColumn(name="instituicao_codigo", referencedColumnName="codigo")
+     */
 	protected $instituicaoCodigo;
 	public function getId() {
 		return $this->id;
@@ -67,25 +68,25 @@ class Turma extends Entity {
 	public function setValor($valor) {
 		$this->valor = $valor;
 	}
-	public function getInicial() {
-		return $this->inicial->format ( "d-m-Y" );
+	public function getForma() {
+		return $this->forma;
 	}
-	public function setInical($inicial) {
+	public function setForma($forma) {
+		$this->forma = $forma;
+	}
+	public function getInicial() {
+		return $this->inicial;
+	}
+	public function setInicial($inicial) {
 		$this->inicial = $inicial;
 	}
 	public function getFinal() {
-		return $this->final->format ( "d-m-Y" );
+		return $this->final;
 	}
 	public function setFinal($final) {
 		$this->final = $final;
 	}
-	public function getInstrutores() {
-		return $this->instrutores;
-	}
-	public function setInstrutores($instrutores) {
-		$this->instrutores = $instrutores;
-	}
-	public function getICapacitacao() {
+	public function getCapacitacao() {
 		return $this->capacitacao;
 	}
 	public function setCapacitacao($capacitacao) {
@@ -94,7 +95,7 @@ class Turma extends Entity {
 	public function getInstituicaoCodigo() {
 		return $this->instituicaoCodigo;
 	}
-	public function setValor($instituicaoCodigo) {
+	public function setInstituicaoCodigo($instituicaoCodigo) {
 		$this->instituicaoCodigo = $instituicaoCodigo;
 	}
 	public function getInputFilter() {
@@ -140,11 +141,11 @@ class Turma extends Entity {
 											'max' => 200 
 									) 
 							) 
-					),
-			)));
+					) 
+			) ) );
 			
 			$this->inputFilter = $inputFilter;
-			}
-		return $this->inputFilter;
 		}
+		return $this->inputFilter;
+	}
 }
