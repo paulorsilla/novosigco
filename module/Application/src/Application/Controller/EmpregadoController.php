@@ -196,7 +196,6 @@ class EmpregadoController extends ActionController {
 			$empregadocargo->setCargo ( $cargo );
 			$empregadocargo->setDataInicial ( $dataInicial );
 			$empregadocargo->setDataFinal ( $dataFinal );
-			error_log("Aqui5");
 			$em->persist ( $empregadocargo );
 			$em->flush ();
 				
@@ -406,13 +405,15 @@ class EmpregadoController extends ActionController {
 		if ($request->isPost ()) {
 			$em = $this->getServiceLocator ()->get ( 'doctrine.entitymanager.orm_default' );
 			
+			
 			$matricula = $this->params ()->fromPost ( 'matricula' );
 			$escolaridadeId = $this->params ()->fromPost ( 'escolaridade' );
 			$instituicaoId = $this->params ()->fromPost ( 'instituicao' );
 			$curso = $this->params ()->fromPost ( 'curso' );
 			$anoconclusao = $this->params ()->fromPost ( 'anoconclusao' );
-			// $dataInicial = \Admin\Model\Util::converteData ( $this->params ()->fromPost ( "dataInicial" ) );
-			// $dataConclusao = \Admin\Model\Util::converteData ( $this->params ()->fromPost ( "dataConclusao" ) );
+			error_log('aqui -->'.$anoconclusao);
+			if ($anoconclusao == "")
+				$anoconclusao = null;
 			$escolaridade = $em->find ( 'Application\Model\Escolaridade', $escolaridadeId );
 			$id = $this->params ()->fromPost ( 'id' );
 			
@@ -427,11 +428,9 @@ class EmpregadoController extends ActionController {
 			$empregadoescolaridade->setInstituicao ( $instituicaoId );
 			$empregadoescolaridade->setCurso ( $curso );
 			$empregadoescolaridade->setAnoConclusao ( $anoconclusao );
-			// $empregadoescolaridade->setDataInicial ( $dataInicial );
-			// $empregadoescolaridade->setDataConclusao ( $dataConclusao );
 			$em->persist ( $empregadoescolaridade );
 			$em->flush ();
-			
+				
 			$response->setContent ( \Zend\Json\Json::encode ( array (
 					
 					'dataType' => 'json',

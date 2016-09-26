@@ -10,22 +10,21 @@
 		?>	
 			<div id="nomeEmpregado" class="destaque"></div>
 		<div id="supervisor">
-			<label for="supervisor">Supervisor:</label>		
-<select>
+			<label for="supervisor">Supervisor:</label> <select>
 <?php echo $optionEmpregados; ?>
 </select>
 		</div>
 
 		<div id="historico">
-<!-- 			<ul> -->
-<!-- 				<li><a href='#cargoTab'><span>Cargo</span></a></li> -->
-<!-- 				<li><a href='#areaTab'><span>Área/Subárea</span></a></li> -->
-<!-- 				<li><a href='#funcaoTab'><span>Função</span></a></li> -->
-<!-- 				<li><a href='#outrasFuncoesTab'><span>Outras funções</span></a></li> -->
-<!-- 				<li><a href='#equipeTecnicaTab'><span>Equipe técnica</span></a></li> -->
-<!-- 				<li><a href='#sublotacaoTab'><span>Sublotação</span></a></li> -->
-<!-- 				<li><a href='#escolaridadeTab'><span>Escolaridade</span></a></li> -->
-<!-- 			</ul> -->
+			<!-- 			<ul> -->
+			<!-- 				<li><a href='#cargoTab'><span>Cargo</span></a></li> -->
+			<!-- 				<li><a href='#areaTab'><span>Área/Subárea</span></a></li> -->
+			<!-- 				<li><a href='#funcaoTab'><span>Função</span></a></li> -->
+			<!-- 				<li><a href='#outrasFuncoesTab'><span>Outras funções</span></a></li> -->
+			<!-- 				<li><a href='#equipeTecnicaTab'><span>Equipe técnica</span></a></li> -->
+			<!-- 				<li><a href='#sublotacaoTab'><span>Sublotação</span></a></li> -->
+			<!-- 				<li><a href='#escolaridadeTab'><span>Escolaridade</span></a></li> -->
+			<!-- 			</ul> -->
 
 			<div id='cargoTab'>
 				<fieldset class="coluna100">
@@ -167,8 +166,8 @@
 								<th>Escolaridade</th>
 								<th>Instituição</th>
 								<th>Curso</th>
-<!-- 								<th>Data início</th> -->
-<!-- 								<th>Data conclusão</th> -->
+								<!-- 								<th>Data início</th> -->
+								<!-- 								<th>Data conclusão</th> -->
 								<th>Ano Conclusão</th>
 								<th>Opções</th>
 							</tr>
@@ -181,31 +180,31 @@
 				</fieldset>
 			</div>
 		</div>
-		
-		<!--MODIFICAÇÕES-->
-	
-	<div id='lotacaoAnteriorTab'>
-				<fieldset class="coluna100">
-					<legend>Lotação anterior</legend>
-					<div id="lotacoesAnteriores">
-						<table class="hover" id="tabelaLotacaoAnterior">
-							<thead>
-								<tr>
-									<th>Lotacão anterior</th>
-									<th>Data início</th>
-									<th>Data término</th>
-									<th>Opções</th>
-								</tr>
-							</thead>
-							<tbody>
-							</tbody>
-						</table>
-					</div>
 
-					<button id="novaLotacaoAnterior">Adicionar</button>
-				</fieldset>
-			</div>
-			
+		<!--MODIFICAÇÕES-->
+
+		<div id='lotacaoAnteriorTab'>
+			<fieldset class="coluna100">
+				<legend>Lotação anterior</legend>
+				<div id="lotacoesAnteriores">
+					<table class="hover" id="tabelaLotacaoAnterior">
+						<thead>
+							<tr>
+								<th>Lotacão anterior</th>
+								<th>Data início</th>
+								<th>Data término</th>
+								<th>Opções</th>
+							</tr>
+						</thead>
+						<tbody>
+						</tbody>
+					</table>
+				</div>
+
+				<button id="novaLotacaoAnterior">Adicionar</button>
+			</fieldset>
+		</div>
+
 		<!--MODIFICAÇÕES-->	
 			
 		<?php
@@ -220,37 +219,34 @@
 
 <div id="modal-cargo" title="Novo cargo" class="ui-widget">
 	<label for='cargo'>Cargo:</label><br /> <select id='cargo' name='cargo'
-		style='width: 500px'></select><br />
-	<br /> <label for='dataInicialCargo'>Data início: </label><br /> <input
-		type='text' name='dataInicialCargo' id='dataInicialCargo' alt='date'
-		value='' style='width: 100px'><br />
-	<br /> <label for='dataFinalCargo'>Data término: </label><br /> <input
-		type='text' name='dataFinalCargo' id='dataFinalCargo' alt='date'
-		value='' style='width: 100px'>
+		style='width: 500px'></select><br /> <br /> <label
+		for='dataInicialCargo'>Data início: </label><br /> <input type='text'
+		name='dataInicialCargo' id='dataInicialCargo' alt='date' value=''
+		style='width: 100px'><br /> <br /> <label for='dataFinalCargo'>Data
+		término: </label><br /> <input type='text' name='dataFinalCargo'
+		id='dataFinalCargo' alt='date' value='' style='width: 100px'>
 </div>
 
 <div id="modal-area" title="Nova Área/Subárea" class="ui-widget">
 	<label for='areaAtuacao"'>Área:</label><br /> <select id='areaAtuacao'
-		name='areaAtuacao' style='width: 500px'></select><br />
-	<br /> <label for='subareaAtuacao'>Subárea:</label><br /> <select
+		name='areaAtuacao' style='width: 500px'></select><br /> <br /> <label
+		for='subareaAtuacao'>Subárea:</label><br /> <select
 		id='subareaAtuacao' name='subareaAtuacao' style='width: 500px'></select><br />
 	<br /> <label for='dataInicialArea'>Data início: </label><br /> <input
 		type='text' name='dataInicialArea' id='dataInicialArea' alt='date'
-		value='' style='width: 100px'><br />
-	<br /> <label for='dataFinalArea'>Data término: </label><br /> <input
-		type='text' name='dataFinalArea' id='dataFinalArea' alt='date'
-		value='' style='width: 100px'>
+		value='' style='width: 100px'><br /> <br /> <label for='dataFinalArea'>Data
+		término: </label><br /> <input type='text' name='dataFinalArea'
+		id='dataFinalArea' alt='date' value='' style='width: 100px'>
 </div>
 
 <div id="modal-funcao" title="Nova função" class="ui-widget">
 	<label for='funcao'>Função:</label><br /> <select id='funcao'
-		name='funcao' style='width: 500px'></select><br />
-	<br /> <label for='dataInicialFuncao'>Data início: </label><br /> <input
-		type='text' name='dataInicialFuncao' id='dataInicialFuncao' alt='date'
-		value='' style='width: 100px'><br />
-	<br /> <label for='dataFinalFuncao'>Data término: </label><br /> <input
-		type='text' name='dataFinalFuncao' id='dataFinalFuncao' alt='date'
-		value='' style='width: 100px'>
+		name='funcao' style='width: 500px'></select><br /> <br /> <label
+		for='dataInicialFuncao'>Data início: </label><br /> <input type='text'
+		name='dataInicialFuncao' id='dataInicialFuncao' alt='date' value=''
+		style='width: 100px'><br /> <br /> <label for='dataFinalFuncao'>Data
+		término: </label><br /> <input type='text' name='dataFinalFuncao'
+		id='dataFinalFuncao' alt='date' value='' style='width: 100px'>
 </div>
 
 <div id="modal-outra-funcao" title="Nova outra função" class="ui-widget">
@@ -281,8 +277,8 @@
 		id='sublotacao' name='sublotacao' style='width: 500px'></select><br />
 	<br /> <label for='dataInicialSublotacao'>Data início: </label><br /> <input
 		type='text' name='dataInicialSublotacao' id='dataInicialSublotacao'
-		alt='date' value='' style='width: 100px'><br />
-	<br /> <label for='dataFinalSublotacao'>Data término: </label><br /> <input
+		alt='date' value='' style='width: 100px'><br /> <br /> <label
+		for='dataFinalSublotacao'>Data término: </label><br /> <input
 		type='text' name='dataFinalSublotacao' id='dataFinalSublotacao'
 		alt='date' value='' style='width: 100px'>
 </div>
@@ -293,19 +289,22 @@
 	<br /> <label for='instituicao'>Instituição:</label><br /> <select
 		id='instituicao' name='instituicao' style='width: 500px'></select><br />
 	<br /> <label for='curso'>Curso: </label><br /> <input type='text'
-		name='curso' id='curso' value='' style='width: 500px'><br />
-	 <label for='anoConclusaoEscolaridade'>Ano conclusão: </label><br />
-	<input type='text' name='anoConclusaoEscolaridade'
-		id='anoConclusaoEscolaridade' value=''
-		style='width: 50px'>
+		name='curso' id='curso' value='' style='width: 500px'><br /> <label
+		for='anoConclusaoEscolaridade'>Ano conclusão: </label><br /> <input
+		type='text' name='anoConclusaoEscolaridade'
+		id='anoConclusaoEscolaridade' value='' style='width: 50px'><br />
+	<div id='mensagem' class='error'></div>
+
 </div>
-<div id="modal-lotacao-anterior" title="Nova Lotação Anterior" class="ui-widget">
+<div id="modal-lotacao-anterior" title="Nova Lotação Anterior"
+	class="ui-widget">
 	<label for='lotacaoAnterior'>Lotacao anterior:</label><br /> <select
 		id='lotacaoAnterior' name='lotacaoAnterior' style='width: 620px'></select><br />
-	<br /> <label for='dataInicialLotacaoAnterior'>Data início: </label><br /> <input
-		type='text' name='dataInicialLotacaoAnterior' id='dataInicialLotacaoAnterior'
-		alt='date' value='' style='width: 100px'><br />
-		<br /> <label for='dataFinalLotacaoAnterior'>Data término: </label><br /> <input
-		type='text' name='dataFinalLotacaoAnterior' id='dataFinalLotacaoAnterior'
-		alt='date' value='' style='width: 100px'>
+	<br /> <label for='dataInicialLotacaoAnterior'>Data início: </label><br />
+	<input type='text' name='dataInicialLotacaoAnterior'
+		id='dataInicialLotacaoAnterior' alt='date' value=''
+		style='width: 100px'><br /> <br /> <label
+		for='dataFinalLotacaoAnterior'>Data término: </label><br /> <input
+		type='text' name='dataFinalLotacaoAnterior'
+		id='dataFinalLotacaoAnterior' alt='date' value='' style='width: 100px'>
 </div>

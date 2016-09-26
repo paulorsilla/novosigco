@@ -12,19 +12,6 @@ $(document).ready(function() {
 //		alert($(this).find(":selected").val());
 		});
 	
-	$("#anoConclusaoEscolaridade").change(function(){
-		var now = new Date();
-		var anoCorrente = now.getFullYear();	
-		var anoConclusao = parseInt ($(this).val());
-				if ((anoConclusao != "") && ((anoConclusao <= 1950) || (anoConclusao >= anoCorrente))){
-					alert("Data invalida");
-					$(this).val("");
-					return false;
-					alert("Data invalida");
-				}
-	});
-	
-		
 	$("#submit").hide();
 	$("#cancelar").button({
 		icons: {
@@ -505,29 +492,37 @@ $(document).ready(function() {
 				var escolaridade = $("#escolaridade").val();
 				var instituicao =  $("#instituicao").val();
 				var curso = $("#curso").val();
-//				var dataInicial = $("#dataInicialEscolaridade").val();
-//				var dataConclusao = $("#dataConclusaoEscolaridade").val();
+				
+				var now = new Date();
 				var anoConclusao = $("#anoConclusaoEscolaridade").val();
-				$.ajax({
-					type: 'POST',
-					dataType: 'json',
-					url: '/application/empregado/addescolaridade',
-					data: {
-						matricula:matricula,
-						escolaridade:escolaridade,
-						instituicao:instituicao,
-						curso:curso,
-//						dataInicial:dataInicial,
-//						dataConclusao:dataConclusao,
-						anoconclusao:anoConclusao,
-						id:id 	
-					},
-					success: function(d) {
-						janela.dialog("close");
-						tabelaEscolaridades.clear().draw();
-						buscaEscolaridadesEmpregado();
-					}
-				});
+				if (anoConclusao != "") {
+					anoConclusao = parseInt(anoConclusao);
+				}
+				
+				if ((anoConclusao != "") && (anoConclusao <= 1950 || anoConclusao > now.getFullYear())) {
+					$("#mensagem").html("Ano de conclusão inválido");
+					$("#mensagem").show();
+					$("#mensagem").fadeOut(5000);
+				} else {
+					$.ajax({
+						type: 'POST',
+						dataType: 'json',
+						url: '/application/empregado/addescolaridade',
+						data: {
+							matricula:matricula,
+							escolaridade:escolaridade,
+							instituicao:instituicao,
+							curso:curso,
+							anoconclusao:anoConclusao,
+							id:id 	
+						},
+						success: function(d) {
+							janela.dialog("close");
+							tabelaEscolaridades.clear().draw();
+							buscaEscolaridadesEmpregado();
+						}
+					});
+				}
 			}
 		},
 	});
@@ -566,8 +561,6 @@ $(document).ready(function() {
 			}
 		},
 	});
-	
-	
 	
 	$("#cargo").html(cargos).selectmenu();
 	$("#areaAtuacao").html(areas).selectmenu({
@@ -659,12 +652,12 @@ $(document).ready(function() {
 		$("#curso").val("");
 		$("#dataInicialEscolaridade").val("");
 		$("#dataConclusaoEscolaridade").val("");
-		dialogEscolaridade.dialog("open");
+		$("#mensagem").fadeOut(0);
+		dialogEscolaridade.data("id", "").dialog("open");
 	});
 	
 	$("#novaLotacaoAnterior").click(function(e) {
 		e.preventDefault();
-		//alert("ola");
 //		$("#escolaridade").val("").selectmenu("refresh");x 
 		$("#LotacaoAnterior").val("").selectmenu("refresh");
 //		$("#curso").val("");
@@ -1038,9 +1031,8 @@ $(document).ready(function() {
 						$("#instituicao").val(aux[6]);
 						$("#instituicao").selectmenu("refresh");
 						$("#curso").val(aux[3]);
-						$("#anoConclusaoEscolaridade").val(aux[4])
-//						$("#dataInicialEscolaridade").val(aux[4].replace(/\-/g, '/'));
-//						$("#dataConclusaoEscolaridade").val(aux[5].replace(/\-/g, '/'));
+						$("#anoConclusaoEscolaridade").val(aux[4]);
+						$("#mensagem").fadeOut(0);
 						dialogEscolaridade.data('id', aux[0]).dialog("open");
 					});
 				});
@@ -1098,7 +1090,16 @@ $(document).ready(function() {
 		});
 	}
 	
-	
+//	$("#anoConclusaoEscolaridade").change(function(){
+//		var now = new Date();
+//		var anoCorrente = now.getFullYear();	
+//		var anoConclusao = parseInt ($(this).val());
+//		if ((anoConclusao != "") && ((anoConclusao <= 1950) || (anoConclusao >= anoCorrente))){
+//			$(this).val("");
+//			$("#mensagem").html("Data inválida");
+//		}
+//	});
+
 	
 	
 	
