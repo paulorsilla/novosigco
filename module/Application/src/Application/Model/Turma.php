@@ -6,13 +6,14 @@ use Zend\InputFilter\Factory as InputFactory;
 use Zend\InputFilter\InputFilter;
 use Core\Model\Entity;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Entidade Turma
  *
  * @category Application
  * @package Model
- *         
+ *
  *          @ORM\Entity
  *          @ORM\Table(name="turma")
  */
@@ -23,39 +24,61 @@ class Turma extends Entity {
 	 * @ORM\GeneratedValue(strategy="AUTO")
 	 */
 	protected $id;
-	
+
 	/**
-	 * @ORM\Column(type="double" name="valor")
+	 * @ORM\column(type="decimal", precision=2, name="valor")
 	 */
 	protected $valor;
-	
+
 	/**
-	 * @ORM\column(type="string" name="forma")
+	 * @ORM\column(type="string", name="forma")
 	 */
 	protected $forma;
 	/**
 	 * Refere-se a data incial da turma
-	 * @ORM\Column(type="date" name="data_inicial")
+	 * @ORM\Column(type="date", name="data_inicial")
 	 */
 	protected $inicial;
-	
+
 	/**
 	 * Refere-se a data final da turma
-	 * @ORM\Column(type="date" name="data_final")
+	 * @ORM\Column(type="date", name="data_final")
 	 */
 	protected $final;
-	
+
 	/**
-	 * @ManyToOne(targetEntity="Capacitacao")
-	 * @JoinColumn(name="capacitacao_id", referencedColumnName="id")
+	 * @ORM\ManyToOne(targetEntity="Capacitacao")
+	 * @ORM\JoinColumn(name="capacitacao_id", referencedColumnName="id")
 	 */
 	protected $capacitacao;
-	
+
 	/**
-     * @ManyToOne(targetEntity="Instituicao")
-     * @JoinColumn(name="instituicao_codigo", referencedColumnName="codigo")
-     */
-	protected $instituicaoCodigo;
+	 * @ORM\ManyToOne(targetEntity="Instituicao")
+	 * @ORM\JoinColumn(name="instituicao_codigo", referencedColumnName="cod_instituicao")
+	 */
+	protected $instituicao;
+
+	/**
+	 * @ORM\ManyToMany(targetEntity="Empregado")
+	 * @ORM\JoinTable(name="empregado_turma",
+	 * joinColumns={@ORM\JoinColumn(name="turma_id", referencedColumnName="id")},
+	 * inverseJoinColumns={@ORM\JoinColumn(name="empregado_matricula", referencedColumnName="cod_func")}
+	 * )
+	 */
+	protected $participantes;
+
+	/**
+	 * @ORM\ManyToMany(targetEntity="Instrutor")
+	 * @ORM\JoinTable(name="turma_instrutor",
+	 * joinColumns={@ORM\JoinColumn(name="turma_id", referencedColumnName="id")},
+	 * inverseJoinColumns={@ORM\JoinColumn(name="instrutor_id", referencedColumnName="id")}
+	 * )
+	 */
+	protected $instrutores;
+	public function __construct() {
+		$this->participantes = new \Doctrine\Common\Collections\ArrayCollection ();
+		$this->instrutores = new \Doctrine\Common\Collections\ArrayCollection ();
+	}
 	public function getId() {
 		return $this->id;
 	}
@@ -92,45 +115,57 @@ class Turma extends Entity {
 	public function setCapacitacao($capacitacao) {
 		$this->capacitacao = $capacitacao;
 	}
-	public function getInstituicaoCodigo() {
-		return $this->instituicaoCodigo;
+	public function getInstituicao() {
+		return $this->instituicao;
 	}
-	public function setInstituicaoCodigo($instituicaoCodigo) {
-		$this->instituicaoCodigo = $instituicaoCodigo;
+	public function setInstituicao($instituicao) {
+		$this->instituicao = $instituicao;
+	}
+	public function getParticipantes() {
+		return $this->participantes;
+	}
+	public function setParticipantes($participantes) {
+		$this->participantes = $participantes;
+	}
+	public function getInstrutores() {
+		return $this->instrutores;
+	}
+	public function setInstrutores($instrutores) {
+		$this->instrutores = $instrutores;
 	}
 	public function getInputFilter() {
 		if (! $this->inputFilter) {
 			$inputFilter = new InputFilter ();
 			$factory = new InputFactory ();
-			
+				
 			$inputFilter->add ( $factory->createInput ( array (
 					'name' => 'id',
-					'required' => false 
+					'required' => false
 			) ) );
-			
+				
 			$inputFilter->add ( $factory->createInput ( array (
 					'name' => 'valor',
 					'required' => true,
 					'validators' => array (
 							array (
-									'name' => 'Float',
+									// 'name' => 'Float',
 									'options' => array (
-											'min' => 2 
-									) 
-							) 
-					) 
+											'min' => 2
+									)
+							)
+					)
 			) ) );
-			
+				
 			$inputFilter->add ( $factory->createInput ( array (
 					'name' => 'instrutores',
 					'required' => true,
 					'filters' => array (
 							array (
-									'name' => 'StripTags' 
+									'name' => 'StripTags'
 							),
 							array (
-									'name' => 'StringTrim' 
-							) 
+									'name' => 'StringTrim'
+							)
 					),
 					'validators' => array (
 							array (
@@ -138,12 +173,12 @@ class Turma extends Entity {
 									'options' => array (
 											'encoding' => 'UTF-8',
 											'min' => 2,
-											'max' => 200 
-									) 
-							) 
-					) 
+											'max' => 200
+									)
+							)
+					)
 			) ) );
-			
+				
 			$this->inputFilter = $inputFilter;
 		}
 		return $this->inputFilter;

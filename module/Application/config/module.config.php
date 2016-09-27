@@ -92,6 +92,7 @@ return array(
 					'Application\Controller\Index'                   => 'Application\Controller\IndexController',
 		        	'Application\Controller\Instituicao'             => 'Application\Controller\InstituicaoController',
 		        	'Application\Controller\Empregado'               => 'Application\Controller\EmpregadoController',
+					'Application\Controller\Turma'              	 => 'Application\Controller\TurmaController',
 				),
 		),
 		'validators' => array(
