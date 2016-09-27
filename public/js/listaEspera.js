@@ -1,9 +1,9 @@
 $(document).ready(function() {
 	var tabelaEmp = $("#listaEmpregado").DataTable({
-      "bSort":false,
       "bInfo": false,
       "bFilter": false,
       "bLengthChange": false,
+      "paging": false,
       "oLanguage": {
       	"sZeroRecords": "",
       	"sEmptyTable": ""
@@ -49,10 +49,8 @@ $(document).ready(function() {
 			tabelaEmp.row($(this).parents('tr')).remove().draw();
 			}
 		});
-
 	
 	$("#tabs").tabs();
-	
 	
 	var listaId = $("#id").val();
 	var empregadosSelecionados = [];

@@ -1,9 +1,9 @@
 $(document).ready(function() {
 	var tabelaComp = $("#competenciasCapacitacao").DataTable({
-      "bSort":false,
       "bInfo": false,
       "bFilter": false,
       "bLengthChange": false,
+      "paging": false,
       "oLanguage": {
       	"sZeroRecords": "",
       	"sEmptyTable": ""
