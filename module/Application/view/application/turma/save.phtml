@@ -1,0 +1,26 @@
+<?php
+use Zend\Form\Element\Submit;
+?>
+<div id="tituloPagina">Cadastro de Turma</div>
+<div id="tabs">
+<ul>
+<li><a href="#dados">Turma</a></li>
+</ul>
+<div id="dados">
+<?php
+echo $this->form ()->openTag ( $form );
+echo $this->formInput ( $form->get ( 'id' ) );
+
+echo $this->formLabel($form->get('instituicao'))."<br />";
+echo $this->formSelect($form->get('instituicao'))."<br />";
+echo $this->formElementErrors($form->get('instituicao'))."<br />";
+
+echo $this->formInput ($form->get ("submit"));
+echo $this->form()->closeTag();
+?>
+	</div>
+</div>
+<div id="barraBotoes">
+	<button id="cancelar">Cancelar</button>
+	<button id="salvar">Salvar</button>
+</div>

@@ -127,4 +127,3 @@ class AreaController extends ActionController
 		return $this->redirect()->toUrl('/application/area');
 	}
 }
-//teste.

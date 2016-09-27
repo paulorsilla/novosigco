@@ -141,6 +141,9 @@ return array (
 						'Application\Controller\ListaEspera.index',
 						'Application\Controller\ListaEspera.save',
 						'Application\Controller\ListaEspera.delete',
+						'Application\Controller\Turma.index',
+						'Application\Controller\Turma.save',
+						'Application\Controller\Turma.delete',
 				),
 				'privilege' => array (
 						'comum' => array (
@@ -247,6 +250,9 @@ return array (
 										'Application\Controller\ListaEspera.index',
 										'Application\Controller\ListaEspera.save',
 										'Application\Controller\ListaEspera.delete',
+										'Application\Controller\Turma.index',
+										'Application\Controller\Turma.save',
+										'Application\Controller\Turma.delete',
 								) 
 						) 
 				) 
