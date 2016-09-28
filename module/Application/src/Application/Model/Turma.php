@@ -24,7 +24,17 @@ class Turma extends Entity {
 	 * @ORM\GeneratedValue(strategy="AUTO")
 	 */
 	protected $id;
-
+		
+	/**
+	 * @ORM\column(type="string", name="nome")
+	 */
+	protected $nome;
+	
+	/**
+	 * @ORM\column(type="string", name="local")
+	 */
+	protected $local;
+	
 	/**
 	 * @ORM\column(type="decimal", precision=2, name="valor")
 	 */

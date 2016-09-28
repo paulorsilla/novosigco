@@ -3,22 +3,86 @@ use Zend\Form\Element\Submit;
 ?>
 <div id="tituloPagina">Cadastro de Turma</div>
 <div id="tabs">
-<ul>
-<li><a href="#dados">Turma</a></li>
-</ul>
-<div id="dados">
+	<ul>
+		<li><a href="#dados">Turma</a></li>
+	</ul>
+	<div id="dados">
 <?php
 echo $this->form ()->openTag ( $form );
 echo $this->formInput ( $form->get ( 'id' ) );
-
-echo $this->formLabel($form->get('instituicao'))."<br />";
-echo $this->formSelect($form->get('instituicao'))."<br />";
-echo $this->formElementErrors($form->get('instituicao'))."<br />";
-
-echo $this->formInput ($form->get ("submit"));
-echo $this->form()->closeTag();
 ?>
-	</div>
+
+<div id="selecoes">
+			<ul>
+				<li><a href='#dadosTab'><span>Dados</span></a></li>
+				<li><a href='#participantesTab'><span>Participantes</span></a></li>
+				<li><a href='#questionarioTab'><span>Questionário</span></a></li>
+			</ul>
+
+			<br>
+			<div id="dadosTab">
+<?php
+echo $this->formLabel ( $form->get ( 'nome' ) ) . "<br />";
+echo $this->formInput ( $form->get ( 'nome' ) ) . "<br />";
+echo $this->formElementErrors ( $form->get ( 'nome' ) ) . "<br />";
+
+echo $this->formLabel ( $form->get ( 'forma' ) ) . "<br />";
+echo $this->formInput ( $form->get ( 'forma' ) ) . "<br />";
+echo $this->formElementErrors ( $form->get ( 'forma' ) ) . "<br />";
+
+echo $this->formLabel ( $form->get ( 'local' ) ) . "<br />";
+echo $this->formInput ( $form->get ( 'local' ) ) . "<br />";
+echo $this->formElementErrors ( $form->get ( 'local' ) ) . "<br />";
+
+echo $this->formLabel ( $form->get ( 'instituicao' ) ) . "<br />";
+echo $this->formSelect ( $form->get ( 'instituicao' ) ) . "<br />";
+echo $this->formElementErrors ( $form->get ( 'instituicao' ) ) . "<br />";
+
+echo $this->formLabel ( $form->get ( 'instrutor' ) ) . "<br />";
+echo $this->formSelect ( $form->get ( 'instrutor' ) ) . "<br />";
+echo $this->formElementErrors ( $form->get ( 'instrutor' ) ) . "<br />";
+
+echo $this->formLabel ( $form->get ( 'capacitacao' ) ) . "<br />";
+echo $this->formSelect ( $form->get ( 'capacitacao' ) ) . "<br />";
+echo $this->formElementErrors ( $form->get ( 'capacitacao' ) ) . "<br />";
+?>
+
+</div>
+
+
+
+
+
+
+
+			<div id="questionarioTab">
+				<fieldset class="coluna100">
+					<legend>Questionário</legend>
+					<table class="hover" id="tabelaCapacitacoes">
+						<thead>
+							<tr>
+								<th>Perguntas</th>
+								<th>Competências</th>
+								<th>Opções</th>
+							</tr>
+						</thead>
+						<tbody>
+						</tbody>
+					</table>
+					<br>
+					<button id="novaPergunta">Adicionar</button>
+				</fieldset>
+			</div>
+
+
+		</div>
+<?php
+echo $this->formInput ( $form->get ( "submit" ) );
+echo $this->form ()->closeTag ();
+?>
+
+
+</div>
 </div>
 <div id="barraBotoes">
 	<button id="cancelar">Cancelar</button>
