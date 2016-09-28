@@ -35,14 +35,20 @@ class EmpregadoFuncao extends Entity {
 	protected $funcao;
 	
 	/**
-	 * @ORM\Column(type="string", name="data_inicial")
+	 * @ORM\Column(type="datetime", name="data_inicial")
 	 */
 	protected $dataInicial;
 	
 	/**
-	 * @ORM\Column(type="string", name="data_final")
+	 * @ORM\Column(type="datetime", name="data_final")
 	 */
 	protected $dataFinal;
+	
+	/**
+	 * @ORM\Column(type="string")
+	 */
+	protected $cbo;
+	
 	public function getId() {
 		return $this->id;
 	}
@@ -72,5 +78,11 @@ class EmpregadoFuncao extends Entity {
 	}
 	public function setDataFinal($dataFinal) {
 		$this->dataFinal = $dataFinal;
+	}
+	public function getCbo() {
+		return $this->cbo;
+	}
+	public function setCbo($cbo) {
+		$this->cbo = $cbo;
 	}
 }

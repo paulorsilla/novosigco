@@ -60,10 +60,16 @@ class CargoController extends ActionController
 				
         	$cargos = $this->getEntityManager()
                            ->getRepository("Application\Model\Cargo")
-                           ->findBy(array(), array('pce' => 'DESC'));
+                           ->findBy(array(), array('pce' => 'DESC', 'descricao' => 'ASC'));
 			$cargosOption = "<option value=''>Selecione um cargo...</option>";
 			foreach($cargos as $cargo) {
-				$cargosOption .= "<option value='".$cargo->getId()."'>".$cargo->getDescricao()." - ".$cargo->getPce()."</option>";
+				$tituloPce = "";
+				if ($cargo->getPce() >= 2006) {
+					$tituloPce = "PCE";
+				} else if ($cargo->getPce() > 1977) {
+					$tituloPce = "PCS";
+				}
+				$cargosOption .= "<option value='".$cargo->getId()."'>".$cargo->getDescricao()." - ".$tituloPce." ".$cargo->getPce()."</option>";
 			}
 			$response->setContent(\Zend\Json\Json::encode(array('dataType' => 'json',
 					'response' => true,

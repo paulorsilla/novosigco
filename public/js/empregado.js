@@ -96,8 +96,8 @@ $(document).ready(function() {
 					        	"sEmptyTable": ""
 					        },
 					        "columnDefs": [
-					                   { width: "20%", targets: [1, 2, 3] },
-					                   { className: "dt-body-center", targets: [1, 2, 3] }
+					                   { width: "10%", targets: [1, 2, 3, 4 ] },
+					                   { className: "dt-body-center", targets: [1, 2, 3, 4] }
 					               ]
 						});
 
@@ -345,7 +345,7 @@ $(document).ready(function() {
 	
 	var dialogFuncao = $("#modal-funcao").dialog({
 		autoOpen : false,
-		height : 340,
+		height : 350,
 		width : 530,
 		modal : true,
 		buttons : {
@@ -356,6 +356,7 @@ $(document).ready(function() {
 				var funcao = $("#funcao").val();
 				var dataInicial = $("#dataInicialFuncao").val();
 				var dataFinal = $("#dataFinalFuncao").val();
+				var cbo = $("#cbo").val();
 				$.ajax({
 					type: 'POST',
 					dataType: 'json',
@@ -365,6 +366,7 @@ $(document).ready(function() {
 						funcao:funcao,
 						dataInicialFuncao:dataInicial,
 						dataFinalFuncao:dataFinal,
+						cbo:cbo,
 						id:id
 					},
 					success: function(d) {
@@ -614,6 +616,7 @@ $(document).ready(function() {
 		$("#funcao").val("").selectmenu("refresh");
 		$("#dataInicialFuncao").val("");
 		$("#dataFinalFuncao").val("");
+		$("#cbo").val("");
 		dialogFuncao.data('id', -1);
 		dialogFuncao.dialog("open");
 	});
@@ -798,7 +801,7 @@ $(document).ready(function() {
 			success: function(d) {
 				$.each(d.funcoes, function(index, value) {
 					var aux = value.split(";");
-					tabelaFuncoes.row.add([aux[1], aux[2], aux[3], "<button id='editarFuncao_"+aux[0]+"'>Editar</button><button id='excluirFuncao_"+aux[0]+"'>Remover</button>"]).draw();
+					tabelaFuncoes.row.add([aux[1], aux[5], aux[2], aux[3], "<button id='editarFuncao_"+aux[0]+"'>Editar</button><button id='excluirFuncao_"+aux[0]+"'>Remover</button>"]).draw();
 					
 					$("#excluirFuncao_"+aux[0]).button({
 						icons: {
@@ -829,8 +832,9 @@ $(document).ready(function() {
 						e.preventDefault();
 						$("#funcao").val(aux[4]);
 						$("#funcao").selectmenu("refresh");
-						$("#dataInicialFuncao").val(aux[2].replace(/\-/g, '/'));
-						$("#dataFinalFuncao").val(aux[3].replace(/\-/g, '/'));
+						$("#dataInicialFuncao").val(aux[2]);
+						$("#dataFinalFuncao").val(aux[3]);
+						$("#cbo").val(aux[5]);
 						dialogFuncao.data('id', aux[0]).dialog("open");
 					});
 				});
@@ -1089,18 +1093,5 @@ $(document).ready(function() {
 			}
 		});
 	}
-	
-//	$("#anoConclusaoEscolaridade").change(function(){
-//		var now = new Date();
-//		var anoCorrente = now.getFullYear();	
-//		var anoConclusao = parseInt ($(this).val());
-//		if ((anoConclusao != "") && ((anoConclusao <= 1950) || (anoConclusao >= anoCorrente))){
-//			$(this).val("");
-//			$("#mensagem").html("Data inválida");
-//		}
-//	});
-
-	
-	
 	
 });
