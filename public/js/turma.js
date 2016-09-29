@@ -1,5 +1,7 @@
 $(document).ready(function() {
-	var tabelaCap = $("#tabelaCapacitacoes").DataTable({
+	//tabela do questionário
+	var tabelaCap = $("#tabelaQuestionario").DataTable({
+		 "aaSorting": [0, "asc"],
 		 "bInfo": false,
 	      "bFilter": false,
 	      "bLengthChange": false,
@@ -15,8 +17,61 @@ $(document).ready(function() {
 	                 { className: "dt-body-center", targets: [2] }
 	             ]
 	});
+	//tabela de participantes na tela
+	var tabelaParticipantes = $("#tabelaParticipantes").DataTable({
+		  "bInfo": false,
+	      "bFilter": false,
+	      "bLengthChange": false,
+	      "paging": false,
+	      "oLanguage": {
+	      	"sZeroRecords": "",
+	      	"sEmptyTable": ""
+	      },
+	      "columnDefs": [
+	                 { width: "30%", targets: [1] },
+	                 { width: "20%", targets: [4] },
+	                 { width: "10%", targets: [5] },
+	                 { className: "dt-body-center", targets: [2] }
+	             ]
+	});
 
+	//calenadário
+	$("#inicial").datepicker({
+	    dateFormat: 'dd/mm/yy',
+	    dayNames: ['Domingo','Segunda','Terça','Quarta','Quinta','Sexta','Sábado'],
+	    dayNamesMin: ['D','S','T','Q','Q','S','S','D'],
+	    dayNamesShort: ['Dom','Seg','Ter','Qua','Qui','Sex','Sáb','Dom'],
+	    monthNames: ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'],
+	    monthNamesShort: ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'],
+	    nextText: 'Próximo',
+	    prevText: 'Anterior',			
+	    showOn : "button",
+		buttonImage : "/images/calendar.gif",
+		buttonImageOnly : true,
+		buttonText : "Selecione a data",
+		showOtherMonths : true,
+		selectOtherMonths : true
+	});
 	
+	$("input[id='final']").setMask()
+	.datepicker({
+	    dateFormat: 'dd/mm/yy',
+	    dayNames: ['Domingo','Segunda','Terça','Quarta','Quinta','Sexta','Sábado'],
+	    dayNamesMin: ['D','S','T','Q','Q','S','S','D'],
+	    dayNamesShort: ['Dom','Seg','Ter','Qua','Qui','Sex','Sáb','Dom'],
+	    monthNames: ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'],
+	    monthNamesShort: ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'],
+	    nextText: 'Próximo',
+	    prevText: 'Anterior',			
+	    showOn : "button",
+		buttonImage : "/images/calendar.gif",
+		buttonImageOnly : true,
+		buttonText : "Selecione a data",
+		showOtherMonths : true,
+		selectOtherMonths : true
+	});
+	
+	//tabelas
 	$("#tabs").tabs();
 	$("#selecoes").tabs();
 	

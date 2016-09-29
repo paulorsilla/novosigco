@@ -13,7 +13,7 @@ $(document).ready(function() {
                  { className: "dt-body-center", targets: [2] }
              ]
 	});
-	
+	$("#capacitacao").selectmenu();
 	$("#submit").hide();
 	$("#cancelar").button({
 		icons: {

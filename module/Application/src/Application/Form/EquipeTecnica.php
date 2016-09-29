@@ -46,6 +46,7 @@ class EquipeTecnica extends Form {
             'attributes' => array(
                 'style' => 'width: 820px',
                 'required' => true,
+            	'id' => 'lider',
             ),
             'options'    => array(
                 'label'           => 'Líder',
