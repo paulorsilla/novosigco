@@ -96,8 +96,8 @@ $(document).ready(function() {
 	//janela modal para seleção de empregados
 	var dialogEmpregados = $("#modal-participantes").dialog({
 		autoOpen : false,
-		height : 624,
-		width : 924,
+		height : 700,
+		width : 950,
 		modal : true,
 		buttons : {
 			"Concluir" : function(e) {
@@ -117,6 +117,8 @@ $(document).ready(function() {
 		
 		$("#empregados").html(tabelaSelecaoEmpregados);
     	$("#selecaoEmpregados").DataTable({
+    		"pageLength": 15,
+    		"order": [[ 1, "asc" ]],
     		"bLengthChange": false,
     		"bInfo": false,
     	});

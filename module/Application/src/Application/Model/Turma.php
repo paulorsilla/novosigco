@@ -13,7 +13,7 @@ use Doctrine\Common\Collections\ArrayCollection;
  *
  * @category Application
  * @package Model
- *
+ *         
  *          @ORM\Entity
  *          @ORM\Table(name="turma")
  */
@@ -24,7 +24,7 @@ class Turma extends Entity {
 	 * @ORM\GeneratedValue(strategy="AUTO")
 	 */
 	protected $id;
-		
+	
 	/**
 	 * @ORM\column(type="string", name="nome")
 	 */
@@ -39,7 +39,7 @@ class Turma extends Entity {
 	 * @ORM\column(type="decimal", precision=2, name="valor")
 	 */
 	protected $valor;
-
+	
 	/**
 	 * @ORM\column(type="string", name="forma")
 	 */
@@ -49,25 +49,25 @@ class Turma extends Entity {
 	 * @ORM\Column(type="date", name="data_inicial")
 	 */
 	protected $inicial;
-
+	
 	/**
 	 * Refere-se a data final da turma
 	 * @ORM\Column(type="date", name="data_final")
 	 */
 	protected $final;
-
+	
 	/**
 	 * @ORM\ManyToOne(targetEntity="Capacitacao")
 	 * @ORM\JoinColumn(name="capacitacao_id", referencedColumnName="id")
 	 */
 	protected $capacitacao;
-
+	
 	/**
 	 * @ORM\ManyToOne(targetEntity="Instituicao")
 	 * @ORM\JoinColumn(name="instituicao_codigo", referencedColumnName="cod_instituicao")
 	 */
 	protected $instituicao;
-
+	
 	/**
 	 * @ORM\ManyToMany(targetEntity="Empregado")
 	 * @ORM\JoinTable(name="empregado_turma",
@@ -76,7 +76,7 @@ class Turma extends Entity {
 	 * )
 	 */
 	protected $participantes;
-
+	
 	/**
 	 * @ORM\ManyToMany(targetEntity="Instrutor")
 	 * @ORM\JoinTable(name="turma_instrutor",
@@ -85,6 +85,12 @@ class Turma extends Entity {
 	 * )
 	 */
 	protected $instrutores;
+	
+	/**
+	 * @ORM\OneToOne(targetEntity="Empregado")
+	 * @ORM\JoinColumn(name="coordenacao_tecnica", referencedColumnName="cod_func")
+	 */
+	protected $coordenacao;
 	public function __construct() {
 		$this->participantes = new \Doctrine\Common\Collections\ArrayCollection ();
 		$this->instrutores = new \Doctrine\Common\Collections\ArrayCollection ();
@@ -94,6 +100,18 @@ class Turma extends Entity {
 	}
 	public function setId($id) {
 		$this->id = $id;
+	}
+	public function getNome() {
+		return $this->nome;
+	}
+	public function setNome($nome) {
+		$this->nome = $nome;
+	}
+	public function getLocal() {
+		return $this->local;
+	}
+	public function setLocal($local) {
+		$this->local = $local;
 	}
 	public function getValor() {
 		return $this->valor;
@@ -143,39 +161,44 @@ class Turma extends Entity {
 	public function setInstrutores($instrutores) {
 		$this->instrutores = $instrutores;
 	}
+	public function getCoordenacao() {
+		return $this->coordenacao;
+	}
+	public function setCoordenacao($coordenacao) {
+		$this->coordenacao = $coordenacao;
+	}
 	public function getInputFilter() {
 		if (! $this->inputFilter) {
 			$inputFilter = new InputFilter ();
 			$factory = new InputFactory ();
-				
+			
 			$inputFilter->add ( $factory->createInput ( array (
 					'name' => 'id',
-					'required' => false
+					'required' => false 
 			) ) );
-				
+			
 			$inputFilter->add ( $factory->createInput ( array (
 					'name' => 'valor',
 					'required' => true,
 					'validators' => array (
 							array (
-									// 'name' => 'Float',
 									'options' => array (
-											'min' => 2
-									)
-							)
-					)
+											'min' => 2 
+									) 
+							) 
+					) 
 			) ) );
-				
+			
 			$inputFilter->add ( $factory->createInput ( array (
 					'name' => 'instrutores',
 					'required' => true,
 					'filters' => array (
 							array (
-									'name' => 'StripTags'
+									'name' => 'StripTags' 
 							),
 							array (
-									'name' => 'StringTrim'
-							)
+									'name' => 'StringTrim' 
+							) 
 					),
 					'validators' => array (
 							array (
@@ -193,4 +216,6 @@ class Turma extends Entity {
 		}
 		return $this->inputFilter;
 	}
+
+	
 }
