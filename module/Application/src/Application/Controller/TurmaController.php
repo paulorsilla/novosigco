@@ -54,15 +54,23 @@ class TurmaController extends ActionController {
 	public function saveAction() {
 		$form = new TurmaForm ( $this->getEntityManager () );
 		$request = $this->getRequest ();
+		//Hidratar classe
+		$form->setHydrator(new \Zend\Stdlib\Hydrator\ClassMethods(false));
 		if ($request->isPost ()) {
 			$turma = new Turma ();
 			$form->setInputFilter ( $turma->getInputFilter () );
 			$form->setData ( $request->getPost () );
 			if ($form->isValid ()) {
 				$data = $form->getData ();
+				$matriculas = $this->params ()->fromPost ( "matricula" );
 				unset ( $data ['submit'] );
 				if (isset ( $data ['id'] ) && $data ['id'] > 0) {
 					$turma = $this->getEntityManager ()->find ( 'Application\Model\Turma', $data ['id'] );
+					$turma = getMatricula()->clear();
+				}
+				foreach ( $matriculas as $matricula ) {
+					$empregado = $this->getEntityManager ()->find ( "Application\Model\Empregado", $matricula );
+					$turma->getMatricula ()->add ( $empregado);
 				}
 				$turma->setData ( $data );
 				$this->getEntityManager ()->persist ( $turma );
@@ -74,13 +82,14 @@ class TurmaController extends ActionController {
 		if ($id > 0) {
 			$turma = $this->getEntityManager ()->find ( 'Application\Model\Turma', $id );
 			$form->bind ( $turma );
-			$form->get ( 'submit' )->setAttribute ( 'value', 'Edit' );
+			$empregados = $turma->getMatricula();
 		}
 		$renderer = $this->getServiceLocator ()->get ( 'Zend\View\Renderer\PhpRenderer' );
 		$renderer->headScript ()->appendFile ( '/js/jquery.dataTables.min.js' );
 		$renderer->headScript ()->appendFile ( '/js/turma.js' );
 		return new ViewModel ( array (
-				'form' => $form
+				'form' => $form,
+				'empregados' => $empregados
 		) );
 	}
 	/**

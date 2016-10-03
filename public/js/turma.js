@@ -18,7 +18,7 @@ $(document).ready(function() {
 	             ]
 	});
 	//tabela de participantes na tela
-	var tabelaParticipantes = $("#tabelaParticipantes").DataTable({
+	var tabelaEmp = $("#tabelaParticipantes").DataTable({
 		  "bInfo": false,
 	      "bFilter": false,
 	      "bLengthChange": false,
@@ -108,7 +108,7 @@ $(document).ready(function() {
 	        success: function(d) {
 	        	var emp = $.parseJSON(d.empregados);
 	        	$.each(emp, function (index, value){
-	        		empregadosSelecionados.push(value.matricula); //alterado
+	        		empregadosSelecionados.push(value.matricula); 
 	        	});
 	        	adicionaEmpregado();
 	        }
@@ -128,6 +128,15 @@ $(document).ready(function() {
 			primary: "ui-icon-disk",
 		},
 	text: true,
+	});
+	// botões salvar e cancelar
+	$("#cancelar").click(function(e) {
+		e.preventDefault();
+		window.location ="/application/turma";
+	});
+	$("#salvar").click(function(e) {
+		e.preventDefault();
+		$("#submit").click();
 	});
 	
 	//botão "novo" com sinal de +
@@ -181,9 +190,9 @@ $(document).ready(function() {
 		$("#selecaoEmpregados tbody").on('click','tr',function(e){
 			 var matricula = $(this).find("#idEmpregado").val();
 			 $(this).toggleClass('selected');
-			 var indice = empregadosSelecionados.indexOf(matricula); //matricula
+			 var indice = empregadosSelecionados.indexOf(matricula); 
 			 if(indice === -1){
-				 empregadosSelecionados.push(matricula); //matricula
+				 empregadosSelecionados.push(matricula); 
 			 }
 			 else{
 				 empregadosSelecionados.splice(indice, 1);
@@ -213,14 +222,5 @@ $(document).ready(function() {
 				}
 		});
 	}
-	// botões salvar e cancelar
-	$("#cancelar").click(function(e) {
-		e.preventDefault();
-		window.location ="/application/turma";
-	});
-	$("#salvar").click(function(e) {
-		e.preventDefault();
-		$("#submit").click();
-	});
 //fim do documento
 });

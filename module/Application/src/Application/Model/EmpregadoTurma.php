@@ -20,17 +20,17 @@ class EmpregadoTurma extends Entity {
 	/**
 	 * @ORM\Column(type="string" name="empregado_matricula")
 	 */
-	protected $empregado;
+	protected $matricula;
 	
 	/**
 	 * @ORM\Column(type="integer" name="turma_id")
 	 */
 	protected $turma;
-	public function getEmpregado() {
-		return $this->empregado;
+	public function getMatricula() {
+		return $this->metricula;
 	}
-	public function setEmpregado($empregado) {
-		$this->empregado = $empregado;
+	public function setEmpregado($matricula) {
+		$this->matricula = $matricula;
 	}
 	public function getTurma() {
 		return $this->turma;

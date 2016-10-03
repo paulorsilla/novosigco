@@ -91,9 +91,19 @@ class Turma extends Entity {
 	 * @ORM\JoinColumn(name="coordenacao_tecnica", referencedColumnName="cod_func")
 	 */
 	protected $coordenacao;
+	
+	/**
+	 * @ORM\ManyToMany(targetEntity="Empregado")
+	 * @ORM\JoinTable(name="empregado_turma",
+	 * joinColumns={@ORM\JoinColumn(name="turma_id", referencedColumnName="id")},
+	 * inverseJoinColumns={@ORM\JoinColumn(name="empregado_matricula", referencedColumnName="cod_func")}
+	 * )
+	 */
+	protected $matricula;
 	public function __construct() {
 		$this->participantes = new \Doctrine\Common\Collections\ArrayCollection ();
 		$this->instrutores = new \Doctrine\Common\Collections\ArrayCollection ();
+		$this->matricula = new \Doctrine\Common\Collections\ArrayCollection ();
 	}
 	public function getId() {
 		return $this->id;

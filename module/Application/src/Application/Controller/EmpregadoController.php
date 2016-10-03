@@ -74,7 +74,7 @@ class EmpregadoController extends ActionController {
 			$empregados = $qb->getQuery ()->getResult ();
 			$stringEmpregados = '[';
 			foreach ( $empregados as $key => $empregado ) { // array de tipoCompetencia definido na linha 60
-				$stringEmpregados .= '{"matricula": "' . $empregado->getMatricula () . '", "nome": "' . $empregado->getNome () . '"}';
+				$stringEmpregados .= '{"matricula": "' . $empregado->getMatricula () . '", "nome": "' . $empregado->getNome () . '", "ramal": "' . $empregado->getRamal().'"}';
 				if (isset ( $empregados [$key + 1] )) {
 					$stringEmpregados .= ',';
 				}
