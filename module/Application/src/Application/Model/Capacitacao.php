@@ -45,6 +45,11 @@ class Capacitacao extends Entity {
 	 */
 	protected $competencias;
 	
+	/**
+	 * @ORM\OneToOne(targetEntity="ListaEspera", mappedBy="capacitacao")
+	 */
+	protected $listaEspera;
+	
 	// /**
 	// * @ORM\Column(type="integer", name="carga_horaria")
 	// */
@@ -75,6 +80,13 @@ class Capacitacao extends Entity {
 	}
 	public function setCompetencias($competencias) {
 		$this->competencias = $competencias;
+	}
+	public function getListaEspera() {
+		return $this->listaEspera;
+	}
+	public function setListaEspera($listaEspera) {
+		$this->listaEspera = $listaEspera;
+		return $this;
 	}
 	// public function getCargaHoraria() {
 	// return $this->cargaHoraria;
@@ -146,5 +158,4 @@ class Capacitacao extends Entity {
 		}
 		return $this->inputFilter;
 	}
-	
 }

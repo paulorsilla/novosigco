@@ -53,6 +53,7 @@ class TurmaController extends ActionController {
 	}
 	public function saveAction() {
 		$form = new TurmaForm ( $this->getEntityManager () );
+		$empregados = array();
 		$request = $this->getRequest ();
 		//Hidratar classe
 		$form->setHydrator(new \Zend\Stdlib\Hydrator\ClassMethods(false));

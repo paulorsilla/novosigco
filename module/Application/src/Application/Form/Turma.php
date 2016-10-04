@@ -32,10 +32,16 @@ class Turma extends Form {
 		
 		$this->add ( array (
 				'name' => 'forma',
+				'type' => 'Zend\Form\Element\Select', 
 				'attributes' => array (
-						'style' => 'width:780px',
-						'type' => 'text',
-						'required' => false 
+						'id' => 'forma',
+						'style' => 'width:800px',
+						'required' => false,
+						'options' => array(
+							'' => '--- Seleciona uma aplicação ---',
+							'1' => 'À Distância',
+							'2' => 'Presencial',
+						),
 				),
 				'options' => array (
 						'label' => 'Aplicação:' 

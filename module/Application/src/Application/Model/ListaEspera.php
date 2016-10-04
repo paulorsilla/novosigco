@@ -25,7 +25,7 @@ class ListaEspera extends Entity {
 	protected $id;
 	
 	/**
-	 * @ORM\ManyToOne(targetEntity="Capacitacao")
+	 * @ORM\OneToOne(targetEntity="Capacitacao", inversedBy="listaEspera")
 	 * @ORM\JoinColumn(name="capacitacao_id", referencedColumnName="id")
 	 */
 	protected $capacitacao;

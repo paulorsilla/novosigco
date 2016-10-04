@@ -51,9 +51,37 @@ class ListaEsperaController extends ActionController {
 				'esperas' => $espera
 		) );
 	}
+	
+	public function buscalistaesperaAction() {
+		$request = $this->getRequest ();
+		$response = $this->getResponse ();
+		$response->setContent ( \Zend\Json\Json::encode ( array (
+				'dataType' => 'json',
+				'response' => false
+		) ) );
+		if ($request->isPost ()) {
+			$idCapacitacao = $this->params()->fromPost('idCapacitacao');
+			$this->getEntityManager()->find("Application\Model\Capacitacao",$idCapacitacao);
+			$stringEmpregados = '[';
+			foreach ( $empregados as $key => $empregado ) { // array de tipoCompetencia definido na linha 60
+				$stringEmpregados .= '{"matricula": "' . $empregado->getMatricula () . '", "nome": "' . $empregado->getNome () . '", "ramal": "' . $empregado->getRamal().'"}';
+				if (isset ( $empregados [$key + 1] )) {
+					$stringEmpregados .= ',';
+				}
+			}
+			$stringEmpregados .= ']';
+			$response->setContent ( \Zend\Json\Json::encode ( array (
+					'dataType' => 'json',
+					'response' => true,
+					'empregados' => $stringEmpregados
+			) ) );
+		}
+		return $response;
+	}
 
 	public function saveAction() {
 		$form = new ListaEsperaForm ($this->getEntityManager ());
+		$empregados = array();
 		$request = $this->getRequest ();
 		//Hidratar classe
 		$form->setHydrator(new \Zend\Stdlib\Hydrator\ClassMethods(false));

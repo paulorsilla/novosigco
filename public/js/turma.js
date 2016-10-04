@@ -29,8 +29,8 @@ $(document).ready(function() {
 	      },
 	      "columnDefs": [
 	                 { width: "30%", targets: [1] },
-	                 { width: "20%", targets: [4] },
-	                 { width: "10%", targets: [5] },
+	                // { width: "20%", targets: [4] },
+	                // { width: "10%", targets: [5] },
 	                 { className: "dt-body-center", targets: [2] }
 	             ]
 	});
@@ -96,7 +96,7 @@ $(document).ready(function() {
         	tabelaSelecaoEmpregados += "</tbody></table>";
         }
 	});
-
+	
 	//busca empregados, em caso de edição
 	if (listaId > 0) {
 		$.ajax({
@@ -155,6 +155,7 @@ $(document).ready(function() {
 	$("#instituicao").selectmenu();
 	$("#instrutor").selectmenu();
 	$("#coordenacao").selectmenu();
+	$("#forma").selectmenu();
 	
 	//janela modal para seleção de empregados
 	var dialogEmpregados = $("#modal-participantes").dialog({
@@ -222,5 +223,50 @@ $(document).ready(function() {
 				}
 		});
 	}
+	
+	//Janela modal lista de espera
+	var dialogEmpregados = $("#modal-listaEspera").dialog({
+		autoOpen : false,
+		height : 700,
+		width : 950,
+		modal : true,
+		buttons : {
+			"Concluir" : function(e) {
+				e.preventDefault();
+				adicionaEspera();
+    			$(this).dialog("close");
+			}
+		}
+	});
+	$("#novalistaEspera").button({
+		icons : {
+			primary : "ui-icon-plus",
+		},
+	}).on('click', function( e ) {
+		e.preventDefault();
+		esperaSelecionadas = [];
+		
+		$("#esperas").html(tabelaSelecaoParticipantes);
+    	$("#selecaoParticipantes").DataTable({
+    		"pageLength": 15,
+    		"order": [[ 1, "asc" ]],
+    		"bLengthChange": false,
+    		"bInfo": false,
+    	});
+	
+    	dialogEmpregados.dialog("open");
+		$("#selecaoParticipantes tbody").on('click','tr',function(e){
+			 var matricula = $(this).find("#idEmpregado").val();
+			 $(this).toggleClass('selected');
+			 var indice = empregadosSelecionados.indexOf(matricula); 
+			 if(indice === -1){
+				 empregadosSelecionados.push(matricula); 
+			 }
+			 else{
+				 empregadosSelecionados.splice(indice, 1);
+			 }
+		});
+	});	
+	
 //fim do documento
 });
