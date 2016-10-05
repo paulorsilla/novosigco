@@ -61,9 +61,10 @@ class ListaEsperaController extends ActionController {
 		) ) );
 		if ($request->isPost ()) {
 			$idCapacitacao = $this->params()->fromPost('idCapacitacao');
-			$this->getEntityManager()->find("Application\Model\Capacitacao",$idCapacitacao);
+			$capacitacao = $this->getEntityManager()->find("Application\Model\Capacitacao",$idCapacitacao);
+			$empregados = 	$capacitacao->getListaEspera()->getMatricula();
 			$stringEmpregados = '[';
-			foreach ( $empregados as $key => $empregado ) { // array de tipoCompetencia definido na linha 60
+			foreach ( $empregados as $key => $empregado ) { 
 				$stringEmpregados .= '{"matricula": "' . $empregado->getMatricula () . '", "nome": "' . $empregado->getNome () . '", "ramal": "' . $empregado->getRamal().'"}';
 				if (isset ( $empregados [$key + 1] )) {
 					$stringEmpregados .= ',';

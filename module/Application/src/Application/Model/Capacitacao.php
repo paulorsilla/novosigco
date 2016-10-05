@@ -86,7 +86,6 @@ class Capacitacao extends Entity {
 	}
 	public function setListaEspera($listaEspera) {
 		$this->listaEspera = $listaEspera;
-		return $this;
 	}
 	// public function getCargaHoraria() {
 	// return $this->cargaHoraria;

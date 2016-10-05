@@ -77,7 +77,10 @@ $(document).ready(function() {
 	var listaId = $("#id").val();
 	var empregadosSelecionados = [];
 	var empregadosMap = [];
+	var esperasSelecionadas = [];
+	var esperasMap = [];
 	var tabelaSelecaoEmpregados = "<table id='selecaoEmpregados'><thead><tr><th>Matricula</th><th>Nome</th></tr></thead><tbody>";
+	var tabelaSelecaoParticipantes = "<table id='selecaoParticipantes'><thead><tr><th>Matricula</th><th>Nome</th></tr></thead><tbody>";
 	
 	//busca os empregados no banco de dados
 	$.ajax({
@@ -97,6 +100,24 @@ $(document).ready(function() {
         }
 	});
 	
+	//busca listas de esperas
+	$.ajax({
+        type: 'POST',
+        dataType: "json",
+        async: false,
+        url: "/application/lista-espera/buscalistaespera",
+        success: function(d) {
+        	esperas = $.parseJSON(d.esperas);
+        	$.each(esperas, function (index, value){
+        		tabelaSelecaoEmpregados += "<tr><td><input type = 'hidden' id='idEspera' value='"+value.matricula+"'>"+value.matricula+"</td>" +
+				"<td>"+value.nome+"</td>" +
+				"</tr>";
+        		esperasMap[value.matricula] = value.matricula +"&&&"+ value.nome;
+        	});
+        	tabelaSelecaoParticipantes += "</tbody></table>";
+        }
+	});
+	
 	//busca empregados, em caso de edição
 	if (listaId > 0) {
 		$.ajax({
@@ -111,6 +132,23 @@ $(document).ready(function() {
 	        		empregadosSelecionados.push(value.matricula); 
 	        	});
 	        	adicionaEmpregado();
+	        }
+		});
+	}	
+	//busca lista de espera, em caso de edição
+	if (listaId > 0) {
+		$.ajax({
+	        type: 'POST',
+	        dataType: "json",
+	        async: false,
+	        data: {listaId:listaId},
+	        url: "/application/lista-espera/buscalistaespera",
+	        success: function(d) {
+	        	var part = $.parseJSON(d.esperas);
+	        	$.each(part, function (index, value){
+	        		participantesSelecionados.push(value.matricula); 
+	        	});
+	        	adicionaEspera();
 	        }
 		});
 	}	
@@ -225,7 +263,7 @@ $(document).ready(function() {
 	}
 	
 	//Janela modal lista de espera
-	var dialogEmpregados = $("#modal-listaEspera").dialog({
+	var dialogEsperas = $("#modal-listaEspera").dialog({
 		autoOpen : false,
 		height : 700,
 		width : 950,
@@ -244,7 +282,7 @@ $(document).ready(function() {
 		},
 	}).on('click', function( e ) {
 		e.preventDefault();
-		esperaSelecionadas = [];
+		esperasSelecionadas = [];
 		
 		$("#esperas").html(tabelaSelecaoParticipantes);
     	$("#selecaoParticipantes").DataTable({
@@ -254,16 +292,16 @@ $(document).ready(function() {
     		"bInfo": false,
     	});
 	
-    	dialogEmpregados.dialog("open");
+    	dialogEsperas.dialog("open");
 		$("#selecaoParticipantes tbody").on('click','tr',function(e){
-			 var matricula = $(this).find("#idEmpregado").val();
+			 var participantesID = $(this).find("#idEmpregado").val();
 			 $(this).toggleClass('selected');
-			 var indice = empregadosSelecionados.indexOf(matricula); 
-			 if(indice === -1){
-				 empregadosSelecionados.push(matricula); 
+			 var indiceParticipantes = participantesSelecionados.indexOf(participantesID); 
+			 if(indiceParticipantes === -1){
+				participantesSelecionados.push(participantesID); 
 			 }
 			 else{
-				 empregadosSelecionados.splice(indice, 1);
+				participantesSelecionados.splice(indiceParticipantes, 1);
 			 }
 		});
 	});	

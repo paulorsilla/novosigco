@@ -141,6 +141,7 @@ return array (
 						'Application\Controller\ListaEspera.index',
 						'Application\Controller\ListaEspera.save',
 						'Application\Controller\ListaEspera.delete',
+						'Application\Controller\ListaEspera.buscalistaespera',
 						'Application\Controller\Turma.index',
 						'Application\Controller\Turma.save',
 						'Application\Controller\Turma.delete',
@@ -201,6 +202,7 @@ return array (
 										'Application\Controller\Instituicao.buscainstituicaoprincipal',
 										'Application\Controller\Instituicao.save',
 										'Application\Controller\Empregado.deletelotacaoanterior',
+										'Application\Controller\ListaEspera.buscalistaespera',
 								) 
 						),
 						'admin' => array (
