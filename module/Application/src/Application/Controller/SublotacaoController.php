@@ -119,7 +119,7 @@ class SublotacaoController extends ActionController
 	{
 		$id = (int) $this->params()->fromRoute('id', 0);
 		if ($id == 0) {
-			throw new \exception("Código obrigatório");
+			throw new \ErrorException("Código obrigatório");
 		}
 		$sublotacao = $this->getEntityManager()->find('Application\Model\Sublotacao', $id);
 		if ($sublotacao) {

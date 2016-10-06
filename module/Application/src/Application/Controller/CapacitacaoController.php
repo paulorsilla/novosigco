@@ -102,7 +102,7 @@ class CapacitacaoController extends ActionController {
 	public function deleteAction() {
 		$id = ( int ) $this->params ()->fromRoute ( 'id', 0 );
 		if ($id == 0) {
-			throw new \exception ( "Código obrigatório" );
+			throw new \ErrorException ( "Código obrigatório" );
 		}
 		$capacitacao = $this->getEntityManager ()->find ( 'Application\Model\Capacitacao', $id );
 		if ($capacitacao) {

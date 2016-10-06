@@ -5,7 +5,6 @@ use Zend\View\Model\ViewModel;
 use Core\Controller\ActionController;
 use Application\Model\EquipeTecnica;
 use Application\Form\EquipeTecnica as EquipeTecnicaForm;
-use Application\Repository\EmpregadoRepository;
  
 use Doctrine\ORM\EntityManager;
  
@@ -129,7 +128,7 @@ class EquipeTecnicaController extends ActionController
 	{
 		$id = (int) $this->params()->fromRoute('id', 0);
 		if ($id == 0) {
-			throw new \exception("Código obrigatório");
+			throw new \ErrorException("Código obrigatório");
 		}
 		$equipeTecnica = $this->getEntityManager()->find('Application\Model\EquipeTecnica', $id);
 		if ($equipeTecnica) {

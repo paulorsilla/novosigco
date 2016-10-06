@@ -122,7 +122,7 @@ class CargoController extends ActionController
 	{
 		$id = (int) $this->params()->fromRoute('id', 0);
 		if ($id == 0) {
-			throw new \exception("Código obrigatório");
+			throw new \ErrorException("Código obrigatório");
 		}
 		$Cargo = $this->getEntityManager()->find('Application\Model\Cargo', $id);
 		if ($Cargo) {

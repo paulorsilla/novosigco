@@ -120,7 +120,7 @@ class SubareaController extends ActionController
 	{
 		$id = (int) $this->params()->fromRoute('id', 0);
 		if ($id == 0) {
-			throw new \exception("Código obrigatório");
+			throw new \ErrorException("Código obrigatório");
 		}
 		$subarea = $this->getEntityManager()->find('Application\Model\Subarea', $id);
 		if ($subarea) {

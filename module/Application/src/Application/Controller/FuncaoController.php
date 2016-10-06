@@ -117,7 +117,7 @@ class FuncaoController extends ActionController
 	{
 		$id = (int) $this->params()->fromRoute('id', 0);
 		if ($id == 0) {
-			throw new \exception("Código obrigatório");
+			throw new \ErrorException("Código obrigatório");
 		}
 		$funcao = $this->getEntityManager()->find('Application\Model\Funcao', $id);
 		if ($funcao) {

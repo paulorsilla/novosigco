@@ -6,7 +6,6 @@ use Zend\InputFilter\Factory as InputFactory;
 use Zend\InputFilter\InputFilter;
 use Core\Model\Entity;
 use Doctrine\ORM\Mapping as ORM;
-
 /**
  * Entidade Competencia
  *
