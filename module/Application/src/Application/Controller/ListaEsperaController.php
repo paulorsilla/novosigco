@@ -62,6 +62,7 @@ class ListaEsperaController extends ActionController {
 		if ($request->isPost ()) {
 			$idCapacitacao = $this->params()->fromPost('idCapacitacao');
 			$capacitacao = $this->getEntityManager()->find("Application\Model\Capacitacao",$idCapacitacao);
+			error_log($idCapacitacao);
 			$empregados = 	$capacitacao->getListaEspera()->getMatricula();
 			$stringEmpregados = '[';
 			foreach ( $empregados as $key => $empregado ) { 
@@ -128,7 +129,7 @@ class ListaEsperaController extends ActionController {
 	public function deleteAction() {
 		$id = ( int ) $this->params ()->fromRoute ( 'id', 0 );
 		if ($id == 0) {
-			throw new \exception ( "Código obrigatório" );
+			throw new \ErrorException ( "Código obrigatório" );
 		}
 		$espera = $this->getEntityManager ()->find ( 'Application\Model\ListaEspera', $id );
 		if ($espera) {

@@ -100,24 +100,6 @@ $(document).ready(function() {
         }
 	});
 	
-	//busca listas de esperas
-	$.ajax({
-        type: 'POST',
-        dataType: "json",
-        async: false,
-        url: "/application/lista-espera/buscalistaespera",
-        success: function(d) {
-        	esperas = $.parseJSON(d.esperas);
-        	$.each(esperas, function (index, value){
-        		tabelaSelecaoEmpregados += "<tr><td><input type = 'hidden' id='idEspera' value='"+value.matricula+"'>"+value.matricula+"</td>" +
-				"<td>"+value.nome+"</td>" +
-				"</tr>";
-        		esperasMap[value.matricula] = value.matricula +"&&&"+ value.nome;
-        	});
-        	tabelaSelecaoParticipantes += "</tbody></table>";
-        }
-	});
-	
 	//busca empregados, em caso de edição
 	if (listaId > 0) {
 		$.ajax({
@@ -134,24 +116,7 @@ $(document).ready(function() {
 	        	adicionaEmpregado();
 	        }
 		});
-	}	
-	//busca lista de espera, em caso de edição
-	if (listaId > 0) {
-		$.ajax({
-	        type: 'POST',
-	        dataType: "json",
-	        async: false,
-	        data: {listaId:listaId},
-	        url: "/application/lista-espera/buscalistaespera",
-	        success: function(d) {
-	        	var part = $.parseJSON(d.esperas);
-	        	$.each(part, function (index, value){
-	        		participantesSelecionados.push(value.matricula); 
-	        	});
-	        	adicionaEspera();
-	        }
-		});
-	}	
+	}
 	
 	$("#submit").hide();
 
@@ -189,7 +154,31 @@ $(document).ready(function() {
 	
 	
 	//aplicando js nos selects menus
-	$("#capacitacao").selectmenu();
+	$("#capacitacao").selectmenu({
+				change: function(e, ui) {
+					e.preventDefault();
+					tabelaSelecaoParticipantes = "<table id='selecaoParticipantes'><thead><tr><th>Matricula</th><th>Nome</th></tr></thead><tbody>";
+					//busca listas de esperas
+					$.ajax({
+				        type: 'POST',
+				        dataType: "json",
+				        data: {idCapacitacao:$(this).val()},
+				        async: false,
+				        url: "/application/lista-espera/buscalistaespera",
+				        success: function(d) {
+				        	var	empregados = $.parseJSON(d.empregados);
+				        	$.each(empregados, function (index, value){
+				        		tabelaSelecaoParticipantes += "<tr><td><input type = 'hidden' id='idEmpregado' value='"+value.matricula+"'>"+value.matricula+"</td>" +
+								"<td>"+value.nome+"</td>" +
+								"</tr>";
+				        		esperasMap[value.matricula] = value.matricula +"&&&"+ value.nome;
+				        	});
+				        	tabelaSelecaoParticipantes += "</tbody></table>";
+				        }
+					});
+					
+				}
+			});
 	$("#instituicao").selectmenu();
 	$("#instrutor").selectmenu();
 	$("#coordenacao").selectmenu();
@@ -263,6 +252,7 @@ $(document).ready(function() {
 	}
 	
 	//Janela modal lista de espera
+	
 	var dialogEsperas = $("#modal-listaEspera").dialog({
 		autoOpen : false,
 		height : 700,
@@ -270,8 +260,8 @@ $(document).ready(function() {
 		modal : true,
 		buttons : {
 			"Concluir" : function(e) {
-				e.preventDefault();
-				adicionaEspera();
+				e.preventDefault();				
+				adicionaEmpregado();				
     			$(this).dialog("close");
 			}
 		}
@@ -281,9 +271,8 @@ $(document).ready(function() {
 			primary : "ui-icon-plus",
 		},
 	}).on('click', function( e ) {
-		e.preventDefault();
+		e.preventDefault();		
 		esperasSelecionadas = [];
-		
 		$("#esperas").html(tabelaSelecaoParticipantes);
     	$("#selecaoParticipantes").DataTable({
     		"pageLength": 15,
@@ -296,15 +285,16 @@ $(document).ready(function() {
 		$("#selecaoParticipantes tbody").on('click','tr',function(e){
 			 var participantesID = $(this).find("#idEmpregado").val();
 			 $(this).toggleClass('selected');
-			 var indiceParticipantes = participantesSelecionados.indexOf(participantesID); 
+			 var indice = EmpregadosSelecionados.indexOf(participantesID); 
 			 if(indiceParticipantes === -1){
 				participantesSelecionados.push(participantesID); 
 			 }
 			 else{
-				participantesSelecionados.splice(indiceParticipantes, 1);
+				empregadosSelecionados.splice(indice, 1);
 			 }
 		});
-	});	
+	});		
+	
 	
 //fim do documento
 });
