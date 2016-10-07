@@ -62,7 +62,6 @@ class ListaEsperaController extends ActionController {
 		if ($request->isPost ()) {
 			$idCapacitacao = $this->params()->fromPost('idCapacitacao');
 			$capacitacao = $this->getEntityManager()->find("Application\Model\Capacitacao",$idCapacitacao);
-			error_log($idCapacitacao);
 			$empregados = 	$capacitacao->getListaEspera()->getMatricula();
 			$stringEmpregados = '[';
 			foreach ( $empregados as $key => $empregado ) { 

@@ -168,7 +168,7 @@ $(document).ready(function() {
 				        success: function(d) {
 				        	var	empregados = $.parseJSON(d.empregados);
 				        	$.each(empregados, function (index, value){
-				        		tabelaSelecaoParticipantes += "<tr><td><input type = 'hidden' id='idEmpregado' value='"+value.matricula+"'>"+value.matricula+"</td>" +
+				        		tabelaSelecaoParticipantes += "<tr><td><input type = 'hidden' id='idParticipante' value='"+value.matricula+"'>"+value.matricula+"</td>" +
 								"<td>"+value.nome+"</td>" +
 								"</tr>";
 				        		esperasMap[value.matricula] = value.matricula +"&&&"+ value.nome;
@@ -283,7 +283,7 @@ $(document).ready(function() {
 	
     	dialogEsperas.dialog("open");
 		$("#selecaoParticipantes tbody").on('click','tr',function(e){
-			 var participantesID = $(this).find("#idEmpregado").val();
+			 var participantesID = $(this).find("#idParticipante").val();
 			 $(this).toggleClass('selected');
 			 var indice = EmpregadosSelecionados.indexOf(participantesID); 
 			 if(indiceParticipantes === -1){
