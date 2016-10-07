@@ -36,7 +36,7 @@ $(document).ready(function() {
 	});
 
 	//calenadário
-	$("#inicial").datepicker({
+	$("#inicial, #final").datepicker({
 	    dateFormat: 'dd/mm/yy',
 	    dayNames: ['Domingo','Segunda','Terça','Quarta','Quinta','Sexta','Sábado'],
 	    dayNamesMin: ['D','S','T','Q','Q','S','S','D'],
@@ -53,32 +53,33 @@ $(document).ready(function() {
 		selectOtherMonths : true
 	});
 	
-	$("#final").datepicker({
-	    dateFormat: 'dd/mm/yy',
-	    dayNames: ['Domingo','Segunda','Terça','Quarta','Quinta','Sexta','Sábado'],
-	    dayNamesMin: ['D','S','T','Q','Q','S','S','D'],
-	    dayNamesShort: ['Dom','Seg','Ter','Qua','Qui','Sex','Sáb','Dom'],
-	    monthNames: ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'],
-	    monthNamesShort: ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'],
-	    nextText: 'Próximo',
-	    prevText: 'Anterior',			
-	    showOn : "button",
-		buttonImage : "/images/calendar.gif",
-		buttonImageOnly : true,
-		buttonText : "Selecione a data",
-		showOtherMonths : true,
-		selectOtherMonths : true
-	});
+//	$("#final").datepicker({
+//	    dateFormat: 'dd/mm/yy',
+//	    dayNames: ['Domingo','Segunda','Terça','Quarta','Quinta','Sexta','Sábado'],
+//	    dayNamesMin: ['D','S','T','Q','Q','S','S','D'],
+//	    dayNamesShort: ['Dom','Seg','Ter','Qua','Qui','Sex','Sáb','Dom'],
+//	    monthNames: ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'],
+//	    monthNamesShort: ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'],
+//	    nextText: 'Próximo',
+//	    prevText: 'Anterior',			
+//	    showOn : "button",
+//		buttonImage : "/images/calendar.gif",
+//		buttonImageOnly : true,
+//		buttonText : "Selecione a data",
+//		showOtherMonths : true,
+//		selectOtherMonths : true
+//	});
 	
 	//tabelas
 	$("#tabs").tabs();
 	$("#selecoes").tabs();
+	
 	//variaveis referentes a empregado
 	var listaId = $("#id").val();
 	var empregadosSelecionados = [];
 	var empregadosMap = [];
-	var esperasSelecionadas = [];
-	var esperasMap = [];
+//	var esperasSelecionadas = [];
+//	var esperasMap = [];
 	var tabelaSelecaoEmpregados = "<table id='selecaoEmpregados'><thead><tr><th>Matricula</th><th>Nome</th></tr></thead><tbody>";
 	var tabelaSelecaoParticipantes = "<table id='selecaoParticipantes'><thead><tr><th>Matricula</th><th>Nome</th></tr></thead><tbody>";
 	
@@ -100,23 +101,23 @@ $(document).ready(function() {
         }
 	});
 	
-	//busca empregados, em caso de edição
-	if (listaId > 0) {
-		$.ajax({
-	        type: 'POST',
-	        dataType: "json",
-	        async: false,
-	        data: {listaId:listaId},
-	        url: "/application/empregado/buscaempregado",
-	        success: function(d) {
-	        	var emp = $.parseJSON(d.empregados);
-	        	$.each(emp, function (index, value){
-	        		empregadosSelecionados.push(value.matricula); 
-	        	});
-	        	adicionaEmpregado();
-	        }
-		});
-	}
+//	//busca empregados, em caso de edição
+//	if (listaId > 0) {
+//		$.ajax({
+//	        type: 'POST',
+//	        dataType: "json",
+//	        async: false,
+//	        data: {listaId:listaId},
+//	        url: "/application/empregado/buscaempregado",
+//	        success: function(d) {
+//	        	var emp = $.parseJSON(d.empregados);
+//	        	$.each(emp, function (index, value){
+//	        		empregadosSelecionados.push(value.matricula); 
+//	        	});
+//	        	adicionaEmpregado();
+//	        }
+//		});
+//	}
 	
 	$("#submit").hide();
 
@@ -152,7 +153,6 @@ $(document).ready(function() {
 		e.preventDefault();
 	});
 	
-	
 	//aplicando js nos selects menus
 	$("#capacitacao").selectmenu({
 				change: function(e, ui) {
@@ -169,9 +169,8 @@ $(document).ready(function() {
 				        	var	empregados = $.parseJSON(d.empregados);
 				        	$.each(empregados, function (index, value){
 				        		tabelaSelecaoParticipantes += "<tr><td><input type = 'hidden' id='idParticipante' value='"+value.matricula+"'>"+value.matricula+"</td>" +
-								"<td>"+value.nome+"</td>" +
-								"</tr>";
-				        		esperasMap[value.matricula] = value.matricula +"&&&"+ value.nome;
+								"<td>"+value.nome+"</td></tr>";
+				        		empregadosMap[value.matricula] = value.matricula +"&&&"+ value.nome;
 				        	});
 				        	tabelaSelecaoParticipantes += "</tbody></table>";
 				        }
@@ -228,7 +227,7 @@ $(document).ready(function() {
 		});
 	});	
 	
-	function adicionaEmpregado(){	
+	function adicionaEmpregado(){
 		$.each(empregadosSelecionados, function (index, value){
 			var aux = empregadosMap[value].split("&&&");
 			if($("#excluirEmpregado_"+value).length == 0){
@@ -252,7 +251,6 @@ $(document).ready(function() {
 	}
 	
 	//Janela modal lista de espera
-	
 	var dialogEsperas = $("#modal-listaEspera").dialog({
 		autoOpen : false,
 		height : 700,
@@ -260,19 +258,20 @@ $(document).ready(function() {
 		modal : true,
 		buttons : {
 			"Concluir" : function(e) {
-				e.preventDefault();				
-				adicionaEmpregado();				
+				e.preventDefault();
+				adicionaEmpregado();
     			$(this).dialog("close");
 			}
 		}
 	});
+	
 	$("#novalistaEspera").button({
 		icons : {
 			primary : "ui-icon-plus",
 		},
 	}).on('click', function( e ) {
 		e.preventDefault();		
-		esperasSelecionadas = [];
+		empregadosSelecionados = [];
 		$("#esperas").html(tabelaSelecaoParticipantes);
     	$("#selecaoParticipantes").DataTable({
     		"pageLength": 15,
@@ -282,19 +281,19 @@ $(document).ready(function() {
     	});
 	
     	dialogEsperas.dialog("open");
+    	
 		$("#selecaoParticipantes tbody").on('click','tr',function(e){
-			 var participantesID = $(this).find("#idParticipante").val();
+			 var participanteID = $(this).find("#idParticipante").val();
 			 $(this).toggleClass('selected');
-			 var indice = EmpregadosSelecionados.indexOf(participantesID); 
-			 if(indiceParticipantes === -1){
-				participantesSelecionados.push(participantesID); 
+			 var indice = empregadosSelecionados.indexOf(participanteID); 
+			 if(indice === -1){
+				empregadosSelecionados.push(participanteID);
 			 }
 			 else{
 				empregadosSelecionados.splice(indice, 1);
 			 }
 		});
 	});		
-	
 	
 //fim do documento
 });
