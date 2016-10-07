@@ -136,13 +136,13 @@ class Turma extends Entity {
 		$this->forma = $forma;
 	}
 	public function getInicial() {
-		return $this->inicial;
+		return $this->inicial->format ( "d-m-Y" );
 	}
 	public function setInicial($inicial) {
 		$this->inicial = $inicial;
 	}
 	public function getFinal() {
-		return $this->final;
+		return $this->final->format ( "d-m-Y" );
 	}
 	public function setFinal($final) {
 		$this->final = $final;

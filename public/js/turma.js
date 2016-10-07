@@ -33,7 +33,7 @@ $(document).ready(function() {
 	                // { width: "10%", targets: [5] },
 	                 { className: "dt-body-center", targets: [2] }
 	             ]
-	});
+	});	
 
 	//calenadário
 	$("#inicial, #final").datepicker({
@@ -50,7 +50,8 @@ $(document).ready(function() {
 		buttonImageOnly : true,
 		buttonText : "Selecione a data",
 		showOtherMonths : true,
-		selectOtherMonths : true
+		selectOtherMonths : true,
+		DateFormat : ["mm/dd/yyyy"]
 	});
 	
 //	$("#final").datepicker({
@@ -70,6 +71,9 @@ $(document).ready(function() {
 //		selectOtherMonths : true
 //	});
 	
+	//mascara dos calendários:
+	 $('#inicial, #final').mask('00/00/0000');
+	
 	//tabelas
 	$("#tabs").tabs();
 	$("#selecoes").tabs();
@@ -82,7 +86,7 @@ $(document).ready(function() {
 //	var esperasMap = [];
 	var tabelaSelecaoEmpregados = "<table id='selecaoEmpregados'><thead><tr><th>Matricula</th><th>Nome</th></tr></thead><tbody>";
 	var tabelaSelecaoParticipantes = "<table id='selecaoParticipantes'><thead><tr><th>Matricula</th><th>Nome</th></tr></thead><tbody>";
-	
+
 	//busca os empregados no banco de dados
 	$.ajax({
         type: 'POST',
@@ -100,7 +104,7 @@ $(document).ready(function() {
         	tabelaSelecaoEmpregados += "</tbody></table>";
         }
 	});
-	
+
 //	//busca empregados, em caso de edição
 //	if (listaId > 0) {
 //		$.ajax({
@@ -120,7 +124,6 @@ $(document).ready(function() {
 //	}
 	
 	$("#submit").hide();
-
 	$("#cancelar").button({
 		icons: {
 			primary: "ui-icon-close",
@@ -183,6 +186,8 @@ $(document).ready(function() {
 	$("#coordenacao").selectmenu();
 	$("#forma").selectmenu();
 	
+	
+	
 	//janela modal para seleção de empregados
 	var dialogEmpregados = $("#modal-participantes").dialog({
 		autoOpen : false,
@@ -212,7 +217,7 @@ $(document).ready(function() {
     		"bLengthChange": false,
     		"bInfo": false,
     	});
-	
+
     	dialogEmpregados.dialog("open");
 		$("#selecaoEmpregados tbody").on('click','tr',function(e){
 			 var matricula = $(this).find("#idEmpregado").val();
@@ -270,7 +275,12 @@ $(document).ready(function() {
 			primary : "ui-icon-plus",
 		},
 	}).on('click', function( e ) {
-		e.preventDefault();		
+		e.preventDefault();	
+		var capacitacaoID = $("#capacitacao").val();
+		if (capacitacaoID == ""){
+			alert("Selecione uma Capacitação no menu acima");
+			return false;
+		}
 		empregadosSelecionados = [];
 		$("#esperas").html(tabelaSelecaoParticipantes);
     	$("#selecaoParticipantes").DataTable({

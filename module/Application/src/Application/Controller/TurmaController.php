@@ -63,7 +63,13 @@ class TurmaController extends ActionController {
 			$form->setData ( $request->getPost () );
 			if ($form->isValid ()) {
 				$data = $form->getData ();
+				// inicial = data inicial, final = data final
+				$inicial = new \DateTime($this->params()->fromPost("inicial"));
+				$final = new \DateTime($this->params()->fromPost("final"));
 				$matriculas = $this->params ()->fromPost ( "matricula" );
+				unset($data["matricula"]);
+				unset ($data["inicial"]);
+				unset ($data["final"]);
 				unset ( $data ['submit'] );
 				if (isset ( $data ['id'] ) && $data ['id'] > 0) {
 					$turma = $this->getEntityManager ()->find ( 'Application\Model\Turma', $data ['id'] );
@@ -73,6 +79,9 @@ class TurmaController extends ActionController {
 					$empregado = $this->getEntityManager ()->find ( "Application\Model\Empregado", $matricula );
 					$turma->getMatricula ()->add ( $empregado);
 				}
+				$turma->setMatricula($matricula);
+				$turma->setInicial($inicial);
+				$turma->setFinal($final);
 				$turma->setData ( $data );
 				$this->getEntityManager ()->persist ( $turma );
 				$this->getEntityManager ()->flush ();
@@ -88,6 +97,7 @@ class TurmaController extends ActionController {
 		$renderer = $this->getServiceLocator ()->get ( 'Zend\View\Renderer\PhpRenderer' );
 		$renderer->headScript ()->appendFile ( '/js/jquery.dataTables.min.js' );
 		$renderer->headScript ()->appendFile ( '/js/turma.js' );
+		$renderer->headScript ()->appendFile ( '/js/jquery.mask.js' );
 		return new ViewModel ( array (
 				'form' => $form,
 				'empregados' => $empregados
