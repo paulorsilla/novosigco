@@ -179,6 +179,17 @@ $(document).ready(function() {
 				        }
 					});
 					
+					$.ajax({
+				        type: 'POST',
+				        dataType: "json",
+				        data: {idCapacitacao:$(this).val()},
+				        async: false,
+				        url: "/application/capacitacao/buscacompetencias",
+				        success: function(d) {
+				        	alert("Sucesso");
+				        }
+					});
+					
 				}
 			});
 	$("#instituicao").selectmenu();
