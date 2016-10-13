@@ -174,6 +174,15 @@ class Turma extends Form {
 		) );
 		
 		$this->add ( array (
+				'name' => 'questionario',
+				'attributes' => array (
+						'style' => 'width:500',
+						'type' => 'text',
+						'required' => false
+				),
+		) );
+		
+		$this->add ( array (
 				'name' => 'submit',
 				'attributes' => array (
 						'type' => 'submit',

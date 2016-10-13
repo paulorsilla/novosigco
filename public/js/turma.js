@@ -86,7 +86,6 @@ $(document).ready(function() {
 //	var esperasMap = [];
 	var tabelaSelecaoEmpregados = "<table id='selecaoEmpregados'><thead><tr><th>Matricula</th><th>Nome</th></tr></thead><tbody>";
 	var tabelaSelecaoParticipantes = "<table id='selecaoParticipantes'><thead><tr><th>Matricula</th><th>Nome</th></tr></thead><tbody>";
-
 	//busca os empregados no banco de dados
 	$.ajax({
         type: 'POST',
@@ -186,8 +185,11 @@ $(document).ready(function() {
 				        async: false,
 				        url: "/application/capacitacao/buscacompetencias",
 				        success: function(d) {
-				        	alert("Sucesso");
-				        }
+				        	var	questionario = $.parseJSON(d.competencias);
+				        	$.each(competencias, function(index, value){
+				        		$("#tabelaQuestionario tbody").append('<tr><td></td><td></td><td></td></tr>');
+				        	});
+				        }	
 					});
 					
 				}

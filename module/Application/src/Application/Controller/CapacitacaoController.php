@@ -22,11 +22,9 @@ class CapacitacaoController extends ActionController {
 	 * @var Doctrine\ORM\EntityManager
 	 */
 	protected $em;
-	
 	public function setEntityManager(EntityManager $em) {
 		$this->em = $em;
 	}
-	
 	public function getEntityManager() {
 		if (null === $this->em) {
 			$this->em = $this->getServiceLocator ()->get ( 'doctrine.entitymanager.orm_default' );
@@ -52,39 +50,39 @@ class CapacitacaoController extends ActionController {
 				'capacitacoes' => $capacitacoes 
 		) );
 	}
-	
 	public function buscacompetenciasAction() {
 		$request = $this->getRequest ();
 		$response = $this->getResponse ();
 		$response->setContent ( \Zend\Json\Json::encode ( array (
 				'dataType' => 'json',
-				'response' => false
+				'response' => false 
 		) ) );
 		if ($request->isPost ()) {
-			$idCapacitacao = $this->params()->fromPost('idCapacitacao');
+			$idCapacitacao = $this->params ()->fromPost ( 'idCapacitacao' );
 			$capacitacao = $this->getEntityManager ()->find ( "Application\Model\Capacitacao", $idCapacitacao );
+			$competencias = $capacitacao->getCompetencias ();
 			$stringCompetencias = '[';
-			foreach ( $capacitacao->getCompetencias() as $key => $competencia ) { 
-				$stringCompetencias .= '{"id": "' . $competencia->getId () . '", "titulo": "' . $competencia->getTitulo () . '", }';
-				if (isset ( $competencia [$key + 1] )) {
+			foreach ( $competencias as $key => $competencia ) {
+				$stringCompetencias .= '{"id": "' . $competencia->getId () . '", "titulo": "' . $competencia->getTitulo () . '"}';
+				if (isset ( $competencias [$key + 1] )) {
 					$stringCompetencias .= ',';
 				}
 			}
 			$stringCompetencias .= ']';
+			error_log($stringCompetencias);
 			$response->setContent ( \Zend\Json\Json::encode ( array (
 					'dataType' => 'json',
 					'response' => true,
-					'competencias' => $stringCompetencias
+					'competencias' => $stringCompetencias 
 			) ) );
 		}
-	
+		
 		return $response;
 	}
-		
 	public function saveAction() {
 		$form = new CapacitacaoForm ( $this->getEntityManager () );
-		//Hidratação para verificar o nome das classes
-		$form->setHydrator(new \Zend\Stdlib\Hydrator\ClassMethods(false));
+		// Hidratação para verificar o nome das classes
+		$form->setHydrator ( new \Zend\Stdlib\Hydrator\ClassMethods ( false ) );
 		$request = $this->getRequest ();
 		if ($request->isPost ()) {
 			$capacitacao = new Capacitacao ();
@@ -112,19 +110,18 @@ class CapacitacaoController extends ActionController {
 			}
 		}
 		$id = ( int ) $this->params ()->fromRoute ( 'id', 0 );
-		$competencias = array();
+		$competencias = array ();
 		if ($id > 0) {
 			$capacitacao = $this->getEntityManager ()->find ( 'Application\Model\Capacitacao', $id );
 			$form->bind ( $capacitacao );
-			$competencias = $capacitacao->getCompetencias();
-			
+			$competencias = $capacitacao->getCompetencias ();
 		}
 		$renderer = $this->getServiceLocator ()->get ( 'Zend\View\Renderer\PhpRenderer' );
 		$renderer->headScript ()->appendFile ( '/js/jquery.dataTables.min.js' );
 		$renderer->headScript ()->appendFile ( '/js/capacitacao.js' );
 		return new ViewModel ( array (
 				'form' => $form,
-				'competencias' => $competencias
+				'competencias' => $competencias 
 		) );
 	}
 	public function deleteAction() {
