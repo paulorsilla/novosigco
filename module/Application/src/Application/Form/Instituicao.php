@@ -84,7 +84,7 @@ class Instituicao extends Form implements InputFilterProviderInterface {
 						'id' => 'cidade' 
 				),
 				'options' => array (
-						'label' => 'Cidade:' 
+						'label' => 'Cidade:*' 
 				) 
 		) );
 		
@@ -97,7 +97,7 @@ class Instituicao extends Form implements InputFilterProviderInterface {
 						'id' => 'pais' 
 				),
 				'options' => array (
-						'label' => 'País:' 
+						'label' => 'País:*' 
 				) 
 		) );
 		
@@ -106,12 +106,12 @@ class Instituicao extends Form implements InputFilterProviderInterface {
 				'attributes' => array (
 						'type' => 'text',
 						'style' => 'width:800px',
-						'required' => true, 
+						'required' => false, 
 						'type' => 'Zend\Form\Element\Email',
 						'id' => 'email' 
 				),
 				'options' => array (
-						'label' => 'Email:*' 
+						'label' => 'Email:' 
 				) 
 		) );
 		
@@ -137,7 +137,7 @@ class Instituicao extends Form implements InputFilterProviderInterface {
 						'id' => 'fantasia' 
 				),
 				'options' => array (
-						'label' => 'Nome Fantasia:' 
+						'label' => 'Nome Fantasia:*' 
 				) 
 		) );
 		
@@ -150,7 +150,7 @@ class Instituicao extends Form implements InputFilterProviderInterface {
 						'id' => 'inscricaoEstadual' 
 				),
 				'options' => array (
-						'label' => 'Inscrição Estadual:*' 
+						'label' => 'Inscrição Estadual:' 
 				) 
 		) );
 		
@@ -163,7 +163,7 @@ class Instituicao extends Form implements InputFilterProviderInterface {
 						'id' => 'bairro' 
 				),
 				'options' => array (
-						'label' => 'Bairro:' 
+						'label' => 'Bairro:*' 
 				) 
 		) );
 		
@@ -176,7 +176,7 @@ class Instituicao extends Form implements InputFilterProviderInterface {
 						'id' => 'cep' 
 				),
 				'options' => array (
-						'label' => 'CEP:' 
+						'label' => 'CEP:*' 
 				) 
 		) );
 		
@@ -189,7 +189,7 @@ class Instituicao extends Form implements InputFilterProviderInterface {
 						'id' => 'uf' 
 				),
 				'options' => array (
-						'label' => 'UF:',
+						'label' => 'UF:*',
 						'options' => \Admin\Model\Util::getEstadosBr () 
 				) 
 		) );
@@ -203,7 +203,7 @@ class Instituicao extends Form implements InputFilterProviderInterface {
 						'id' => 'telefone' 
 				),
 				'options' => array (
-						'label' => 'Telefone:' 
+						'label' => 'Telefone:*' 
 				) 
 		) );
 		
