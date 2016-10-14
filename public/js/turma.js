@@ -159,6 +159,7 @@ $(document).ready(function() {
 	$("#capacitacao").selectmenu({
 				change: function(e, ui) {
 					e.preventDefault();
+					$("#tabelaQuestionario tbody").html("");
 					tabelaSelecaoParticipantes = "<table id='selecaoParticipantes'><thead><tr><th>Matricula</th><th>Nome</th></tr></thead><tbody>";
 					//busca listas de esperas
 					$.ajax({
@@ -186,8 +187,8 @@ $(document).ready(function() {
 				        url: "/application/capacitacao/buscacompetencias",
 				        success: function(d) {
 				        	var	questionario = $.parseJSON(d.competencias);
-				        	$.each(competencias, function(index, value){
-				        		$("#tabelaQuestionario tbody").append('<tr><td></td><td></td><td></td></tr>');
+				        	$.each(questionario, function(index, value){
+				        		$("#tabelaQuestionario tbody").append('<tr><td><input type="text"></td><td>'+value.titulo+'</td><td></td></tr>');
 				        	});
 				        }	
 					});
