@@ -69,7 +69,6 @@ class CapacitacaoController extends ActionController {
 				}
 			}
 			$stringCompetencias .= ']';
-			error_log($stringCompetencias);
 			$response->setContent ( \Zend\Json\Json::encode ( array (
 					'dataType' => 'json',
 					'response' => true,

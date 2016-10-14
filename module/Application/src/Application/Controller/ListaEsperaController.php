@@ -31,7 +31,7 @@ class ListaEsperaController extends ActionController {
 		}
 		return $this->em;
 	}
-
+	
 	/**
 	 * Mostram listas cadastradas
 	 *
@@ -39,55 +39,56 @@ class ListaEsperaController extends ActionController {
 	 */
 	public function indexAction() {
 		$espera = $this->getEntityManager ()->getRepository ( "Application\Model\ListaEspera" )->findAll ( array (), array (
-				'capacitacao' => 'ASC'
+				'capacitacao' => 'ASC' 
 		) );
-	
+		
 		// adiciona os arquivos indexcomum.js e jquery.dataTable.min.js
 		// ao head da página
 		$renderer = $this->getServiceLocator ()->get ( 'Zend\View\Renderer\PhpRenderer' );
 		$renderer->headScript ()->appendFile ( '/js/jquery.dataTables.min.js' );
 		$renderer->headScript ()->appendFile ( '/js/indexcomum.js' );
 		return new ViewModel ( array (
-				'esperas' => $espera
+				'esperas' => $espera 
 		) );
 	}
-	
 	public function buscalistaesperaAction() {
 		$request = $this->getRequest ();
 		$response = $this->getResponse ();
 		$response->setContent ( \Zend\Json\Json::encode ( array (
 				'dataType' => 'json',
-				'response' => false
+				'response' => false 
 		) ) );
 		if ($request->isPost ()) {
-			$idCapacitacao = $this->params()->fromPost('idCapacitacao');
-			$capacitacao = $this->getEntityManager()->find("Application\Model\Capacitacao",$idCapacitacao);
-			$empregados = 	$capacitacao->getListaEspera()->getMatricula();
-			$stringEmpregados = '[';
-			foreach ( $empregados as $key => $empregado ) { 
-				$stringEmpregados .= '{"matricula": "' . $empregado->getMatricula () . '", "nome": "' . $empregado->getNome () . '", "ramal": "' . $empregado->getRamal().'"}';
-				if (isset ( $empregados [$key + 1] )) {
-					$stringEmpregados .= ',';
+			$idCapacitacao = $this->params ()->fromPost ( 'idCapacitacao' );
+			$capacitacao = $this->getEntityManager ()->find ( "Application\Model\Capacitacao", $idCapacitacao );
+			//if para verificar se a capacitacao existe e se a lista de espera não está em branco
+			if ((null != $capacitacao) && (null != $capacitacao->getListaEspera ())) {
+				$empregados = $capacitacao->getListaEspera ()->getMatricula ();
+				$stringEmpregados = '[';
+				foreach ( $empregados as $key => $empregado ) {
+					$stringEmpregados .= '{"matricula": "' . $empregado->getMatricula () . '", "nome": "' . $empregado->getNome () . '", "ramal": "' . $empregado->getRamal () . '"}';
+					if (isset ( $empregados [$key + 1] )) {
+						$stringEmpregados .= ',';
+					}
 				}
+				$stringEmpregados .= ']';
+				$response->setContent ( \Zend\Json\Json::encode ( array (
+						'dataType' => 'json',
+						'response' => true,
+						'empregados' => $stringEmpregados 
+				) ) );
 			}
-			$stringEmpregados .= ']';
-			$response->setContent ( \Zend\Json\Json::encode ( array (
-					'dataType' => 'json',
-					'response' => true,
-					'empregados' => $stringEmpregados
-			) ) );
 		}
 		return $response;
 	}
-
 	public function saveAction() {
-		$form = new ListaEsperaForm ($this->getEntityManager ());
-		$empregados = array();
+		$form = new ListaEsperaForm ( $this->getEntityManager () );
+		$empregados = array ();
 		$request = $this->getRequest ();
-		//Hidratar classe
-		$form->setHydrator(new \Zend\Stdlib\Hydrator\ClassMethods(false));
+		// Hidratar classe
+		$form->setHydrator ( new \Zend\Stdlib\Hydrator\ClassMethods ( false ) );
 		if ($request->isPost ()) {
-			$espera = new ListaEspera();
+			$espera = new ListaEspera ();
 			$form->setInputFilter ( $espera->getInputFilter () );
 			$form->setData ( $request->getPost () );
 			if ($form->isValid ()) {
@@ -101,10 +102,10 @@ class ListaEsperaController extends ActionController {
 					$espera->getMatricula ()->clear ();
 				}
 				$espera->setData ( $data );
-				$espera->setCapacitacao ( $capacitacao);
+				$espera->setCapacitacao ( $capacitacao );
 				foreach ( $matriculas as $matricula ) {
 					$empregado = $this->getEntityManager ()->find ( "Application\Model\Empregado", $matricula );
-					$espera->getMatricula ()->add ( $empregado);
+					$espera->getMatricula ()->add ( $empregado );
 				}
 				$this->getEntityManager ()->persist ( $espera );
 				$this->getEntityManager ()->flush ();
@@ -114,15 +115,15 @@ class ListaEsperaController extends ActionController {
 		$id = ( int ) $this->params ()->fromRoute ( 'id', 0 );
 		if ($id > 0) {
 			$espera = $this->getEntityManager ()->find ( 'Application\Model\ListaEspera', $id );
-			$form->bind ( $espera);
-			$empregados = $espera->getMatricula();
+			$form->bind ( $espera );
+			$empregados = $espera->getMatricula ();
 		}
 		$renderer = $this->getServiceLocator ()->get ( 'Zend\View\Renderer\PhpRenderer' );
 		$renderer->headScript ()->appendFile ( '/js/jquery.dataTables.min.js' );
 		$renderer->headScript ()->appendFile ( '/js/listaEspera.js' );
 		return new ViewModel ( array (
 				'form' => $form,
-				'empregados' => $empregados
+				'empregados' => $empregados 
 		) );
 	}
 	public function deleteAction() {
@@ -137,5 +138,4 @@ class ListaEsperaController extends ActionController {
 		}
 		return $this->redirect ()->toUrl ( '/application/lista-espera' );
 	}
-
 }
