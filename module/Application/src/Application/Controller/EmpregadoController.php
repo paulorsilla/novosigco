@@ -70,7 +70,8 @@ class EmpregadoController extends ActionController {
 		) ) );
 		if ($request->isPost ()) {
 			$qb = $this->getEntityManager ()->createQueryBuilder ();
-			$qb->select ( 'e' )->from ( 'Application\Model\Empregado', 'e' )->where ( 'e.matricula < 500000' )->andWhere ( 'e.ativo = :ativo' )->setParameter ( "ativo", "S" )->orderby ( 'e.nome' );
+			//$qb->select ( 'e' )->from ( 'Application\Model\Empregado', 'e' )->where ( 'e.matricula < 500000' )->andWhere ( 'e.ativo = :ativo' )->setParameter ( "ativo", "S" )->orderby ( 'e.nome' );
+			$qb->select ( 'e' )->from ( 'Application\Model\Empregado', 'e' )->where ( 'e.ativo = :ativo' )->setParameter ( "ativo", "S" )->orderby ( 'e.nome' );
 			$empregados = $qb->getQuery ()->getResult ();
 			$stringEmpregados = '[';
 			foreach ( $empregados as $key => $empregado ) { // array de tipoCompetencia definido na linha 60
