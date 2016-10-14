@@ -1,0 +1,77 @@
+<div id="tituloPagina">Cadastro de Comissões/Comitês/Grupos<br/><br/>Comissões/Comitês/Grupos cadastradas</div>
+
+
+<table class="hover" id="consulta">
+<thead>
+<tr>
+<th style="text-align: left;">Numero OS</th>
+<th style="text-align: left;">Ano</th>
+<th style="text-align: left;">Descriçao</th>
+<th width="90" class="center">Opções</th>
+</tr>
+</thead>
+<tbody>
+
+<?php foreach($comissoes as $comissoes):?>
+		<tr>
+		<td id="numeroOs"><?php echo $this->escapeHtml($comissoes->getNumeroOs());?></td>
+		<td><?php echo $this->escapeHtml($comissoes->getAno());?></td>
+		<td><?php echo $this->escapeHtml(substr($comissoes->getDescricao(),0,100).
+					"...");?></td>
+			<td style="text-align:center">
+				<a href="/application/comissoes/save/id/<?php echo $comissoes->getId();?>"><span title="Editar" class="ui-icon ui-icon-pencil"/></a>
+				<a href="/application/comissoes/delete/id/<?php echo $comissoes->getId();?>" id="excluir"><span title="Excluir" class="ui-icon ui-icon-trash"/></a>
+			</td> 
+		</tr>
+	<?php endforeach;?>
+</table>
+<div id="barraBotoes">
+	<button id="novo">Novo...</button>
+</div>
+<div id="dialog-form" title="Confirmar exclusão">
+	<p id="texto"/>
+</div>
+
+<script>
+	$("#novo").button({
+		icons: {
+			primary: "ui-icon-plus",
+		},
+	text: true,
+	});
+	$("#novo").click(function(e) {
+		e.preventDefault();
+		window.location ="/application/comissoes/save";
+	});
+	
+    $("input[type=submit], a" ).button();
+
+    $("a#excluir").on("click", function(e) {
+        e.preventDefault();
+        var link = $(this).attr('href');
+        var nome = $(this).closest('tr').find('#numeroOs').text();
+        $("#texto").html("Deseja realmente excluir '"+nome+"'?");
+        $("#dialog-form").data("link", link);
+        $("#dialog-form").dialog("open");
+    });
+
+     $( "#dialog-form" ).dialog({
+		dialogClass: 'no-close',
+        autoOpen: false,
+        resizable: false,
+        draggable: false,
+        height: 200,
+        width: 300,
+        modal: true,
+        buttons: {
+        		"Sim": function() {
+        		var link = $(this).data("link");
+            	window.location = link;
+         	  },
+     			"Não": function() {
+         		$(this).dialog("close");
+         	}
+	}
+    });
+   
+</script>

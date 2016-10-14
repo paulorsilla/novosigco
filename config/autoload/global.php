@@ -84,6 +84,9 @@ return array (
 						'Application\Controller\Cargo.index',
 						'Application\Controller\Cargo.save',
 						'Application\Controller\Cargo.delete',
+						'Application\Controller\Comissoes.index',
+						'Application\Controller\Comissoes.save',
+						'Application\Controller\Comissoes.delete',
 						'Application\Controller\Cargo.buscacargos',
 						'Application\Controller\Competencia.index',
 						'Application\Controller\Competencia.save',
@@ -205,6 +208,9 @@ return array (
 										'Application\Controller\Instituicao.save',
 										'Application\Controller\Empregado.deletelotacaoanterior',
 										'Application\Controller\ListaEspera.buscalistaespera',
+										'Application\Controller\Comissoes.index',
+										'Application\Controller\Comissoes.save',
+										'Application\Controller\Comissoes.delete',
 								) 
 						),
 						'admin' => array (

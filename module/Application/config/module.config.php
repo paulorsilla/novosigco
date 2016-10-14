@@ -81,6 +81,7 @@ return array(
 					'Application\Controller\CapacitacaoTipo'       	 => 'Application\Controller\CapacitacaoTipoController',
 					'Application\Controller\Competencia'             => 'Application\Controller\CompetenciaController',
 					'Application\Controller\CompetenciaTipo'         => 'Application\Controller\CompetenciaTipoController',
+					'Application\Controller\Comissoes'       		 => 'Application\Controller\ComissoesController',
 		            'Application\Controller\EquipeTecnica' 			 => 'Application\Controller\EquipeTecnicaController',
 		            'Application\Controller\Escolaridade' 			 => 'Application\Controller\EscolaridadeController',
 					'Application\Controller\Instrutor'    		 	 => 'Application\Controller\InstrutorController',

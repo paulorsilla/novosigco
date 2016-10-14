@@ -1,0 +1,64 @@
+<?php
+use Zend\Form\Element\Submit;
+?>
+<div id="tituloPagina">Cadastro de Comissões/Comitês/Grupos</div>
+<div id="tabs">
+	<ul>
+		<li><a href="#dados">Comissões/Comitês/Grupos</a></li>
+	</ul>
+	<div id="dados">
+<?php
+echo $this->form ()->openTag ( $form );
+echo $this->formInput ( $form->get ( 'id' ) );
+
+echo $this->formLabel ( $form->get ( 'numeroOs' ) ) . "<br />";
+echo $this->formInput ( $form->get ( 'numeroOs' ) ) . "<br />";
+echo $this->formElementErrors ( $form->get ( 'numeroOs' ) ) . "<br />";
+
+echo $this->formLabel ( $form->get ( 'ano' ) ) . "<br />";
+echo $this->formInput ( $form->get ( 'ano' ) ) . "<br />";
+echo $this->formElementErrors ( $form->get ( 'ano' ) ) . "<br />";
+
+echo $this->formLabel ( $form->get ( 'descricao' ) ) . "<br />";
+echo $this->formTextarea ( $form->get ( 'descricao' ) ) . "<br />";
+echo $this->formElementErrors ( $form->get ( 'descricao' ) ) . "<br />";
+
+echo $this->formInput ( $form->get ( "submit" ) );
+echo $this->form ()->closeTag ();
+?>
+</div>
+</div>
+<div id="barraBotoes">
+	<button id="cancelar">Cancelar</button>
+	<button id="salvar">Salvar</button>
+</div>
+<script>
+$("#submit").hide();
+$("#cancelar").button({
+	icons: {
+		primary: "ui-icon-close",
+	},
+	text: true,
+});
+
+$('#ano').mask('0000');
+	$("#salvar").button({
+		icons: {
+			primary: "ui-icon-disk",
+		},
+		text: true,
+	});
+
+		$("#cancelar").click(function(e) {
+			e.preventDefault();
+			window.location ="/application/comissoes";
+		});
+
+			$("#salvar").click(function(e) {
+				e.preventDefault();
+				$("#submit").click();
+			});
+
+				$("#tabs").tabs();
+
+				</script>
