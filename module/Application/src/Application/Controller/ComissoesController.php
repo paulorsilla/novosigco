@@ -55,18 +55,20 @@ class ComissoesController extends ActionController {
 		// Hidratação para verificar o nome das classes
 		$form->setHydrator ( new \Zend\Stdlib\Hydrator\ClassMethods ( false ) );
 		$request = $this->getRequest ();
-		$comissoes = null;
 		if ($request->isPost ()) {
 			$comissoes = new Comissoes ();
 			$form->setInputFilter ( $comissoes->getInputFilter () );
 			$form->setData ( $request->getPost () );
 			if ($form->isValid ()) {
 				$data = $form->getData ();
-				unset ( $data ['submit'] );
+				$ano = new \DateTime($this->params()->fromPost("ano"));
+				unset ($data["ano"]);
+				unset ($data["submit"]);
 				if (isset ( $data ['id'] ) && $data ['id'] > 0) {
 					$comissoes = $this->getEntityManager ()->find ( 'Application\Model\Comissoes', $data ['id'] );
 				}
 				$comissoes->setData ( $data );
+				$comissoes->setAno($ano);	
 				$this->getEntityManager ()->persist ( $comissoes );
 				$this->getEntityManager ()->flush ();
 				return $this->redirect ()->toUrl ( '/application/comissoes' );
@@ -76,6 +78,8 @@ class ComissoesController extends ActionController {
 		if ($id > 0) {
 			$comissoes = $this->getEntityManager ()->find ( 'Application\Model\Comissoes', $id );
 			$form->bind ( $comissoes );
+			$form->get('ano') ->setAttribute( 'value', $comissoes->getAno());
+			$form->get ( 'submit' )->setAttribute ( 'value', 'Edit' );
 		}
 		$renderer = $this->getServiceLocator ()->get ( 'Zend\View\Renderer\PhpRenderer' );
 		$renderer->headScript ()->appendFile ( '/js/jquery.dataTables.min.js' );

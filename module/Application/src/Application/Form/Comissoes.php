@@ -36,12 +36,33 @@ class Comissoes extends Form {
 				'name' => 'ano',
 				'attributes' => array (
 						'required' => true,
-						'style' => 'width:800px',
+						'style' => 'width:100px',
 						'type' => 'text',
 						'id' => 'ano' 
 				),
 				'options' => array (
 						'label' => 'Ano:*' 
+				) 
+		) );
+		
+		$this->add ( array (
+				'type' => 'Zend\Form\Element\Select',
+				'name' => 'nivel',
+				'attributes' => array(
+						'required' => true,
+						'style' => 'width:818px',
+						'id' => 'nivel',
+				),
+				'options' => array (
+						'label' => 'Nível:*',
+						'empty_option' => ' --- Selecione um nível ---* ',
+						'value_options' => array (
+								'Presidente' => 'Presidente',
+								'Coorndeador' => 'Coorndeador',
+								'Secretário' => 'Secretário',
+								'Membro' => 'Membro',
+								'Suplente' => 'Suplente' 
+						) 
 				) 
 		) );
 		
@@ -55,7 +76,7 @@ class Comissoes extends Form {
 						'required' => false 
 				),
 				'options' => array (
-						'label' => 'descricao:*' 
+						'label' => 'Descricao:*' 
 				) 
 		) );
 		$this->add ( array (
