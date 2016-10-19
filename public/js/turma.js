@@ -12,8 +12,8 @@ $(document).ready(function() {
 	      	"sEmptyTable": ""
 	      },
 	      "columnDefs": [
-	                 { width: "60%", targets: [0] },
-	                 { width: "30%", targets: [1] },
+	                 { width: "30%", targets: [0] },
+	                 { width: "60%", targets: [1] },
 	                 { width: "10%", targets: [2] },
 	                 { className: "dt-body-center", targets: [2] }
 	             ]

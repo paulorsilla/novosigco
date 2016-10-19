@@ -11,10 +11,6 @@ use Zend\Form\Element\Submit;
 echo $this->form ()->openTag ( $form );
 echo $this->formInput ( $form->get ( 'id' ) );
 
-echo $this->formLabel ( $form->get ( 'nivel' ) ) . "<br />";
-echo $this->formSelect ( $form->get ( 'nivel' ) ) . "<br />";
-echo $this->formElementErrors ( $form->get ( 'nivel' ) ) . "<br />";
-
 echo $this->formLabel ( $form->get ( 'numeroOs' ) ) . "<br />";
 echo $this->formInput ( $form->get ( 'numeroOs' ) ) . "<br />";
 echo $this->formElementErrors ( $form->get ( 'numeroOs' ) ) . "<br />";

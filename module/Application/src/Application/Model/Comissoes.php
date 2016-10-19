@@ -24,10 +24,10 @@ class Comissoes extends Entity {
 	 */
 	protected $id;
 	
-	/**
-	 * @ORM\column(type="string", name="nivel")
-	 */
-	protected $nivel;
+// 	/**
+// 	 * @ORM\column(type="string", name="nivel")
+// 	 */
+// 	protected $nivel;
 	
 	/**
 	 * @ORM\column(type="string", name="numero_os")
@@ -49,12 +49,12 @@ class Comissoes extends Entity {
 	public function setId($id) {
 		$this->id = $id;
 	}
-	public function getNivel() {
-		return $this->nivel;
-	}
-	public function setNivel($nivel) {
-		$this->nivel = $nivel;
-	}
+// 	public function getNivel() {
+// 		return $this->nivel;
+// 	}
+// 	public function setNivel($nivel) {
+// 		$this->nivel = $nivel;
+// 	}
 	public function getNumeroOs() {
 		return $this->numeroOs;
 	}

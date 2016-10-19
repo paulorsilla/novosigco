@@ -6,7 +6,6 @@
 <tr>
 <th style="text-align: left;">Numero OS</th>
 <th style="text-align: left;">Ano</th>
-<th style="text-align: left;">Nível</th>
 <th style="text-align: left;">Descriçao</th>
 <th width="90" class="center">Opções</th>
 </tr>
@@ -17,7 +16,6 @@
 		<tr>
 		<td id="numeroOs"><?php echo $this->escapeHtml($comissoes->getNumeroOs());?></td>
 		<td><?php echo $this->escapeHtml($comissoes->getAno());?></td>
-		<td><?php echo $this->escapeHtml($comissoes->getNivel())?></td>
 		<td><?php echo $this->escapeHtml(substr($comissoes->getDescricao(),0,100).
 					"...");?></td>
 			<td style="text-align:center">
