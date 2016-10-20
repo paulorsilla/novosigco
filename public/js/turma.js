@@ -192,7 +192,6 @@ $(document).ready(function() {
 				        	});
 				        }	
 					});
-					
 				}
 			});
 	$("#instituicao").selectmenu();
