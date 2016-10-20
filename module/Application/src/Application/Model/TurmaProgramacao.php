@@ -6,7 +6,6 @@ use Zend\InputFilter\Factory as InputFactory;
 use Zend\InputFilter\InputFilter;
 use Core\Model\Entity;
 use Doctrine\ORM\Mapping as ORM;
-use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Entidade Turma Programacao
@@ -17,7 +16,6 @@ use Doctrine\Common\Collections\ArrayCollection;
  *          @ORM\Entity
  *          @ORM\Table(name="turma_programacao")
  */
-
 class TurmaProgramacao extends Entity {
 	/**
 	 * @ORM\Id
@@ -28,7 +26,7 @@ class TurmaProgramacao extends Entity {
 	
 	/**
 	 * @ORM\Column(type="date", name="data_realizacao")
-	 */	
+	 */
 	protected $dataRealizacao;
 	
 	/**
@@ -37,7 +35,7 @@ class TurmaProgramacao extends Entity {
 	protected $horaInicial;
 	
 	/**
-	 *@ORM\Column(type=string", name="hora_final") 
+	 * @ORM\Column(type=string", name="hora_final")
 	 */
 	protected $horaFinal;
 	
@@ -45,7 +43,11 @@ class TurmaProgramacao extends Entity {
 	 * @ORM\Column(type="string", name="local")
 	 */
 	protected $local;
-	
+	/**
+	 * @ORM\ManyToOne(targetEntity="Turma", inversedBy="programacao")
+	 * @ORM\JoinColumn(name="turma_id", referencedColumnName="id")
+	 */
+	protected $turma;
 	public function getId() {
 		return $this->id;
 	}
@@ -76,9 +78,45 @@ class TurmaProgramacao extends Entity {
 	public function setLocal($local) {
 		$this->local = $local;
 	}
-	
-	
-	
-	
-	
+	public function getTurma() {
+		return $this->turma;
+	}
+	public function setTurma($turma) {
+		$this->turma = $turma;
+	}
+	public function getInputFilter() {
+		if (! $this->inputFilter) {
+			$inputFilter = new InputFilter ();
+			$factory = new InputFactory ();
+			
+			$inputFilter->add ( $factory->createInput ( array (
+					'name' => 'id',
+					'required' => false 
+			) ) );
+			$inputFilter->add ( $factory->createInput ( array (
+					'name' => 'local',
+					'required' => true,
+					'filters' => array (
+							array (
+									'name' => 'StripTags' 
+							),
+							array (
+									'name' => 'StringTrim' 
+							) 
+					),
+					'validators' => array (
+							array (
+									'name' => 'StringLength',
+									'options' => array (
+											'encoding' => 'UTF-8',
+											'min' => 4,
+											'max' => 200 
+									) 
+							) 
+					) 
+			) ) );
+			$this->inputFilter = $inputFilter;
+		}
+		return $this->inputFilter;
+	}
 }

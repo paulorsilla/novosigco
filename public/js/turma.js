@@ -56,23 +56,6 @@ $(document).ready(function() {
 		DateFormat : ["mm/dd/yyyy"]
 	});
 	
-//	$("#final").datepicker({
-//	    dateFormat: 'dd/mm/yy',
-//	    dayNames: ['Domingo','Segunda','Terça','Quarta','Quinta','Sexta','Sábado'],
-//	    dayNamesMin: ['D','S','T','Q','Q','S','S','D'],
-//	    dayNamesShort: ['Dom','Seg','Ter','Qua','Qui','Sex','Sáb','Dom'],
-//	    monthNames: ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'],
-//	    monthNamesShort: ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'],
-//	    nextText: 'Próximo',
-//	    prevText: 'Anterior',			
-//	    showOn : "button",
-//		buttonImage : "/images/calendar.gif",
-//		buttonImageOnly : true,
-//		buttonText : "Selecione a data",
-//		showOtherMonths : true,
-//		selectOtherMonths : true
-//	});
-	
 	//mascara dos calendários:
 	 $('#inicial, #final').mask('00/00/0000');
 	

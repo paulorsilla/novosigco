@@ -38,7 +38,7 @@ class Turma extends Form {
 						'style' => 'width:800px',
 						'required' => false,
 						'options' => array(
-							'' => '--- Seleciona uma aplicação ---',
+							'empty_option' => '--- Seleciona uma aplicação ---',
 							'1' => 'À Distância',
 							'2' => 'Presencial',
 						),
