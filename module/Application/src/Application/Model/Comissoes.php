@@ -24,13 +24,18 @@ class Comissoes extends Entity {
 	 */
 	protected $id;
 	
+// 	/**
+// 	 * @ORM\column(type="string", name="nivel")
+// 	 */
+// 	protected $nivel;
+	
 	/**
 	 * @ORM\column(type="string", name="numero_os")
 	 */
 	protected $numeroOs;
 	
 	/**
-	 * @ORM\column(type="integer", name="ano")
+	 * @ORM\column(type="date", name="ano")
 	 */
 	protected $ano;
 	
@@ -44,6 +49,12 @@ class Comissoes extends Entity {
 	public function setId($id) {
 		$this->id = $id;
 	}
+// 	public function getNivel() {
+// 		return $this->nivel;
+// 	}
+// 	public function setNivel($nivel) {
+// 		$this->nivel = $nivel;
+// 	}
 	public function getNumeroOs() {
 		return $this->numeroOs;
 	}
@@ -51,7 +62,7 @@ class Comissoes extends Entity {
 		$this->numeroOs = $numeroOs;
 	}
 	public function getAno() {
-		return $this->ano;
+		return $this->ano->format ( "d-m-Y" );
 	}
 	public function setAno($ano) {
 		$this->ano = $ano;
@@ -97,5 +108,5 @@ class Comissoes extends Entity {
 			$this->inputFilter = $inputFilter;
 		}
 		return $this->inputFilter;
-	}
+	}	
 }

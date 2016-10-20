@@ -3,6 +3,7 @@ $(document).ready(function() {
 	var tabelaCap = $("#tabelaQuestionario").DataTable({
 		 "aaSorting": [0, "asc"],
 		 "bInfo": false,
+		 "ordering": false,
 	      "bFilter": false,
 	      "bLengthChange": false,
 	      "paging": false,
@@ -11,8 +12,8 @@ $(document).ready(function() {
 	      	"sEmptyTable": ""
 	      },
 	      "columnDefs": [
-	                 { width: "60%", targets: [0] },
-	                 { width: "30%", targets: [1] },
+	                 { width: "30%", targets: [0] },
+	                 { width: "60%", targets: [1] },
 	                 { width: "10%", targets: [2] },
 	                 { className: "dt-body-center", targets: [2] }
 	             ]
@@ -188,7 +189,7 @@ $(document).ready(function() {
 				        success: function(d) {
 				        	var	questionario = $.parseJSON(d.competencias);
 				        	$.each(questionario, function(index, value){
-				        		$("#tabelaQuestionario tbody").append('<tr><td><input type="text"></td><td>'+value.titulo+'</td><td></td></tr>');
+				        		$("#tabelaQuestionario tbody").append('<tr><td>'+value.titulo+'</td><td></td><td></td></tr>');
 				        	});
 				        }	
 					});
