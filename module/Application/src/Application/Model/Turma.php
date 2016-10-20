@@ -41,9 +41,9 @@ class Turma extends Entity {
 	protected $valor;
 	
 	/**
-	 * @ORM\column(type="string", name="forma")
+	 * @ORM\column(type="string", name="aplicacao")
 	 */
-	protected $forma;
+	protected $aplicacao;
 	/**
 	 * Refere-se a data incial da turma
 	 * @ORM\Column(type="date", name="data_inicial")

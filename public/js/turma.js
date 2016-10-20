@@ -1,23 +1,24 @@
 $(document).ready(function() {
 	//tabela do questionário
-	var tabelaCap = $("#tabelaQuestionario").DataTable({
-		 "aaSorting": [0, "asc"],
-		 "bInfo": false,
-		 "ordering": false,
-	      "bFilter": false,
-	      "bLengthChange": false,
-	      "paging": false,
-	      "oLanguage": {
-	      	"sZeroRecords": "",
-	      	"sEmptyTable": ""
-	      },
-	      "columnDefs": [
-	                 { width: "30%", targets: [0] },
-	                 { width: "60%", targets: [1] },
-	                 { width: "10%", targets: [2] },
-	                 { className: "dt-body-center", targets: [2] }
-	             ]
-	});
+//	var tabelaCap = $("#tabelaQuestionario").DataTable({
+//		 "aaSorting": [0, "asc"],
+//		 "bInfo": false,
+//		 "ordering": false,
+//	      "bFilter": false,
+//	      "bLengthChange": false,
+//	      "paging": false,
+//	      "oLanguage": {
+//	      	"sZeroRecords": "",
+//	      	"sEmptyTable": ""
+//	      },
+//	      "columnDefs": [
+//	                 { width: "30%", targets: [0] },
+//	                 { width: "60%", targets: [1] },
+//	                 { width: "10%", targets: [2] },
+//	                 { className: "dt-body-center", targets: [2] }
+//	             ]
+//	});
+	
 	//tabela de participantes na tela
 	var tabelaEmp = $("#tabelaParticipantes").DataTable({
 		  "bInfo": false,
@@ -26,7 +27,8 @@ $(document).ready(function() {
 	      "paging": false,
 	      "oLanguage": {
 	      	"sZeroRecords": "",
-	      	"sEmptyTable": ""
+	      	"sEmptyTable": "",
+	      	
 	      },
 	      "columnDefs": [
 	                 { width: "30%", targets: [1] },
@@ -35,7 +37,6 @@ $(document).ready(function() {
 	                 { className: "dt-body-center", targets: [2] }
 	             ]
 	});	
-
 	//calenadário
 	$("#inicial, #final").datepicker({
 	    dateFormat: 'dd/mm/yy',
@@ -190,6 +191,7 @@ $(document).ready(function() {
 				        	var	questionario = $.parseJSON(d.competencias);
 				        	$.each(questionario, function(index, value){
 				        		$("#tabelaQuestionario tbody").append('<tr><td>'+value.titulo+'</td><td></td><td></td></tr>');
+				        		
 				        	});
 				        }	
 					});
@@ -198,7 +200,7 @@ $(document).ready(function() {
 	$("#instituicao").selectmenu();
 	$("#instrutor").selectmenu();
 	$("#coordenacao").selectmenu();
-	$("#forma").selectmenu();
+	$("#aplicacao").selectmenu();
 	
 	
 	
@@ -213,6 +215,7 @@ $(document).ready(function() {
 				e.preventDefault();
 				adicionaEmpregado();
     			$(this).dialog("close");
+    			alert(tabelaEmp.length);
 			}
 		}
 	});

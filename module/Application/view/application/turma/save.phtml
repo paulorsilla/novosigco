@@ -32,9 +32,9 @@ echo $this->formElementErrors ( $form->get ( 'nome' ) ) . "<br />";
 			<div id="dadosTab">
 <?php
 
-echo $this->formLabel ( $form->get ( 'forma' ) ) . "<br />";
-echo $this->formSelect ( $form->get ( 'forma' ) ) . "<br />";
-echo $this->formElementErrors ( $form->get ( 'forma' ) ) . "<br />";
+echo $this->formLabel ( $form->get ( 'aplicacao' ) ) . "<br />";
+echo $this->formSelect ( $form->get ( 'aplicacao' ) ) . "<br />";
+echo $this->formElementErrors ( $form->get ( 'aplicacao' ) ) . "<br />";
 
 echo $this->formLabel ( $form->get ( 'local' ) ) . "<br />";
 echo $this->formInput ( $form->get ( 'local' ) ) . "<br />";
@@ -67,23 +67,8 @@ echo $this->formElementErrors ( $form->get ( 'coordenacao' ) ) . "<br />";
 ?>
 
 </div>
-			<div id="questionarioTab">
-				<fieldset class="coluna100">
-					<legend>Avaliação do indivíduo</legend>
-					<table class="hover" id="tabelaQuestionario">
-						<thead>
-							<tr>
-								<th>Competências</th>
-								<th>Notas</th>
-								<th>Opções</th>
-							</tr>
-						</thead>
-						<tbody>
-						</tbody>
-					</table>
-					<br>
-					<button id="novaPergunta">Adicionar</button>
-				</fieldset>
+			<div id="aplicacaoTab">
+				dados
 			</div>
 
 			<div id="participantesTab">
