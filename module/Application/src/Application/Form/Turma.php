@@ -31,10 +31,10 @@ class Turma extends Form {
 		) );
 		
 		$this->add ( array (
-				'name' => 'forma',
+				'name' => 'aplicacao',
 				'type' => 'Zend\Form\Element\Select', 
 				'attributes' => array (
-						'id' => 'forma',
+						'id' => 'aplicacao',
 						'style' => 'width:800px',
 						'required' => false,
 						'options' => array(
