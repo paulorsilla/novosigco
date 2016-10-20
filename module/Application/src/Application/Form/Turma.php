@@ -46,6 +46,7 @@ class Turma extends Form {
 				'options' => array (
 						'label' => 'Aplicação:' 
 				) 
+				
 		) );
 		
 		$this->add ( array (
