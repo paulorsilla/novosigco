@@ -4,6 +4,7 @@ namespace Application\Form;
 
 use Zend\Form\Form;
 use Zend\Form\Element;
+use Application\Model\TurmaProgramacao;
 
 class Turma extends Form {
 	public function __construct($em) {
@@ -47,18 +48,6 @@ class Turma extends Form {
 						'label' => 'Aplicação:' 
 				) 
 				
-		) );
-		
-		$this->add ( array (
-				'name' => 'local',
-				'attributes' => array (
-						'style' => 'width:780px',
-						'type' => 'text',
-						'required' => false 
-				),
-				'options' => array (
-						'label' => 'Local:' 
-				) 
 		) );
 		
 		$this->add ( array (
@@ -172,15 +161,58 @@ class Turma extends Form {
 						'target_class' => 'Application\Model\Instrutor',
 						'property' => 'nome' 
 				) 
+		) );		
+		
+		$this->add ( array (
+				'name' => 'dataRealizacao',
+				'attributes' => array (
+						'id' => 'dataRealizacao',
+						'style' => 'width:210px',
+						'type' => 'text',
+						'required' => true
+				),
+				'options' => array (
+						'label' => 'Data de realização:*'
+				)
 		) );
 		
 		$this->add ( array (
-				'name' => 'questionario',
+				'name' => 'horaInicial',
 				'attributes' => array (
-						'style' => 'width:500',
+						'id' => 'horaInicial',
+						'style' => 'width:250px',
 						'type' => 'text',
-						'required' => false
+						'required' => true
 				),
+				'options' => array (
+						'label' => 'Horario de inicio:*'
+				)
+		) );
+		
+		$this->add ( array (
+				'name' => 'horaFinal',
+				'attributes' => array (
+						'id' => 'horaFinal',
+						'style' => 'width:250px',
+						'type' => 'text',
+						'required' => true
+				),
+				'options' => array (
+					'label' => 'Horario final:*'
+				)
+		) );
+		
+		$this->add ( array (
+				'name' => 'local',
+				'attributes' => array (
+						'id' => 'local',
+						'style' => 'width:550px',
+						'type' => 'text',
+						'required' => true
+				),
+				'options' => array (
+					'label' => 'Local de realização:*'
+				)
 		) );
 		
 		$this->add ( array (

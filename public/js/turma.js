@@ -1,6 +1,6 @@
 $(document).ready(function() {
-	//tabela do questionário
-//	var tabelaCap = $("#tabelaQuestionario").DataTable({
+	//tabela do avaliação
+//	var tabelaCap = $("#tabelaAplicacao").DataTable({
 //		 "aaSorting": [0, "asc"],
 //		 "bInfo": false,
 //		 "ordering": false,
@@ -25,6 +25,7 @@ $(document).ready(function() {
 	      "bFilter": false,
 	      "bLengthChange": false,
 	      "paging": false,
+	      "rowId": 'staffId',
 	      "oLanguage": {
 	      	"sZeroRecords": "",
 	      	"sEmptyTable": "",
@@ -37,9 +38,29 @@ $(document).ready(function() {
 	                 { className: "dt-body-center", targets: [2] }
 	             ]
 	});	
+	
+	var tabelaProg = $('#tabelaProgramacao').DataTable({	
+			  "bInfo": false,
+		      "bFilter": false,
+		      "bLengthChange": false,
+		      "paging": false,
+		      "oLanguage": {
+		      	"sZeroRecords": "",
+		      	"sEmptyTable": "",
+		      	
+		      },
+		      "columnDefs": [
+		                 { width: "18%", targets: [0] },
+		                 { width: "18%", targets: [1] },
+		                 { width: "18%", targets: [2] },
+		                 { width: "36%", targets: [3] },
+		                 {"className": "dt-left", "targets": "_all"},
+		             ]
+		});	
+	
 	//calenadário
-	$("#inicial, #final").datepicker({
-	    dateFormat: 'dd/mm/yy',
+	$("#dataRealizacao").datepicker({
+	    dateFormat: 'dd-mm-yy',
 	    dayNames: ['Domingo','Segunda','Terça','Quarta','Quinta','Sexta','Sábado'],
 	    dayNamesMin: ['D','S','T','Q','Q','S','S','D'],
 	    dayNamesShort: ['Dom','Seg','Ter','Qua','Qui','Sex','Sáb','Dom'],
@@ -53,11 +74,13 @@ $(document).ready(function() {
 		buttonText : "Selecione a data",
 		showOtherMonths : true,
 		selectOtherMonths : true,
-		DateFormat : ["mm/dd/yyyy"]
+		DateFormat : ["mm-dd-yyyy"]
 	});
 	
-	//mascara dos calendários:
-	 $('#inicial, #final').mask('00/00/0000');
+	//mascara da aba programação:
+	 $('#dataRealizacao').mask('00-00-0000');
+	 $('#horaInicial').mask('00:00');
+	 $('#horaFinal').mask('00:00');
 	
 	//tabelas
 	$("#tabs").tabs();
@@ -135,9 +158,7 @@ $(document).ready(function() {
 		icons: {
 			primary: "ui-icon-plus",
 		},
-	});
-	$("#novaPergunta").click(function(e){
-		e.preventDefault();
+		//text: false,
 	});
 	
 	//aplicando js nos selects menus
@@ -187,7 +208,6 @@ $(document).ready(function() {
 	$("#aplicacao").selectmenu();
 	
 	
-	
 	//janela modal para seleção de empregados
 	var dialogEmpregados = $("#modal-participantes").dialog({
 		autoOpen : false,
@@ -199,7 +219,6 @@ $(document).ready(function() {
 				e.preventDefault();
 				adicionaEmpregado();
     			$(this).dialog("close");
-    			alert(tabelaEmp.length);
 			}
 		}
 	});
@@ -209,6 +228,11 @@ $(document).ready(function() {
 		},
 	}).on('click', function( e ) {
 		e.preventDefault();
+		var capacitacaoID = $("#capacitacao").val();
+		if(capacitacaoID == ""){
+			alert("Selecione uma capacitação no menu acima");
+			return false;
+		}
 		empregadosSelecionados = [];
 		
 		$("#empregados").html(tabelaSelecaoEmpregados);
@@ -305,6 +329,33 @@ $(document).ready(function() {
 			 }
 		});
 	});		
+	$("#novaProgramacao").on('click',function(e){
+		e.preventDefault();
+		adicionaLinhas();
+	});
+	$("#removerProgramacao").on('click',function(e){
+		e.preventDefault();
+		removerLinhas();
+	})
+	function adicionaLinhas(){
+			$("#tabelaProgramacao tbody").append(
+				"<tr>"+
+				"<td></td>"+
+				"<td></td>"+
+				"<td></td>"+
+				"<td></td>"+
+				"<td><button id='removerProgramacao' title='Remover Programação'>Remover</button></td>"+
+				"</tr>"
+				);
+				$("#removerProgramacao").button({
+					icons : {
+						primary : "ui-icon-trash",
+					},
+				});
+		};
+	function removerLinhas(){
+		$("#tabelaProgramacao tbody")
+	}
 	
 //fim do documento
 });
