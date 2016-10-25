@@ -25,7 +25,7 @@ echo $this->formElementErrors ( $form->get ( 'nome' ) ) . "<br />";
 			<ul>
 				<li><a href='#dadosTab'><span>Dados</span></a></li>
 				<li><a href='#participantesTab'><span>Participantes</span></a></li>
-				<li><a href='#questionarioTab'><span>Avaliação</span></a></li>
+				<li><a href='#programacaoTab'><span>Programação</span></a></li>
 			</ul>
 
 			<br>
@@ -36,21 +36,9 @@ echo $this->formLabel ( $form->get ( 'aplicacao' ) ) . "<br />";
 echo $this->formSelect ( $form->get ( 'aplicacao' ) ) . "<br />";
 echo $this->formElementErrors ( $form->get ( 'aplicacao' ) ) . "<br />";
 
-echo $this->formLabel ( $form->get ( 'local' ) ) . "<br />";
-echo $this->formInput ( $form->get ( 'local' ) ) . "<br />";
-echo $this->formElementErrors ( $form->get ( 'local' ) ) . "<br />";
-
 echo $this->formLabel ( $form->get ( 'valor' ) ) . "<br />";
 echo $this->formInput ( $form->get ( 'valor' ) ) . "<br />";
 echo $this->formElementErrors ( $form->get ( 'valor' ) ) . "<br />";
-
-echo $this->formLabel ( $form->get ( 'inicial' ) ) . "<br />";
-echo $this->formInput ( $form->get ( 'inicial' ) ) . "<br />";
-echo $this->formElementErrors ( $form->get ( 'inicial' ) ) . "<br />";
-
-echo $this->formLabel ( $form->get ( 'final' ) ) . "<br />";
-echo $this->formInput ( $form->get ( 'final' ) ) . "<br />";
-echo $this->formElementErrors ( $form->get ( 'final' ) ) . "<br />";
 
 echo $this->formLabel ( $form->get ( 'instituicao' ) ) . "<br />";
 echo $this->formSelect ( $form->get ( 'instituicao' ) ) . "<br />";
@@ -67,8 +55,47 @@ echo $this->formElementErrors ( $form->get ( 'coordenacao' ) ) . "<br />";
 ?>
 
 </div>
-			<div id="aplicacaoTab">
-				dados
+			<div id="programacaoTab">
+					<table class="hover" id="tabelaProgramacao">
+						<thead>
+							<tr>
+								<th>Data Realizacao</th>
+								<th>Hora Inicio</th>
+								<th>Hora termino</th>
+								<th>Local</th>
+								<th>Opções</th>
+							</tr>
+							</thead>
+							<tbody>
+								<tr>
+								<td><?php 
+									//echo $this->formLabel ( $form->get ( 'dataRealizacao' ) ) . "<br />";
+									echo $this->formInput ( $form->get ( 'dataRealizacao' ) ) . "<br />";
+									echo $this->formElementErrors ( $form->get ( 'dataRealizacao' ) ) . "<br />";
+								?></td>
+									
+								<td><?php 
+								//	echo $this->formLabel ( $form->get ( 'horaInicial' ) ) . "<br />";
+									echo $this->formInput ( $form->get ( 'horaInicial' ) ) . "<br />";
+									echo $this->formElementErrors ( $form->get ( 'horaInicial' ) ) . "<br />";
+								?></td>
+									
+								<td><?php 
+								//	echo $this->formLabel ( $form->get ( 'horaFinal' ) ) . "<br />";
+									echo $this->formInput ( $form->get ( 'horaFinal' ) ) . "<br />";
+									echo $this->formElementErrors ( $form->get ( 'horaFinal' ) ) . "<br />";
+								?></td>
+									
+								<td><?php
+								//	echo $this->formLabel ( $form->get ( 'local' ) ) . "<br />";
+									echo $this->formInput ( $form->get ( 'local' ) ) . "<br />";
+									echo $this->formElementErrors ( $form->get ( 'local' ) ) . "<br />";
+									?></td>
+								<td><button id="novaProgramacao" title="Nova Programacao" class="ui-icon-plus">Adicionar</button></td>
+								</tr>
+							</tbody>
+					</table>
+				
 			</div>
 
 			<div id="participantesTab">

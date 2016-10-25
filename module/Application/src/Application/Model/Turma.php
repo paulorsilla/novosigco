@@ -29,12 +29,7 @@ class Turma extends Entity {
 	 * @ORM\column(type="string", name="nome")
 	 */
 	protected $nome;
-	
-	/**
-	 * @ORM\column(type="string", name="local")
-	 */
-	protected $local;
-	
+		
 	/**
 	 * @ORM\column(type="decimal", precision=2, name="valor")
 	 */
@@ -44,17 +39,6 @@ class Turma extends Entity {
 	 * @ORM\column(type="string", name="aplicacao")
 	 */
 	protected $aplicacao;
-	/**
-	 * Refere-se a data incial da turma
-	 * @ORM\Column(type="date", name="data_inicial")
-	 */
-	protected $inicial;
-	
-	/**
-	 * Refere-se a data final da turma
-	 * @ORM\Column(type="date", name="data_final")
-	 */
-	protected $final;
 	
 	/**
 	 * @ORM\ManyToOne(targetEntity="Capacitacao")
@@ -100,7 +84,14 @@ class Turma extends Entity {
 	 * )
 	 */
 	protected $matricula;
+	
+	
+ 	/**
+     * @ORM\OneToMany(targetEntity="TurmaProgramacao", mappedBy="turma")
+     */
+  	protected $programacao;
 	public function __construct() {
+		$this->programacao = new ArrayCollection();
 		$this->participantes = new \Doctrine\Common\Collections\ArrayCollection ();
 		$this->instrutores = new \Doctrine\Common\Collections\ArrayCollection ();
 		$this->matricula = new \Doctrine\Common\Collections\ArrayCollection ();
@@ -117,35 +108,17 @@ class Turma extends Entity {
 	public function setNome($nome) {
 		$this->nome = $nome;
 	}
-	public function getLocal() {
-		return $this->local;
-	}
-	public function setLocal($local) {
-		$this->local = $local;
-	}
 	public function getValor() {
 		return $this->valor;
 	}
 	public function setValor($valor) {
 		$this->valor = $valor;
 	}
-	public function getForma() {
-		return $this->forma;
+	public function getAplicacao() {
+		return $this->aplicacao;
 	}
-	public function setForma($forma) {
-		$this->forma = $forma;
-	}
-	public function getInicial() {
-		return $this->inicial->format ( "d-m-Y" );
-	}
-	public function setInicial($inicial) {
-		$this->inicial = $inicial;
-	}
-	public function getFinal() {
-		return $this->final->format ( "d-m-Y" );
-	}
-	public function setFinal($final) {
-		$this->final = $final;
+	public function setAplicacao($aplicacao) {
+		$this->aplicacao = $aplicacao;
 	}
 	public function getCapacitacao() {
 		return $this->capacitacao;
@@ -176,6 +149,18 @@ class Turma extends Entity {
 	}
 	public function setCoordenacao($coordenacao) {
 		$this->coordenacao = $coordenacao;
+	}
+	public function getMatricula() {
+		return $this->matricula;
+	}
+	public function setMatricula($matricula) {
+		$this->matricula = $matricula;
+	}
+	public function getProgramacao() {
+		return $this->programacao;
+	}
+	public function setProgramacao($programacao) {
+		$this->programacao = $programacao;
 	}
 	public function getInputFilter() {
 		if (! $this->inputFilter) {
@@ -216,16 +201,14 @@ class Turma extends Entity {
 									'options' => array (
 											'encoding' => 'UTF-8',
 											'min' => 2,
-											'max' => 200
-									)
-							)
-					)
+											'max' => 200 
+									) 
+							) 
+					) 
 			) ) );
-				
+			
 			$this->inputFilter = $inputFilter;
 		}
 		return $this->inputFilter;
 	}
-
-	
 }
