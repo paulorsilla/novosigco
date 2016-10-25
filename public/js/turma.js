@@ -333,28 +333,35 @@ $(document).ready(function() {
 		e.preventDefault();
 		adicionaLinhas();
 	});
-	$("#removerProgramacao").on('click',function(e){
-		e.preventDefault();
-		removerLinhas();
-	})
+	
 	function adicionaLinhas(){
-			$("#tabelaProgramacao tbody").append(
+				$("#tabelaProgramacao tbody").append(
 				"<tr>"+
 				"<td></td>"+
 				"<td></td>"+
 				"<td></td>"+
 				"<td></td>"+
-				"<td><button id='removerProgramacao' title='Remover Programação'>Remover</button></td>"+
+				"<td><button id='removerProgramacao' title='Remover Programação'>Remover</button><input type='text' id='sequencia'></td>"+
 				"</tr>"
 				);
 				$("#removerProgramacao").button({
 					icons : {
 						primary : "ui-icon-trash",
 					},
+				}).on('click', function(e){
+					e.preventDefault();
+					var row = $(this).closest('tr').get(0); 
+					tabelaProg.row(row).remove().draw();
+					atualizaSequencia();
 				});
-		};
-	function removerLinhas(){
-		$("#tabelaProgramacao tbody")
+				atualizaSequencia();
+	}
+	function atualizaSequencia(){
+//		var sequencia = $("#sequencia");
+		var id = 1;
+		$.each($('input[id="sequencia"]'), function (index, value){
+			$(this).val(id++);
+		});
 	}
 	
 //fim do documento
