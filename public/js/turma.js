@@ -58,30 +58,6 @@ $(document).ready(function() {
 		             ]
 		});	
 	
-	//calenadário
-	$("#dataRealizacao").datepicker({
-	    dateFormat: 'dd-mm-yy',
-	    dayNames: ['Domingo','Segunda','Terça','Quarta','Quinta','Sexta','Sábado'],
-	    dayNamesMin: ['D','S','T','Q','Q','S','S','D'],
-	    dayNamesShort: ['Dom','Seg','Ter','Qua','Qui','Sex','Sáb','Dom'],
-	    monthNames: ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'],
-	    monthNamesShort: ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'],
-	    nextText: 'Próximo',
-	    prevText: 'Anterior',			
-	    showOn : "button",
-		buttonImage : "/images/calendar.gif",
-		buttonImageOnly : true,
-		buttonText : "Selecione a data",
-		showOtherMonths : true,
-		selectOtherMonths : true,
-		DateFormat : ["mm-dd-yyyy"]
-	});
-	
-	//mascara da aba programação:
-	 $('#dataRealizacao').mask('00-00-0000');
-	 $('#horaInicial').mask('00:00');
-	 $('#horaFinal').mask('00:00');
-	
 	//tabelas
 	$("#tabs").tabs();
 	$("#selecoes").tabs();
@@ -331,31 +307,74 @@ $(document).ready(function() {
 	});		
 	$("#novaProgramacao").on('click',function(e){
 		e.preventDefault();
-		adicionaLinhas();
+		var id = $("#tabelaProgramacao tr").length-1;
+		tabelaProg.row.add([
+			"<td><input type='text' style='width: 210px' id='dataRealizacao_"+id+"' name='dataRealizacao[]'></td>",
+			"<td><input type='text' style='width: 250px' id='horaInicial_"+id+"' name='horaInicial[]'></td>",
+			"<td><input type='text' style='width: 250px' id='horaFinal_"+id+"' name='horaFinal[]'></td>",
+			"<td><input type='text' style='width: 550px' id='local_"+id+"' name='local[]'></td>",
+			"<td><button id='removerProgramacao_"+id+"'>Remover</button>"
+		]).draw();
+
+		$("#removerProgramacao_"+id).button({
+			icons: {
+				primary: "ui-icon-trash",
+			},
+		text: false,
+		});
+			
+		//calenadário
+		$("#dataRealizacao_"+id).datepicker({
+		    dateFormat: 'dd-mm-yy',
+		    dayNames: ['Domingo','Segunda','Terça','Quarta','Quinta','Sexta','Sábado'],
+		    dayNamesMin: ['D','S','T','Q','Q','S','S','D'],
+		    dayNamesShort: ['Dom','Seg','Ter','Qua','Qui','Sex','Sáb','Dom'],
+		    monthNames: ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'],
+		    monthNamesShort: ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'],
+		    nextText: 'Próximo',
+		    prevText: 'Anterior',			
+		    showOn : "button",
+			buttonImage : "/images/calendar.gif",
+			buttonImageOnly : true,
+			buttonText : "Selecione a data",
+			showOtherMonths : true,
+			selectOtherMonths : true,
+			DateFormat : ["mm-dd-yyyy"]
+		});
+		
+		//mascara da aba programação:
+		 $('#dataRealizacao_'+id).mask('00-00-0000');
+		 $('#horaInicial_'+id).mask('00:00');
+		 $('#horaFinal_'+id).mask('00:00');
+		
+		var removerProg = $("#removerProgramacao_"+id).on('click',function(e){
+			e.preventDefault();
+	
+		});
 	});
 	
-	function adicionaLinhas(){
-				$("#tabelaProgramacao tbody").append(
-				"<tr>"+
-				"<td></td>"+
-				"<td></td>"+
-				"<td></td>"+
-				"<td></td>"+
-				"<td><button id='removerProgramacao' title='Remover Programação'>Remover</button><input type='text' id='sequencia'></td>"+
-				"</tr>"
-				);
-				$("#removerProgramacao").button({
-					icons : {
-						primary : "ui-icon-trash",
-					},
-				}).on('click', function(e){
-					e.preventDefault();
-					var row = $(this).closest('tr').get(0); 
-					tabelaProg.row(row).remove().draw();
-					atualizaSequencia();
-				});
-				atualizaSequencia();
-	}
+//	function adicionaLinhas(){
+//				$("#tabelaProgramacao tbody").append(
+//				"<tr>"+
+//				"<td></td>"+
+//				"<td></td>"+
+//				"<td></td>"+
+//				"<td></td>"+
+//				"<td><button id='removerProgramacao' title='Remover Programação'>Remover</button><input type='text' id='sequencia'></td>"+
+//				"</tr>"
+//				);
+//				$("#removerProgramacao").button({
+//					icons : {
+//						primary : "ui-icon-trash",
+//					},
+//				}).on('click', function(e){
+//					e.preventDefault();
+//					var row = $(this).closest('tr').get(0); 
+//					tabelaProg.row(row).remove().draw();
+//					atualizaSequencia();
+//				});
+//				atualizaSequencia();
+//	}
 	function atualizaSequencia(){
 //		var sequencia = $("#sequencia");
 		var id = 1;
