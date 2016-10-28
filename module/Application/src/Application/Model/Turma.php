@@ -172,21 +172,21 @@ class Turma extends Entity {
 					'required' => false 
 			) ) );
 			
-			$inputFilter->add ( $factory->createInput ( array (
-					'name' => 'valor',
-					'required' => true,
-					'validators' => array (
-							array (
-									'options' => array (
-											'min' => 2 
-									) 
-							) 
-					) 
-			) ) );
+// 			$inputFilter->add ( $factory->createInput ( array (
+// 					'name' => 'valor',
+// 					'required' => true,
+// 					'validators' => array (
+// 							array (
+// 									'options' => array (
+// 											'min' => 2 
+// 									) 
+// 							) 
+// 					) 
+// 			) ) );
 			
 			$inputFilter->add ( $factory->createInput ( array (
 					'name' => 'instrutores',
-					'required' => true,
+					'required' => false,
 					'filters' => array (
 							array (
 									'name' => 'StripTags' 

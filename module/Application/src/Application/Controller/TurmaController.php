@@ -7,6 +7,7 @@ use Core\Controller\ActionController;
 use Application\Model\Turma;
 use Application\Form\Turma as TurmaForm;
 use Doctrine\ORM\EntityManager;
+use Application\Model\TurmaProgramacao;
 
 /**
  * Controlador que gerencia o cadastro de Turmas
@@ -56,32 +57,52 @@ class TurmaController extends ActionController {
 		$empregados = array();
 		$request = $this->getRequest ();
 		//Hidratar classe
+		error_log("1");
 		$form->setHydrator(new \Zend\Stdlib\Hydrator\ClassMethods(false));
 		if ($request->isPost ()) {
+			error_log("2");
 			$turma = new Turma ();
 			$form->setInputFilter ( $turma->getInputFilter () );
 			$form->setData ( $request->getPost () );
+			error_log("3");
 			if ($form->isValid ()) {
 				$data = $form->getData ();
+				$horaInicial = $this->params()->fromPost('horaInicial');
+				foreach($horaInicial as $i =>$hI){
+					error_log($hI);
+					error_log($horaInicial[$i]);
+				}
+				error_log("4");
 				// inicial = data inicial, final = data final
-				$inicial = new \DateTime($this->params()->fromPost("inicial"));
-				$final = new \DateTime($this->params()->fromPost("final"));
+//				$dataInicial = new \DateTime($this->params()->fromPost("dataInicial"));
+				error_log("5");
+//				$dataFinal = new \DateTime($this->params()->fromPost("dataFinal"));
+				error_log("6");
 				$matriculas = $this->params ()->fromPost ( "matricula" );
 				unset($data["matricula"]);
-				unset ($data["inicial"]);
-				unset ($data["final"]);
+				error_log("7");
+				unset ($data["dataInicial"]);
+				error_log("8");
+				unset ($data["dataFinal"]);
+				error_log("9");
 				unset ( $data ['submit'] );
 				if (isset ( $data ['id'] ) && $data ['id'] > 0) {
+					error_log("10");
 					$turma = $this->getEntityManager ()->find ( 'Application\Model\Turma', $data ['id'] );
 					$turma = getMatricula()->clear();
 				}
+				error_log(11);
 				foreach ( $matriculas as $matricula ) {
+					error_log("12");
 					$empregado = $this->getEntityManager ()->find ( "Application\Model\Empregado", $matricula );
 					$turma->getMatricula ()->add ( $empregado);
 				}
 				$turma->setMatricula($matricula);
-				$turma->setInicial($inicial);
-				$turma->setFinal($final);
+				error_log("13");
+//				$turma->setInicial($dataInicial);
+				error_log("14");
+//				$turma->setFinal($dataFinal);
+				error_log("15");
 				$turma->setData ( $data );
 				$this->getEntityManager ()->persist ( $turma );
 				$this->getEntityManager ()->flush ();

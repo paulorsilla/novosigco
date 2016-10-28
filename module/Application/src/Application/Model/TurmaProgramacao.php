@@ -35,7 +35,7 @@ class TurmaProgramacao extends Entity {
 	protected $horaInicial;
 	
 	/**
-	 * @ORM\Column(type=string", name="hora_final")
+	 * @ORM\Column(type="string", name="hora_final")
 	 */
 	protected $horaFinal;
 	
@@ -92,28 +92,6 @@ class TurmaProgramacao extends Entity {
 			$inputFilter->add ( $factory->createInput ( array (
 					'name' => 'id',
 					'required' => false 
-			) ) );
-			$inputFilter->add ( $factory->createInput ( array (
-					'name' => 'local',
-					'required' => true,
-					'filters' => array (
-							array (
-									'name' => 'StripTags' 
-							),
-							array (
-									'name' => 'StringTrim' 
-							) 
-					),
-					'validators' => array (
-							array (
-									'name' => 'StringLength',
-									'options' => array (
-											'encoding' => 'UTF-8',
-											'min' => 4,
-											'max' => 200 
-									) 
-							) 
-					) 
 			) ) );
 			$this->inputFilter = $inputFilter;
 		}

@@ -305,8 +305,14 @@ $(document).ready(function() {
 			 }
 		});
 	});		
+	
 	$("#novaProgramacao").on('click',function(e){
 		e.preventDefault();
+		var capacitacaoID = $("#capacitacao").val();
+		if (capacitacaoID == ""){
+			alert("Selecione uma Capacitação no menu acima");
+			return false;
+		}
 		var id = $("#tabelaProgramacao tr").length-1;
 		tabelaProg.row.add([
 			"<td><input type='text' style='width: 210px' id='dataRealizacao_"+id+"' name='dataRealizacao[]'></td>",
@@ -349,7 +355,8 @@ $(document).ready(function() {
 		
 		var removerProg = $("#removerProgramacao_"+id).on('click',function(e){
 			e.preventDefault();
-	
+			var row = tabelaProg.row($(this).parents('tr')).remove().draw();
+			atualizaId();
 		});
 	});
 	
@@ -371,16 +378,25 @@ $(document).ready(function() {
 //					e.preventDefault();
 //					var row = $(this).closest('tr').get(0); 
 //					tabelaProg.row(row).remove().draw();
-//					atualizaSequencia();
+//					atualizaSequencia();	
 //				});
 //				atualizaSequencia();
 //	}
-	function atualizaSequencia(){
+	function atualizaId(){
 //		var sequencia = $("#sequencia");
-		var id = 1;
-		$.each($('input[id="sequencia"]'), function (index, value){
-			$(this).val(id++);
+		$.each($('input[id^="dataRealizacao_"]'), function (index, value){
+			var arr = ($(this).attr('id')).split('_');
+//			alert(arr[1]+" é "+ (index +1) );
+			var ind = (index + 1);
+			if(arr[1] != ind){
+				$(this).attr('id', 'dataRealizacao_'+ind);
+				$("#horaInicial_"+arr[1]).attr('id', 'horaInicial_'+ind);
+				$("#horaFinal_"+arr[1]).attr('id', 'horaFinal_'+ind);
+				$("#local_"+arr[1]).attr('id', 'local_'+ind);
+				$("#removerProgramacao_"+arr[1]).attr('id', 'removerProgramacao_'+ind);
+			}
 		});
+		
 	}
 	
 //fim do documento
