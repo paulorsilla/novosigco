@@ -4,7 +4,6 @@ namespace Application\Form;
 
 use Zend\Form\Form;
 use Zend\Form\Element;
-use Application\Model\TurmaProgramacao;
 
 class Turma extends Form {
 	public function __construct($em) {
