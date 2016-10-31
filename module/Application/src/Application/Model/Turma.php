@@ -75,26 +75,15 @@ class Turma extends Entity {
 	 * @ORM\JoinColumn(name="coordenacao_tecnica", referencedColumnName="cod_func")
 	 */
 	protected $coordenacao;
-	
-	/**
-	 * @ORM\ManyToMany(targetEntity="Empregado")
-	 * @ORM\JoinTable(name="empregado_turma",
-	 * joinColumns={@ORM\JoinColumn(name="turma_id", referencedColumnName="id")},
-	 * inverseJoinColumns={@ORM\JoinColumn(name="empregado_matricula", referencedColumnName="cod_func")}
-	 * )
-	 */
-	protected $matricula;
-	
-	
+		
  	/**
      * @ORM\OneToMany(targetEntity="TurmaProgramacao", mappedBy="turma")
      */
   	protected $programacao;
 	public function __construct() {
-		$this->programacao = new ArrayCollection();
+		$this->programacao = new \Doctrine\Common\Collections\ArrayCollection ();
 		$this->participantes = new \Doctrine\Common\Collections\ArrayCollection ();
 		$this->instrutores = new \Doctrine\Common\Collections\ArrayCollection ();
-		$this->matricula = new \Doctrine\Common\Collections\ArrayCollection ();
 	}
 	public function getId() {
 		return $this->id;
@@ -150,11 +139,11 @@ class Turma extends Entity {
 	public function setCoordenacao($coordenacao) {
 		$this->coordenacao = $coordenacao;
 	}
-	public function getMatricula() {
-		return $this->matricula;
+	public function getParticipante() {
+		return $this->participante;
 	}
-	public function setMatricula($matricula) {
-		$this->matricula = $matricula;
+	public function setParticipante($participante) {
+		$this->participante = $participante;
 	}
 	public function getProgramacao() {
 		return $this->programacao;

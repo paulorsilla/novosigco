@@ -57,52 +57,59 @@ class TurmaController extends ActionController {
 		$empregados = array();
 		$request = $this->getRequest ();
 		//Hidratar classe
-		error_log("1");
 		$form->setHydrator(new \Zend\Stdlib\Hydrator\ClassMethods(false));
 		if ($request->isPost ()) {
-			error_log("2");
 			$turma = new Turma ();
 			$form->setInputFilter ( $turma->getInputFilter () );
 			$form->setData ( $request->getPost () );
-			error_log("3");
 			if ($form->isValid ()) {
 				$data = $form->getData ();
+				$dataRealizacao = $this->params()->fromPost('dataRealizacao');
 				$horaInicial = $this->params()->fromPost('horaInicial');
+				$horaFinal = $this->params()->fromPost('horaFinal');
+				$local = $this->params()->fromPost('local');
+				$capacitacaoId = $this->params()->fromPost('capacitacao');
+				$capacitacao = $this->getEntityManager ()->find ( 'Application\Model\Capacitacao', $capacitacaoId );
+				$codigo = $this->params()->fromPost('instituicao');
+				$instituicao = $this->getEntityManager()->find('Application\Model\Instituicao',$codigo);
+				$coordenacaoId = $this->params()->fromPost('coordenacao');
+				$coordenacao = $this->getEntityManager()->find("Application\Model\Empregado", $coordenacaoId);
+				$instutorId = $this->params()->fromPost('instrutor');
+				$instrutor = $this->getEntityManager()->find('Application\Model\Instrutor', $instutorId);
 				foreach($horaInicial as $i =>$hI){
-					error_log($hI);
-					error_log($horaInicial[$i]);
+					$programacao = new TurmaProgramacao();
+					$programacao->setHoraInicial($hI);
+					$programacao->setHoraFinal($horaFinal[$i]);
+					$programacao->setLocal($local[$i]);
+					$realizacao = new \DateTime($dataRealizacao[$i]);
+					$programacao->setDataRealizacao($realizacao);
+					$this->getEntityManager()->persist($programacao);
+					$this->getEntityManager()->flush();
+					$turma->getProgramacao()->add($programacao);
 				}
-				error_log("4");
-				// inicial = data inicial, final = data final
-//				$dataInicial = new \DateTime($this->params()->fromPost("dataInicial"));
-				error_log("5");
-//				$dataFinal = new \DateTime($this->params()->fromPost("dataFinal"));
-				error_log("6");
-				$matriculas = $this->params ()->fromPost ( "matricula" );
-				unset($data["matricula"]);
-				error_log("7");
+				$participantes = $this->params ()->fromPost ( "participante" );
+				foreach ( $participantes as $participanteId ) {
+					
+					$participante = $this->getEntityManager ()->find ( "Application\Model\Empregado", $participanteId );
+					$turma->getParticipante ()->add ( $participante);
+				}
+				unset ($data["instrutor"]);
+				unset ($data["matricula"]);
+				unset ($data["coordenacao"]);
 				unset ($data["dataInicial"]);
-				error_log("8");
 				unset ($data["dataFinal"]);
-				error_log("9");
+				unset ($data["capacitacao"]);
+				unset ($data["instituicao"]);
 				unset ( $data ['submit'] );
 				if (isset ( $data ['id'] ) && $data ['id'] > 0) {
-					error_log("10");
 					$turma = $this->getEntityManager ()->find ( 'Application\Model\Turma', $data ['id'] );
 					$turma = getMatricula()->clear();
 				}
-				error_log(11);
-				foreach ( $matriculas as $matricula ) {
-					error_log("12");
-					$empregado = $this->getEntityManager ()->find ( "Application\Model\Empregado", $matricula );
-					$turma->getMatricula ()->add ( $empregado);
-				}
-				$turma->setMatricula($matricula);
-				error_log("13");
-//				$turma->setInicial($dataInicial);
-				error_log("14");
-//				$turma->setFinal($dataFinal);
-				error_log("15");
+				$turma->setParticipante($participante);
+				$turma->setCapacitacao($capacitacao);
+				$turma->setInstituicao($instituicao);
+				$turma->setCoordenacao($coordenacao);
+				$turma->setInstrutor($instrutor);
 				$turma->setData ( $data );
 				$this->getEntityManager ()->persist ( $turma );
 				$this->getEntityManager ()->flush ();
@@ -113,7 +120,7 @@ class TurmaController extends ActionController {
 		if ($id > 0) {
 			$turma = $this->getEntityManager ()->find ( 'Application\Model\Turma', $id );
 			$form->bind ( $turma );
-			$empregados = $turma->getMatricula();
+			$empregados = $turma->getParticipante();
 		}
 		$renderer = $this->getServiceLocator ()->get ( 'Zend\View\Renderer\PhpRenderer' );
 		$renderer->headScript ()->appendFile ( '/js/jquery.dataTables.min.js' );
@@ -121,7 +128,7 @@ class TurmaController extends ActionController {
 		$renderer->headScript ()->appendFile ( '/js/jquery.mask.js' );
 		return new ViewModel ( array (
 				'form' => $form,
-				'empregados' => $empregados
+				'empregados' => $empregados,
 		) );
 	}
 	/**

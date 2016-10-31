@@ -25,7 +25,7 @@ class TurmaProgramacao extends Entity {
 	protected $id;
 	
 	/**
-	 * @ORM\Column(type="date", name="data_realizacao")
+	 * @ORM\Column(type="datetime", name="data_realizacao")
 	 */
 	protected $dataRealizacao;
 	
@@ -43,11 +43,11 @@ class TurmaProgramacao extends Entity {
 	 * @ORM\Column(type="string", name="local")
 	 */
 	protected $local;
-	/**
-	 * @ORM\ManyToOne(targetEntity="Turma", inversedBy="programacao")
-	 * @ORM\JoinColumn(name="turma_id", referencedColumnName="id")
-	 */
-	protected $turma;
+// 	/**
+// 	 * @ORM\ManyToOne(targetEntity="Turma", inversedBy="programacao")
+// 	 * @ORM\JoinColumn(name="turma_id", referencedColumnName="id")
+// 	 */
+// 	protected $turma;
 	public function getId() {
 		return $this->id;
 	}
@@ -55,7 +55,7 @@ class TurmaProgramacao extends Entity {
 		$this->id = $id;
 	}
 	public function getDataRealizacao() {
-		return $this->dataRealizacao;
+		return $this->dataRealizacao->format ( "d-m-Y" );
 	}
 	public function setDataRealizacao($dataRealizacao) {
 		$this->dataRealizacao = $dataRealizacao;
@@ -78,12 +78,12 @@ class TurmaProgramacao extends Entity {
 	public function setLocal($local) {
 		$this->local = $local;
 	}
-	public function getTurma() {
-		return $this->turma;
-	}
-	public function setTurma($turma) {
-		$this->turma = $turma;
-	}
+// 	public function getTurma() {
+// 		return $this->turma;
+// 	}
+// 	public function setTurma($turma) {
+// 		$this->turma = $turma;
+// 	}
 	public function getInputFilter() {
 		if (! $this->inputFilter) {
 			$inputFilter = new InputFilter ();
