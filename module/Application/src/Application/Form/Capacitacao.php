@@ -37,8 +37,6 @@ class Capacitacao extends Form {
 		
 		$this->add ( array (
 				'name' => 'capacitacaoTipo',
-				
-				
 				'type' => 'DoctrineModule\Form\Element\ObjectSelect',
 				'attributes' => array (
 						'style' => 'width:800px',

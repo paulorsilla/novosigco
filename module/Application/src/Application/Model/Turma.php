@@ -18,6 +18,7 @@ use Doctrine\Common\Collections\ArrayCollection;
  *          @ORM\Table(name="turma")
  */
 class Turma extends Entity {
+	
 	/**
 	 * @ORM\Id
 	 * @ORM\Column(type="integer");
@@ -29,7 +30,7 @@ class Turma extends Entity {
 	 * @ORM\column(type="string", name="nome")
 	 */
 	protected $nome;
-		
+	
 	/**
 	 * @ORM\column(type="decimal", precision=2, name="valor")
 	 */
@@ -65,7 +66,7 @@ class Turma extends Entity {
 	 * @ORM\ManyToMany(targetEntity="Instrutor")
 	 * @ORM\JoinTable(name="turma_instrutor",
 	 * joinColumns={@ORM\JoinColumn(name="turma_id", referencedColumnName="id")},
-	 * inverseJoinColumns={@ORM\JoinColumn(name="instrutor_id", referencedColumnName="id")}
+	 * inverseJoinColumns={@ORM\JoinColumn(name="instrutor_id", referencedColumnName="cod_func")}
 	 * )
 	 */
 	protected $instrutores;
@@ -75,11 +76,11 @@ class Turma extends Entity {
 	 * @ORM\JoinColumn(name="coordenacao_tecnica", referencedColumnName="cod_func")
 	 */
 	protected $coordenacao;
-		
- 	/**
-     * @ORM\OneToMany(targetEntity="TurmaProgramacao", mappedBy="turma")
-     */
-  	protected $programacao;
+	
+	/**
+	 * @ORM\OneToMany(targetEntity="TurmaProgramacao", mappedBy="turma")
+	 */
+	protected $programacao;
 	public function __construct() {
 		$this->programacao = new \Doctrine\Common\Collections\ArrayCollection ();
 		$this->participantes = new \Doctrine\Common\Collections\ArrayCollection ();
@@ -139,12 +140,6 @@ class Turma extends Entity {
 	public function setCoordenacao($coordenacao) {
 		$this->coordenacao = $coordenacao;
 	}
-	public function getParticipante() {
-		return $this->participante;
-	}
-	public function setParticipante($participante) {
-		$this->participante = $participante;
-	}
 	public function getProgramacao() {
 		return $this->programacao;
 	}
@@ -160,42 +155,6 @@ class Turma extends Entity {
 					'name' => 'id',
 					'required' => false 
 			) ) );
-			
-// 			$inputFilter->add ( $factory->createInput ( array (
-// 					'name' => 'valor',
-// 					'required' => true,
-// 					'validators' => array (
-// 							array (
-// 									'options' => array (
-// 											'min' => 2 
-// 									) 
-// 							) 
-// 					) 
-// 			) ) );
-			
-			$inputFilter->add ( $factory->createInput ( array (
-					'name' => 'instrutores',
-					'required' => false,
-					'filters' => array (
-							array (
-									'name' => 'StripTags' 
-							),
-							array (
-									'name' => 'StringTrim' 
-							) 
-					),
-					'validators' => array (
-							array (
-									'name' => 'StringLength',
-									'options' => array (
-											'encoding' => 'UTF-8',
-											'min' => 2,
-											'max' => 200 
-									) 
-							) 
-					) 
-			) ) );
-			
 			$this->inputFilter = $inputFilter;
 		}
 		return $this->inputFilter;

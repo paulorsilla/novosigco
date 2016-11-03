@@ -15,6 +15,7 @@ use Doctrine\ORM\Mapping as ORM;
  *         
  *          @ORM\Entity
  *          @ORM\Table(name="instrutor")
+ *          @ORM\Entity(repositoryClass="Application\Repository\InstrutorRepository")
  */
 class Instrutor extends Entity {
 	
