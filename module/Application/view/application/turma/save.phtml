@@ -94,7 +94,7 @@ echo $this->formElementErrors ( $form->get ( 'coordenacao' ) ) . "<br />";
 							</tr>
 						</thead>
 						<tbody>
-							<?php foreach ($this->empregados as $empregado):?>
+							<?php foreach ($this->turma->getParticipantes() as $empregado):?>
 						<tr>
 								<td><input id="empregado" name="matricula[]"
 									value="<?php echo $empregado->getMatricula();?>" type="hidden"><?php echo $this->escapeHtml($empregado->getMatricula());?></td>

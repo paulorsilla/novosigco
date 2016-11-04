@@ -54,12 +54,11 @@ class TurmaController extends ActionController {
 	}
 	public function saveAction() {
 		$form = new TurmaForm ( $this->getEntityManager () );
-		$empregados = array ();
 		$request = $this->getRequest ();
 		// Hidratar classe
+		$turma = new Turma ();
 		$form->setHydrator ( new \Zend\Stdlib\Hydrator\ClassMethods ( false ) );
 		if ($request->isPost ()) {
-			$turma = new Turma ();
 			$form->setInputFilter ( $turma->getInputFilter () );
 			$form->setData ( $request->getPost () );
 			if ($form->isValid ()) {
@@ -117,7 +116,6 @@ class TurmaController extends ActionController {
 		if ($id > 0) {
 			$turma = $this->getEntityManager ()->find ( 'Application\Model\Turma', $id );
 			$form->bind ( $turma );
-			$empregados = $turma->getParticipantes ();
 		}
 		$renderer = $this->getServiceLocator ()->get ( 'Zend\View\Renderer\PhpRenderer' );
 		$renderer->headScript ()->appendFile ( '/js/jquery.dataTables.min.js' );
@@ -125,7 +123,7 @@ class TurmaController extends ActionController {
 		$renderer->headScript ()->appendFile ( '/js/jquery.mask.js' );
 		return new ViewModel ( array (
 				'form' => $form,
-				'empregados' => $empregados
+				'turma' => $turma
 		) );
 	}
 	/**
