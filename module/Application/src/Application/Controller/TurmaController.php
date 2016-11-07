@@ -123,6 +123,7 @@ class TurmaController extends ActionController {
 		$renderer->headScript ()->appendFile ( '/js/jquery.dataTables.min.js' );
 		$renderer->headScript ()->appendFile ( '/js/turma.js' );
 		$renderer->headScript ()->appendFile ( '/js/jquery.mask.js' );
+		$renderer->headScript ()->appendFile ( '/js/moneymask.js' );
 		return new ViewModel ( array (
 				'form' => $form,
 				'turma' => $turma
