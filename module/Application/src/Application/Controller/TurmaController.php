@@ -72,8 +72,9 @@ class TurmaController extends ActionController {
 				$codigo = $this->params ()->fromPost ( 'instituicao' );
 				$instituicao = $this->getEntityManager ()->find ( 'Application\Model\Instituicao', $codigo );
 				$coordenacaoId = $this->params ()->fromPost ( 'coordenacao' );
-				$coordenacao = $this->getEntityManager ()->find ( 'Application\Model\Empregado', $coordenacaoId ); 	
-				$instrutor = $this->getEntityManager ()->find ( 'Application\Model\Instrutor', $data ['id'] );
+				$coordenacao = $this->getEntityManager ()->find ( 'Application\Model\Empregado', $coordenacaoId ); 
+				$instrutorId = $this->params()->fromPost('instrutor');
+				$instrutor = $this->getEntityManager ()->find ( 'Application\Model\Instrutor', $instrutorId);
 				foreach ( $horaInicial as $i => $hI ) {
 					$programacao = new TurmaProgramacao ();
 					$programacao->setHoraInicial ( $hI );
@@ -116,6 +117,7 @@ class TurmaController extends ActionController {
 		if ($id > 0) {
 			$turma = $this->getEntityManager ()->find ( 'Application\Model\Turma', $id );
 			$form->bind ( $turma );
+			error_log("bind");
 		}
 		$renderer = $this->getServiceLocator ()->get ( 'Zend\View\Renderer\PhpRenderer' );
 		$renderer->headScript ()->appendFile ( '/js/jquery.dataTables.min.js' );
