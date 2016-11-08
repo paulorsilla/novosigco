@@ -32,7 +32,7 @@ class TurmaController extends ActionController {
 		}
 		return $this->em;
 	}
-
+	
 	/**
 	 * Mostra as turmas cadastradas
 	 *
@@ -40,70 +40,74 @@ class TurmaController extends ActionController {
 	 */
 	public function indexAction() {
 		$turmas = $this->getEntityManager ()->getRepository ( "Application\Model\Turma" )->findAll ( array (), array (
-				'inicial' => 'ASC'
+				'inicial' => 'ASC' 
 		) );
-
+		
 		// adiciona os arquivos indexcomum.js e jquery.dataTable.min.js
 		// ao head da página
 		$renderer = $this->getServiceLocator ()->get ( 'Zend\View\Renderer\PhpRenderer' );
 		$renderer->headScript ()->appendFile ( '/js/jquery.dataTables.min.js' );
 		$renderer->headScript ()->appendFile ( '/js/indexcomum.js' );
 		return new ViewModel ( array (
-				'turmas' => $turmas
+				'turmas' => $turmas 
 		) );
 	}
 	public function saveAction() {
 		$form = new TurmaForm ( $this->getEntityManager () );
-		$empregados = array();
 		$request = $this->getRequest ();
-		//Hidratar classe
-		error_log("1");
-		$form->setHydrator(new \Zend\Stdlib\Hydrator\ClassMethods(false));
+		// Hidratar classe
+		$turma = new Turma ();
+		$form->setHydrator ( new \Zend\Stdlib\Hydrator\ClassMethods ( false ) );
 		if ($request->isPost ()) {
-			error_log("2");
-			$turma = new Turma ();
 			$form->setInputFilter ( $turma->getInputFilter () );
 			$form->setData ( $request->getPost () );
-			error_log("3");
 			if ($form->isValid ()) {
 				$data = $form->getData ();
-				$horaInicial = $this->params()->fromPost('horaInicial');
-				foreach($horaInicial as $i =>$hI){
-					error_log($hI);
-					error_log($horaInicial[$i]);
+				$dataRealizacao = $this->params ()->fromPost ( 'dataRealizacao' );
+				$horaInicial = $this->params ()->fromPost ( 'horaInicial' );
+				$horaFinal = $this->params ()->fromPost ( 'horaFinal' );
+				$local = $this->params ()->fromPost ( 'local' );
+				$capacitacaoId = $this->params ()->fromPost ( 'capacitacao' );
+				$capacitacao = $this->getEntityManager ()->find ( 'Application\Model\Capacitacao', $capacitacaoId );
+				$codigo = $this->params ()->fromPost ( 'instituicao' );
+				$instituicao = $this->getEntityManager ()->find ( 'Application\Model\Instituicao', $codigo );
+				$coordenacaoId = $this->params ()->fromPost ( 'coordenacao' );
+				$coordenacao = $this->getEntityManager ()->find ( 'Application\Model\Empregado', $coordenacaoId ); 
+				$instrutorId = $this->params()->fromPost('instrutor');
+				$instrutor = $this->getEntityManager ()->find ( 'Application\Model\Instrutor', $instrutorId);
+				foreach ( $horaInicial as $i => $hI ) {
+					$programacao = new TurmaProgramacao ();
+					$programacao->setHoraInicial ( $hI );
+					$programacao->setHoraFinal ( $horaFinal [$i] );
+					$programacao->setLocal ( $local [$i] );
+					$realizacao = new \DateTime ( $dataRealizacao [$i] );
+					$programacao->setDataRealizacao ( $realizacao );
+					$this->getEntityManager ()->persist ( $programacao );
+					$this->getEntityManager ()->flush ();
+					$turma->getProgramacao ()->add ( $programacao );
 				}
-				error_log("4");
-				// inicial = data inicial, final = data final
-//				$dataInicial = new \DateTime($this->params()->fromPost("dataInicial"));
-				error_log("5");
-//				$dataFinal = new \DateTime($this->params()->fromPost("dataFinal"));
-				error_log("6");
-				$matriculas = $this->params ()->fromPost ( "matricula" );
-				unset($data["matricula"]);
-				error_log("7");
-				unset ($data["dataInicial"]);
-				error_log("8");
-				unset ($data["dataFinal"]);
-				error_log("9");
+				$participantes = $this->params ()->fromPost ( "matricula" );
+				foreach ( $participantes as $participanteId ) {
+					$participante = $this->getEntityManager ()->find ( "Application\Model\Empregado", $participanteId );
+					$turma->getParticipantes ()->add ( $participante );
+				}
+				unset ( $data ["matricula"] );
+				unset ( $data ["coordenacao"] );
+				unset ( $data ["dataInicial"] );
+				unset ( $data ["instrutor"] );
+				unset ( $data ["dataFinal"] );
+				unset ( $data ["capacitacao"] );
+				unset ( $data ["instituicao"] );
 				unset ( $data ['submit'] );
 				if (isset ( $data ['id'] ) && $data ['id'] > 0) {
-					error_log("10");
 					$turma = $this->getEntityManager ()->find ( 'Application\Model\Turma', $data ['id'] );
-					$turma = getMatricula()->clear();
+					$turma = getMatricula ()->clear ();
 				}
-				error_log(11);
-				foreach ( $matriculas as $matricula ) {
-					error_log("12");
-					$empregado = $this->getEntityManager ()->find ( "Application\Model\Empregado", $matricula );
-					$turma->getMatricula ()->add ( $empregado);
-				}
-				$turma->setMatricula($matricula);
-				error_log("13");
-//				$turma->setInicial($dataInicial);
-				error_log("14");
-//				$turma->setFinal($dataFinal);
-				error_log("15");
 				$turma->setData ( $data );
+				$turma->setCapacitacao ( $capacitacao );
+				$turma->setInstituicao ( $instituicao );
+				$turma->setCoordenacao ( $coordenacao );
+				$turma->setInstrutores ( $instrutor );
 				$this->getEntityManager ()->persist ( $turma );
 				$this->getEntityManager ()->flush ();
 				return $this->redirect ()->toUrl ( '/application/turma' );
@@ -113,15 +117,16 @@ class TurmaController extends ActionController {
 		if ($id > 0) {
 			$turma = $this->getEntityManager ()->find ( 'Application\Model\Turma', $id );
 			$form->bind ( $turma );
-			$empregados = $turma->getMatricula();
+			error_log("bind");
 		}
 		$renderer = $this->getServiceLocator ()->get ( 'Zend\View\Renderer\PhpRenderer' );
 		$renderer->headScript ()->appendFile ( '/js/jquery.dataTables.min.js' );
 		$renderer->headScript ()->appendFile ( '/js/turma.js' );
 		$renderer->headScript ()->appendFile ( '/js/jquery.mask.js' );
+		$renderer->headScript ()->appendFile ( '/js/moneymask.js' );
 		return new ViewModel ( array (
 				'form' => $form,
-				'empregados' => $empregados
+				'turma' => $turma
 		) );
 	}
 	/**

@@ -25,7 +25,7 @@ class TurmaProgramacao extends Entity {
 	protected $id;
 	
 	/**
-	 * @ORM\Column(type="date", name="data_realizacao")
+	 * @ORM\Column(type="datetime", name="data_realizacao")
 	 */
 	protected $dataRealizacao;
 	
@@ -55,7 +55,7 @@ class TurmaProgramacao extends Entity {
 		$this->id = $id;
 	}
 	public function getDataRealizacao() {
-		return $this->dataRealizacao;
+		return $this->dataRealizacao->format ( "d-m-Y" );
 	}
 	public function setDataRealizacao($dataRealizacao) {
 		$this->dataRealizacao = $dataRealizacao;

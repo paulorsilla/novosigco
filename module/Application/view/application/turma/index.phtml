@@ -3,11 +3,8 @@
 <table class="hover" id="consulta">
 	<thead>
 		<tr>
+			<th style="text-align: left;">Nome da turma</th>
 			<th style="text-align: left;">Capacitação</th>
-			<th style="text-align: left;">Data inicial</th>
-			<th style="text-align: left;">Data Final</th>
-			<th style="text-align: left;">Instrutor(es)</th>
-			<th style="text-align: left;">Nº Participantes</th>
 			<th width="90" class="center">Opções</th>
 		</tr>
 	</thead>
@@ -16,12 +13,9 @@
 	<?php 
 	foreach($turmas as $turma):?>
 		<tr>
+			<td><?php echo $this->escapeHtml($turma->getNome());?></td>
 			<td><?php echo $this->escapeHtml($turma->getCapacitacao()->getDescricao());?></td>
-			<td><?php echo $this->escapeHtml($turma->getInicial());?></td>
-			<td><?php echo $this->escapeHtml($turma->getFinal());?></td>
-			<td><?php echo $this->escapeHtml($turma->getInstrutor()->getNome());?></td>
-			<td><?php echo $this->escapeHtml($turma->getPartiticipantes());?></td>
-			<td style="text-align:center">
+				<td style="text-align:center">
 				<a href="/application/turma/save/id/<?php echo $turma->getId();?>"><span title="Editar" class="ui-icon ui-icon-pencil"/></a>
 				<a href="/application/turma/delete/id/<?php echo $turma->getId();?>" id="excluir"><span title="Excluir" class="ui-icon ui-icon-trash"/></a>
 			</td> 

@@ -18,6 +18,7 @@ use Doctrine\Common\Collections\ArrayCollection;
  *          @ORM\Table(name="turma")
  */
 class Turma extends Entity {
+	
 	/**
 	 * @ORM\Id
 	 * @ORM\Column(type="integer");
@@ -29,7 +30,7 @@ class Turma extends Entity {
 	 * @ORM\column(type="string", name="nome")
 	 */
 	protected $nome;
-		
+	
 	/**
 	 * @ORM\column(type="decimal", precision=2, name="valor")
 	 */
@@ -65,7 +66,7 @@ class Turma extends Entity {
 	 * @ORM\ManyToMany(targetEntity="Instrutor")
 	 * @ORM\JoinTable(name="turma_instrutor",
 	 * joinColumns={@ORM\JoinColumn(name="turma_id", referencedColumnName="id")},
-	 * inverseJoinColumns={@ORM\JoinColumn(name="instrutor_id", referencedColumnName="id")}
+	 * inverseJoinColumns={@ORM\JoinColumn(name="instrutor_id", referencedColumnName="cod_func")}
 	 * )
 	 */
 	protected $instrutores;
@@ -77,24 +78,13 @@ class Turma extends Entity {
 	protected $coordenacao;
 	
 	/**
-	 * @ORM\ManyToMany(targetEntity="Empregado")
-	 * @ORM\JoinTable(name="empregado_turma",
-	 * joinColumns={@ORM\JoinColumn(name="turma_id", referencedColumnName="id")},
-	 * inverseJoinColumns={@ORM\JoinColumn(name="empregado_matricula", referencedColumnName="cod_func")}
-	 * )
+	 * @ORM\OneToMany(targetEntity="TurmaProgramacao", mappedBy="turma")
 	 */
-	protected $matricula;
-	
-	
- 	/**
-     * @ORM\OneToMany(targetEntity="TurmaProgramacao", mappedBy="turma")
-     */
-  	protected $programacao;
+	protected $programacao;
 	public function __construct() {
-		$this->programacao = new ArrayCollection();
+		$this->programacao = new \Doctrine\Common\Collections\ArrayCollection ();
 		$this->participantes = new \Doctrine\Common\Collections\ArrayCollection ();
 		$this->instrutores = new \Doctrine\Common\Collections\ArrayCollection ();
-		$this->matricula = new \Doctrine\Common\Collections\ArrayCollection ();
 	}
 	public function getId() {
 		return $this->id;
@@ -150,12 +140,6 @@ class Turma extends Entity {
 	public function setCoordenacao($coordenacao) {
 		$this->coordenacao = $coordenacao;
 	}
-	public function getMatricula() {
-		return $this->matricula;
-	}
-	public function setMatricula($matricula) {
-		$this->matricula = $matricula;
-	}
 	public function getProgramacao() {
 		return $this->programacao;
 	}
@@ -171,42 +155,6 @@ class Turma extends Entity {
 					'name' => 'id',
 					'required' => false 
 			) ) );
-			
-// 			$inputFilter->add ( $factory->createInput ( array (
-// 					'name' => 'valor',
-// 					'required' => true,
-// 					'validators' => array (
-// 							array (
-// 									'options' => array (
-// 											'min' => 2 
-// 									) 
-// 							) 
-// 					) 
-// 			) ) );
-			
-			$inputFilter->add ( $factory->createInput ( array (
-					'name' => 'instrutores',
-					'required' => false,
-					'filters' => array (
-							array (
-									'name' => 'StripTags' 
-							),
-							array (
-									'name' => 'StringTrim' 
-							) 
-					),
-					'validators' => array (
-							array (
-									'name' => 'StringLength',
-									'options' => array (
-											'encoding' => 'UTF-8',
-											'min' => 2,
-											'max' => 200 
-									) 
-							) 
-					) 
-			) ) );
-			
 			$this->inputFilter = $inputFilter;
 		}
 		return $this->inputFilter;

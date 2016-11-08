@@ -32,10 +32,10 @@ $(document).ready(function() {
 	      	
 	      },
 	      "columnDefs": [
-	                 { width: "30%", targets: [1] },
-	                // { width: "20%", targets: [4] },
+	                 { width: "40%", targets: [1] },
+	                 { width: "30%", targets: [0] },
 	                // { width: "10%", targets: [5] },
-	                 { className: "dt-body-center", targets: [2] }
+	                 { className: "dt-body-center", targets: [0, 1, 2] }
 	             ]
 	});	
 	
@@ -303,16 +303,18 @@ $(document).ready(function() {
 				empregadosSelecionados.splice(indice, 1);
 			 }
 		});
-	});		
-	
+	});	
 	$("#novaProgramacao").on('click',function(e){
 		e.preventDefault();
+
 		var capacitacaoID = $("#capacitacao").val();
-		if (capacitacaoID == ""){
-			alert("Selecione uma Capacitação no menu acima");
-			return false;
-		}
-		var id = $("#tabelaProgramacao tr").length-1;
+//		if (capacitacaoID == ""){
+//			alert("Selecione uma Capacitação no menu acima");
+//			return false;
+//		}
+//		 var id = $("#tabelaProgramacao tr").length-1;
+		var id = $("#tabelaProgramacao").dataTable().fnSettings().aoData.length + 1;
+		//alert(id);
 		tabelaProg.row.add([
 			"<td><input type='text' style='width: 210px' id='dataRealizacao_"+id+"' name='dataRealizacao[]'></td>",
 			"<td><input type='text' style='width: 250px' id='horaInicial_"+id+"' name='horaInicial[]'></td>",
@@ -397,6 +399,17 @@ $(document).ready(function() {
 		});
 		
 	}
+	$("button[id^='excluirEmpregado_']").button({
+		icons: {
+			primary: "ui-icon-trash",
+	},
+	text: false
+	}).click(function(e) {
+		e.preventDefault();
+		if(confirm("Deseja realmente excluir?")) {
+			tabelaEmp.row($(this).parents('tr')).remove().draw();
+			}
+		});
 	
 //fim do documento
 });
