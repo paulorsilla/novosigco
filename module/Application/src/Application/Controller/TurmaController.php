@@ -8,6 +8,7 @@ use Application\Model\Turma;
 use Application\Form\Turma as TurmaForm;
 use Doctrine\ORM\EntityManager;
 use Application\Model\TurmaProgramacao;
+use Application\Model\TurmaInstrutor;
 
 /**
  * Controlador que gerencia o cadastro de Turmas
@@ -73,19 +74,8 @@ class TurmaController extends ActionController {
 				$instituicao = $this->getEntityManager ()->find ( 'Application\Model\Instituicao', $codigo );
 				$coordenacaoId = $this->params ()->fromPost ( 'coordenacao' );
 				$coordenacao = $this->getEntityManager ()->find ( 'Application\Model\Empregado', $coordenacaoId ); 
-				$instrutorId = $this->params()->fromPost('instrutor');
+				$instrutores = $this->params()->fromPost('instrutor');
 				$instrutor = $this->getEntityManager ()->find ( 'Application\Model\Instrutor', $instrutorId);
-				foreach ( $horaInicial as $i => $hI ) {
-					$programacao = new TurmaProgramacao ();
-					$programacao->setHoraInicial ( $hI );
-					$programacao->setHoraFinal ( $horaFinal [$i] );
-					$programacao->setLocal ( $local [$i] );
-					$realizacao = new \DateTime ( $dataRealizacao [$i] );
-					$programacao->setDataRealizacao ( $realizacao );
-					$this->getEntityManager ()->persist ( $programacao );
-					$this->getEntityManager ()->flush ();
-					$turma->getProgramacao ()->add ( $programacao );
-				}
 				$participantes = $this->params ()->fromPost ( "matricula" );
 				foreach ( $participantes as $participanteId ) {
 					$participante = $this->getEntityManager ()->find ( "Application\Model\Empregado", $participanteId );
@@ -107,8 +97,23 @@ class TurmaController extends ActionController {
 				$turma->setCapacitacao ( $capacitacao );
 				$turma->setInstituicao ( $instituicao );
 				$turma->setCoordenacao ( $coordenacao );
-				$turma->setInstrutores ( $instrutor );
+				//$turma->setInstrutores ( $instrutor );
 				$this->getEntityManager ()->persist ( $turma );
+				foreach ($instrutor as $inst){
+					$turma->getInstrutores()->add($instrutores);
+				}
+				foreach ( $horaInicial as $i => $hI ) {
+					$programacao = new TurmaProgramacao ();
+					$programacao->setHoraInicial ( $hI );
+					$programacao->setHoraFinal ( $horaFinal [$i] );
+					$programacao->setLocal ( $local [$i] );
+					$realizacao = new \DateTime ( $dataRealizacao [$i] );
+					$programacao->setDataRealizacao ( $realizacao );
+					$programacao->setTurma($turma);
+					$this->getEntityManager ()->persist ( $programacao );
+					$this->getEntityManager ()->flush ();
+					$turma->getProgramacao ()->add ( $programacao );
+				}
 				$this->getEntityManager ()->flush ();
 				return $this->redirect ()->toUrl ( '/application/turma' );
 			}
@@ -117,7 +122,6 @@ class TurmaController extends ActionController {
 		if ($id > 0) {
 			$turma = $this->getEntityManager ()->find ( 'Application\Model\Turma', $id );
 			$form->bind ( $turma );
-			error_log("bind");
 		}
 		$renderer = $this->getServiceLocator ()->get ( 'Zend\View\Renderer\PhpRenderer' );
 		$renderer->headScript ()->appendFile ( '/js/jquery.dataTables.min.js' );

@@ -44,10 +44,13 @@ echo $this->formLabel ( $form->get ( 'instituicao' ) ) . "<br />";
 echo $this->formSelect ( $form->get ( 'instituicao' ) ) . "<br />";
 echo $this->formElementErrors ( $form->get ( 'instituicao' ) ) . "<br />";
 
-echo $this->formLabel ( $form->get ( 'instrutor' ) ) . "<br />";
-echo $this->formSelect ( $form->get ( 'instrutor' ) ) . "<br />";
-echo $this->formElementErrors ( $form->get ( 'instrutor' ) ) . "<br />";
-
+echo $this->formLabel ( $form->get ( 'instrutor[]' ) ) . "<br />";
+echo $this->formSelect ( $form->get ( 'instrutor[]') ) . "<button id='adicionarInstrutor'>+</button>". "<button id='removerInstrutor'>-</button>". "<br />";
+echo $this->formElementErrors ( $form->get ( 'instrutor[]' ) ) . "<br />";
+?>
+<div id="novoInstrutor">
+</div>
+<?php
 echo $this->formLabel ( $form->get ( 'coordenacao' ) ) . "<br />";
 echo $this->formSelect ( $form->get ( 'coordenacao' ) ) . "<br />";
 echo $this->formElementErrors ( $form->get ( 'coordenacao' ) ) . "<br />";

@@ -38,5 +38,4 @@ class TurmaInstrutor extends Entity {
 	public function setTurma($turma) {
 		$this->turma = $turma;
 	}
-	
 }
