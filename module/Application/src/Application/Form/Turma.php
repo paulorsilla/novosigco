@@ -83,7 +83,7 @@ class Turma extends Form {
 						'required' => false 
 				),
 				'options' => array (
-						'label' => 'Valor:' 
+						'label' => 'Valor total:' 
 				) 
 		) );
 		

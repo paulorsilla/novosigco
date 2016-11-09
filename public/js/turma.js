@@ -341,7 +341,7 @@ $(document).ready(function() {
 		var id = $("#tabelaProgramacao").dataTable().fnSettings().aoData.length + 1;
 		//alert(id);
 		tabelaProg.row.add([
-			"<td><input type='text' style='width: 210px' id='dataRealizacao_"+id+"' name='dataRealizacao[]'></td>",
+			"<td><input type='text' style='width: 200px' id='dataRealizacao_"+id+"' name='dataRealizacao[]'></td>",
 			"<td><input type='text' style='width: 250px' id='horaInicial_"+id+"' name='horaInicial[]'></td>",
 			"<td><input type='text' style='width: 250px' id='horaFinal_"+id+"' name='horaFinal[]'></td>",
 			"<td><input type='text' style='width: 550px' id='local_"+id+"' name='local[]'></td>",
