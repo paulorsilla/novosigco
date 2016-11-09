@@ -88,7 +88,7 @@ $(document).ready(function() {
         }
 	});
 
-	 $('button[id="removerInstrutor"]').click(function(e) {
+	 $('button[id="removerInstrutor"]').on("click", function(e) {
 		 	e.preventDefault();
 	        if ($('select[name*="instrutor"]').size() > 1) {
 	            var instrutor = $('select[name*="instrutor"]').last();
@@ -98,17 +98,20 @@ $(document).ready(function() {
 
 	    $('button[id="adicionarInstrutor"]').on("click",function(e) {
 	    	e.preventDefault();
-	        var novoInstrutor = $('select[name="instrutor"]').first().clone();
-	        novoInstrutor.attr('name','instrutor[]');
-	        novoInstrutor.find('option').each(function () {
-	            if ($(this).val() === '') {
-	                $(this).attr('selected', 'selected');
-	            }
-	        });
-	        // novoInstrutor.insertAfter($('select[name="instrutor"]').last());
-	        //$('select[name="instrutor"]').last();
-	        novoInstrutor.insertAfter($("#novoInstrutor"));
-	    });
+	        var novoInstrutor = $("#instrutor").clone();
+	        novoInstrutor.attr("id", "idteste");
+	    	
+	        
+//	        novoInstrutor.find('option').each(function () {
+//	            if ($(this).val() === '') {
+//	                $(this).attr('selected', 'selected');
+//	            }
+//	        });
+	        
+	        
+	        $("#novoInstrutor").append(novoInstrutor);
+
+    });
 	
 //	//busca empregados, em caso de edição
 //	if (listaId > 0) {
