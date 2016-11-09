@@ -88,6 +88,28 @@ $(document).ready(function() {
         }
 	});
 
+	 $('button[id="removerInstrutor"]').click(function(e) {
+		 	e.preventDefault();
+	        if ($('select[name*="instrutor"]').size() > 1) {
+	            var instrutor = $('select[name*="instrutor"]').last();
+	            instrutor.remove();
+	        }
+	    });
+
+	    $('button[id="adicionarInstrutor"]').on("click",function(e) {
+	    	e.preventDefault();
+	        var novoInstrutor = $('select[name="instrutor"]').first().clone();
+	        novoInstrutor.attr('name','instrutor[]');
+	        novoInstrutor.find('option').each(function () {
+	            if ($(this).val() === '') {
+	                $(this).attr('selected', 'selected');
+	            }
+	        });
+	        // novoInstrutor.insertAfter($('select[name="instrutor"]').last());
+	        //$('select[name="instrutor"]').last();
+	        novoInstrutor.insertAfter($("#novoInstrutor"));
+	    });
+	
 //	//busca empregados, em caso de edição
 //	if (listaId > 0) {
 //		$.ajax({
