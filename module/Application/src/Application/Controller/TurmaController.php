@@ -73,14 +73,18 @@ class TurmaController extends ActionController {
 				$codigo = $this->params ()->fromPost ( 'instituicao' );
 				$instituicao = $this->getEntityManager ()->find ( 'Application\Model\Instituicao', $codigo );
 				$coordenacaoId = $this->params ()->fromPost ( 'coordenacao' );
-				$coordenacao = $this->getEntityManager ()->find ( 'Application\Model\Empregado', $coordenacaoId ); 
-				$instrutores = $this->params()->fromPost('instrutor');
-				$instrutor = $this->getEntityManager ()->find ( 'Application\Model\Instrutor', $instrutorId);
+				$coordenacao = $this->getEntityManager ()->find ( 'Application\Model\Empregado', $coordenacaoId );
+				$instrutor1 = $this->params ()->fromPost ( 'instrutor' );
+				$instrutor2 = $this->params ()->fromPost ( 'instrutor2' );
+				$instrutor = $this->getEntityManager ()->find ( 'Application\Model\Instrutor', $instrutor1 );
+				$instrutores2 = $this->getEntityManager ()->find ( 'Application\Model\Instrutor', $instrutor2 );
 				$participantes = $this->params ()->fromPost ( "matricula" );
 				foreach ( $participantes as $participanteId ) {
 					$participante = $this->getEntityManager ()->find ( "Application\Model\Empregado", $participanteId );
 					$turma->getParticipantes ()->add ( $participante );
 				}
+				unset ( $data ["instrutor"] );
+				unset ( $data ["instrutor2"] );
 				unset ( $data ["matricula"] );
 				unset ( $data ["coordenacao"] );
 				unset ( $data ["dataInicial"] );
@@ -95,13 +99,12 @@ class TurmaController extends ActionController {
 				}
 				$turma->setData ( $data );
 				$turma->setCapacitacao ( $capacitacao );
+				$turma->setInstrutor1 ( $instrutor );
+				$turma->setInstrutor2 ( $instrutores2 );
 				$turma->setInstituicao ( $instituicao );
 				$turma->setCoordenacao ( $coordenacao );
-				//$turma->setInstrutores ( $instrutor );
+				// $turma->setInstrutores ( $instrutor );
 				$this->getEntityManager ()->persist ( $turma );
-				foreach ($instrutor as $inst){
-					$turma->getInstrutores()->add($instrutores);
-				}
 				foreach ( $horaInicial as $i => $hI ) {
 					$programacao = new TurmaProgramacao ();
 					$programacao->setHoraInicial ( $hI );
@@ -109,7 +112,7 @@ class TurmaController extends ActionController {
 					$programacao->setLocal ( $local [$i] );
 					$realizacao = new \DateTime ( $dataRealizacao [$i] );
 					$programacao->setDataRealizacao ( $realizacao );
-					$programacao->setTurma($turma);
+					$programacao->setTurma ( $turma );
 					$this->getEntityManager ()->persist ( $programacao );
 					$this->getEntityManager ()->flush ();
 					$turma->getProgramacao ()->add ( $programacao );
@@ -130,7 +133,7 @@ class TurmaController extends ActionController {
 		$renderer->headScript ()->appendFile ( '/js/moneymask.js' );
 		return new ViewModel ( array (
 				'form' => $form,
-				'turma' => $turma
+				'turma' => $turma 
 		) );
 	}
 	/**

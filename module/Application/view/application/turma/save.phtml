@@ -44,9 +44,13 @@ echo $this->formLabel ( $form->get ( 'instituicao' ) ) . "<br />";
 echo $this->formSelect ( $form->get ( 'instituicao' ) ) . "<br />";
 echo $this->formElementErrors ( $form->get ( 'instituicao' ) ) . "<br />";
 
-echo $this->formLabel ( $form->get ( 'instrutor[]' ) ) . "<br />";
-echo $this->formSelect ( $form->get ( 'instrutor[]') ) . "<button id='adicionarInstrutor'>+</button>". "<button id='removerInstrutor'>-</button>". "<br />";
-echo $this->formElementErrors ( $form->get ( 'instrutor[]' ) ) . "<br />";
+echo $this->formLabel ( $form->get ( 'instrutor' ) ) . "<br />";
+echo $this->formSelect ( $form->get ( 'instrutor') ) . "<br />";
+echo $this->formElementErrors ( $form->get ( 'instrutor' ) ) . "<br />";
+
+echo $this->formLabel ( $form->get ( 'instrutor2' ) ) . "<br />";
+echo $this->formSelect ( $form->get ( 'instrutor2') ) . "<br />";
+echo $this->formElementErrors ( $form->get ( 'instrutor2' ) ) . "<br />";
 ?>
 <div id="novoInstrutor">
 </div>
@@ -70,15 +74,13 @@ echo $this->formElementErrors ( $form->get ( 'coordenacao' ) ) . "<br />";
 							</tr>
 							</thead>
 							<tbody>
-								<?php foreach($this->turma->getProgramacao() as $programacao):?>
 								<tr>
-								<td><input id="<?php echo $programacao->getDataRealizacao();?>" type="hidden" name="dataRealizacao[]"> value=<?php echo $this->escapeHtml($programacao->getDataRealizacao());?>></td>
+								<td></td>
 								<td></td>
 								<td></td>
 								<td></td>
 								<td></td> 
 								</tr>
-							<?php endforeach;?>
 							</tbody>
 					</table><br>
 					<button id='novaProgramacao' title ='Adicionar Programação'>Adicionar programação</button>

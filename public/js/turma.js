@@ -88,31 +88,6 @@ $(document).ready(function() {
         }
 	});
 
-	 $('button[id="removerInstrutor"]').on("click", function(e) {
-		 	e.preventDefault();
-	        if ($('select[name*="instrutor"]').size() > 1) {
-	            var instrutor = $('select[name*="instrutor"]').last();
-	            instrutor.remove();
-	        }
-	    });
-
-	    $('button[id="adicionarInstrutor"]').on("click",function(e) {
-	    	e.preventDefault();
-	        var novoInstrutor = $("#instrutor").clone();
-	        novoInstrutor.attr("id", "idteste");
-	    	
-	        
-//	        novoInstrutor.find('option').each(function () {
-//	            if ($(this).val() === '') {
-//	                $(this).attr('selected', 'selected');
-//	            }
-//	        });
-	        
-	        
-	        $("#novoInstrutor").append(novoInstrutor);
-
-    });
-	
 //	//busca empregados, em caso de edição
 //	if (listaId > 0) {
 //		$.ajax({
@@ -204,6 +179,7 @@ $(document).ready(function() {
 			});
 	$("#instituicao").selectmenu();
 	$("#instrutor").selectmenu();
+	$("#instrutor2").selectmenu();
 	$("#coordenacao").selectmenu();
 	$("#aplicacao").selectmenu();
 	
