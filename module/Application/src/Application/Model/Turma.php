@@ -80,7 +80,7 @@ class Turma extends Entity {
 	protected $coordenacao;
 	
 	/**
-	 * @ORM\OneToMany(targetEntity="TurmaProgramacao", mappedBy="turmaId")
+	 * @ORM\OneToMany(targetEntity="TurmaProgramacao", mappedBy="turma")
 	 */
 	protected $programacao;
 	public function __construct() {

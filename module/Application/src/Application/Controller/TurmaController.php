@@ -8,7 +8,6 @@ use Application\Model\Turma;
 use Application\Form\Turma as TurmaForm;
 use Doctrine\ORM\EntityManager;
 use Application\Model\TurmaProgramacao;
-use Application\Model\TurmaInstrutor;
 
 /**
  * Controlador que gerencia o cadastro de Turmas
@@ -117,6 +116,7 @@ class TurmaController extends ActionController {
 					$this->getEntityManager ()->flush ();
 					$turma->getProgramacao ()->add ( $programacao );
 				}
+				$this->getEntityManager()->persist($turma);
 				$this->getEntityManager ()->flush ();
 				return $this->redirect ()->toUrl ( '/application/turma' );
 			}
@@ -148,6 +148,12 @@ class TurmaController extends ActionController {
 		}
 		$turma = $this->getEntityManager ()->find ( 'Application\Model\Turma', $id );
 		if ($turma) {
+			$turma->getParticipantes()->clear();
+			foreach ($turma->getProgramacao() as $programacao){
+				$this->getEntityManager()->remove($programacao);
+				$this->getEntityManager()->flush();
+			}
+			//$turma->getProgramacao()->clear();
 			$this->getEntityManager ()->remove ( $turma );
 			$this->getEntityManager ()->flush ();
 		}

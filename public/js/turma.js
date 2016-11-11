@@ -309,10 +309,10 @@ $(document).ready(function() {
 		e.preventDefault();
 
 		var capacitacaoID = $("#capacitacao").val();
-//		if (capacitacaoID == ""){
-//			alert("Selecione uma Capacitação no menu acima");
-//			return false;
-//		}
+		if (capacitacaoID == ""){
+			alert("Selecione uma Capacitação no menu acima");
+			return false;
+		}
 //		 var id = $("#tabelaProgramacao tr").length-1;
 		var id = $("#tabelaProgramacao").dataTable().fnSettings().aoData.length + 1;
 		//alert(id);
@@ -320,7 +320,7 @@ $(document).ready(function() {
 			"<td><input type='text' style='width: 200px' id='dataRealizacao_"+id+"' name='dataRealizacao[]'></td>",
 			"<td><input type='text' style='width: 250px' id='horaInicial_"+id+"' name='horaInicial[]'></td>",
 			"<td><input type='text' style='width: 250px' id='horaFinal_"+id+"' name='horaFinal[]'></td>",
-			"<td><input type='text' style='width: 550px' id='local_"+id+"' name='local[]'></td>",
+			"<td><input type='text' style='width: 500px' id='local_"+id+"' name='local[]'></td>",
 			"<td><button id='removerProgramacao_"+id+"'>Remover</button>"
 		]).draw();
 
@@ -332,7 +332,7 @@ $(document).ready(function() {
 		});
 			
 		//calenadário
-		$("#dataRealizacao_"+id).datepicker({
+		$("text[id^='dataRealizacao_']").datepicker({
 		    dateFormat: 'dd-mm-yy',
 		    dayNames: ['Domingo','Segunda','Terça','Quarta','Quinta','Sexta','Sábado'],
 		    dayNamesMin: ['D','S','T','Q','Q','S','S','D'],
@@ -411,6 +411,19 @@ $(document).ready(function() {
 			tabelaEmp.row($(this).parents('tr')).remove().draw();
 			}
 		});
+	
+	$("button[id^='excluirProgramacao_']").button({
+		icons: {
+			primary: "ui-icon-trash",
+	},
+	text: false
+	}).click(function(e){
+		e.preventDefault();
+		if(confirm("Deseja realmente excluir?")){
+			tabelaProg.row($(this).parents('tr')).remove().draw();
+			atualizaId();
+		} 
+	});
 	
 //fim do documento
 });
