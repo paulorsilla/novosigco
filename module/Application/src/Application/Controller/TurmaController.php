@@ -73,17 +73,17 @@ class TurmaController extends ActionController {
 				$instituicao = $this->getEntityManager ()->find ( 'Application\Model\Instituicao', $codigo );
 				$coordenacaoId = $this->params ()->fromPost ( 'coordenacao' );
 				$coordenacao = $this->getEntityManager ()->find ( 'Application\Model\Empregado', $coordenacaoId );
-				$instrutor1 = $this->params ()->fromPost ( 'instrutor' );
+				$instrutor1 = $this->params ()->fromPost ( 'instrutor1' );
 				$instrutor2 = $this->params ()->fromPost ( 'instrutor2' );
-				$instrutor = $this->getEntityManager ()->find ( 'Application\Model\Instrutor', $instrutor1 );
+				$instrutores1 = $this->getEntityManager ()->find ( 'Application\Model\Instrutor', $instrutor1 );
 				$instrutores2 = $this->getEntityManager ()->find ( 'Application\Model\Instrutor', $instrutor2 );
 				$participantes = $this->params ()->fromPost ( "matricula" );
 				foreach ( $participantes as $participanteId ) {
 					$participante = $this->getEntityManager ()->find ( "Application\Model\Empregado", $participanteId );
 					$turma->getParticipantes ()->add ( $participante );
 				}
-				unset ( $data ["instrutor"] );
-				unset ( $data ["instrutor2"] );
+				unset ( $data ["instrutores1"] );
+				unset ( $data ["instrutores2"] );
 				unset ( $data ["matricula"] );
 				unset ( $data ["coordenacao"] );
 				unset ( $data ["dataInicial"] );
@@ -94,11 +94,10 @@ class TurmaController extends ActionController {
 				unset ( $data ['submit'] );
 				if (isset ( $data ['id'] ) && $data ['id'] > 0) {
 					$turma = $this->getEntityManager ()->find ( 'Application\Model\Turma', $data ['id'] );
-					$turma = getMatricula ()->clear ();
 				}
 				$turma->setData ( $data );
 				$turma->setCapacitacao ( $capacitacao );
-				$turma->setInstrutor1 ( $instrutor );
+				$turma->setInstrutor1 ( $instrutores1 );
 				$turma->setInstrutor2 ( $instrutores2 );
 				$turma->setInstituicao ( $instituicao );
 				$turma->setCoordenacao ( $coordenacao );
@@ -149,10 +148,10 @@ class TurmaController extends ActionController {
 		$turma = $this->getEntityManager ()->find ( 'Application\Model\Turma', $id );
 		if ($turma) {
 			$turma->getParticipantes()->clear();
-			foreach ($turma->getProgramacao() as $programacao){
-				$this->getEntityManager()->remove($programacao);
-				$this->getEntityManager()->flush();
-			}
+// 			foreach ($turma->getProgramacao() as $programacao){
+// 				$this->getEntityManager()->remove($programacao);
+// 				$this->getEntityManager()->flush();
+// 			}
 			//$turma->getProgramacao()->clear();
 			$this->getEntityManager ()->remove ( $turma );
 			$this->getEntityManager ()->flush ();

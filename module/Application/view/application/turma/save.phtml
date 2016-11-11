@@ -44,9 +44,9 @@ echo $this->formLabel ( $form->get ( 'instituicao' ) ) . "<br />";
 echo $this->formSelect ( $form->get ( 'instituicao' ) ) . "<br />";
 echo $this->formElementErrors ( $form->get ( 'instituicao' ) ) . "<br />";
 
-echo $this->formLabel ( $form->get ( 'instrutor' ) ) . "<br />";
-echo $this->formSelect ( $form->get ( 'instrutor') ) . "<br />";
-echo $this->formElementErrors ( $form->get ( 'instrutor' ) ) . "<br />";
+echo $this->formLabel ( $form->get ( 'instrutor1' ) ) . "<br />";
+echo $this->formSelect ( $form->get ( 'instrutor1') ) . "<br />";
+echo $this->formElementErrors ( $form->get ( 'instrutor1' ) ) . "<br />";
 
 echo $this->formLabel ( $form->get ( 'instrutor2' ) ) . "<br />";
 echo $this->formSelect ( $form->get ( 'instrutor2') ) . "<br />";
@@ -76,14 +76,14 @@ echo $this->formElementErrors ( $form->get ( 'coordenacao' ) ) . "<br />";
 							<tbody>
 								<?php foreach ($this->turma->getProgramacao() as $key => $programacao):?>
 								<tr>
-								<td><input id='dataRealizacao_<?php echo $key+1;?>' name='dataRealizacao[]'type="hidden">
-								<input type='text' style='width: 200px'value="<?php echo $this->escapeHtml($programacao->getDataRealizacao());?>"></td>
-								<td><input id='horaInicial_<?php echo $key+1;?>' name='horaInicial'type="hidden">
-								<input type='text' style='width: 250px'value="<?php echo $this->escapeHtml($programacao->getHoraInicial());?>"></td>
-								<td><input id='horaFinal_<?php echo $key+1;?>' name='horaFinal'type="hidden">
-								<input type='text' style='width: 250px'value="<?php echo $this->escapeHtml($programacao->getHoraFinal());?>"></td>
-								<td><input id='local_<?php echo $key+1;?>' name='local'type="hidden">
-								<input type='text' style='width: 500px'value="<?php echo $this->escapeHtml($programacao->getLocal());?>"></td>
+								<td><input id='dataRealizacao_<?php echo $key+1;?>' name='dataRealizacao[]'
+								 type='text' style='width: 190px'value="<?php echo $this->escapeHtml($programacao->getDataRealizacao());?>"></td>
+								<td><input id='horaInicial_<?php echo $key+1;?>' name='horaInicial'
+								type='text' style='width: 250px'value="<?php echo $this->escapeHtml($programacao->getHoraInicial());?>"></td>
+								<td><input id='horaFinal_<?php echo $key+1;?>' name='horaFinal'
+								 type='text' style='width: 250px'value="<?php echo $this->escapeHtml($programacao->getHoraFinal());?>"></td>
+								<td><input id='local_<?php echo $key+1;?>' name='local'
+								type='text' style='width: 500px'value="<?php echo $this->escapeHtml($programacao->getLocal());?>"></td>
 								<td><button id='excluirProgramacao_<?php $key+1;?>'<?php $programacao->getDataRealizacao();?>>Remover Programacao</button></td> 
 								</tr>
 								<?php endforeach?>

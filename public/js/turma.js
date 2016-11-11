@@ -137,8 +137,7 @@ $(document).ready(function() {
 		//text: false,
 	});
 	
-	//aplicando js nos selects menus
-	$("#capacitacao").selectmenu({
+	$("#capacitacao").selectmenu({//aplicando jg e definindo função.
 				change: function(e, ui) {
 					e.preventDefault();
 					$("#tabelaQuestionario tbody").html("");
@@ -177,8 +176,9 @@ $(document).ready(function() {
 					});
 				}
 			});
+	aplicando js nos selects menus
 	$("#instituicao").selectmenu();
-	$("#instrutor").selectmenu();
+	$("#instrutor1").selectmenu();
 	$("#instrutor2").selectmenu();
 	$("#coordenacao").selectmenu();
 	$("#aplicacao").selectmenu();
@@ -317,7 +317,7 @@ $(document).ready(function() {
 		var id = $("#tabelaProgramacao").dataTable().fnSettings().aoData.length + 1;
 		//alert(id);
 		tabelaProg.row.add([
-			"<td><input type='text' style='width: 200px' id='dataRealizacao_"+id+"' name='dataRealizacao[]'></td>",
+			"<td><input type='text' style='width: 190px' id='dataRealizacao_"+id+"' name='dataRealizacao[]'></td>",
 			"<td><input type='text' style='width: 250px' id='horaInicial_"+id+"' name='horaInicial[]'></td>",
 			"<td><input type='text' style='width: 250px' id='horaFinal_"+id+"' name='horaFinal[]'></td>",
 			"<td><input type='text' style='width: 500px' id='local_"+id+"' name='local[]'></td>",
@@ -332,7 +332,7 @@ $(document).ready(function() {
 		});
 			
 		//calenadário
-		$("text[id^='dataRealizacao_']").datepicker({
+		$("#dataRealizacao_"+id).datepicker({
 		    dateFormat: 'dd-mm-yy',
 		    dayNames: ['Domingo','Segunda','Terça','Quarta','Quinta','Sexta','Sábado'],
 		    dayNamesMin: ['D','S','T','Q','Q','S','S','D'],
@@ -411,6 +411,23 @@ $(document).ready(function() {
 			tabelaEmp.row($(this).parents('tr')).remove().draw();
 			}
 		});
+	$("input[id^='dataRealizacao_']").datepicker({
+	    dateFormat: 'dd-mm-yy',
+	    dayNames: ['Domingo','Segunda','Terça','Quarta','Quinta','Sexta','Sábado'],
+	    dayNamesMin: ['D','S','T','Q','Q','S','S','D'],
+	    dayNamesShort: ['Dom','Seg','Ter','Qua','Qui','Sex','Sáb','Dom'],
+	    monthNames: ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'],
+	    monthNamesShort: ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'],
+	    nextText: 'Próximo',
+	    prevText: 'Anterior',			
+	    showOn : "button",
+		buttonImage : "/images/calendar.gif",
+		buttonImageOnly : true,
+		buttonText : "Selecione a data",
+		showOtherMonths : true,
+		selectOtherMonths : true,
+		DateFormat : ["mm-dd-yyyy"]
+	});
 	
 	$("button[id^='excluirProgramacao_']").button({
 		icons: {
