@@ -39,6 +39,18 @@ class Sublotacao extends Form
 						'label' => 'Sigla:',
 				),
 		));
+
+		$this->add(array(
+				'name' => 'ano',
+				'attributes' => array(
+						'type' => 'text',
+						'style' => 'width: 800px'
+				),
+				'options' => array(
+						'label' => 'Ano:',
+				),
+		));
+		
 		
         $this->add(array(
             'name' => 'submit',

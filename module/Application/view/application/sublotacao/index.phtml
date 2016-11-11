@@ -6,6 +6,7 @@
 		<tr>
 			<th style="text-align: left;">Descrição</th>
 			<th style="text-align: left;">Sigla</th>
+			<th style="text-align: left;">Ano</th>
 			<th width="90" class="center">Opções</th>
 		</tr>
 	</thead>
@@ -14,6 +15,7 @@
 		<tr>
 			<td id="descricao"><?php echo $this->escapeHtml($sublotacao->getDescricao());?></td>
 			<td id="sigla"><?php echo $this->escapeHtml($sublotacao->getSigla());?></td>
+			<td id="ano"><?php echo $this->escapeHtml($sublotacao->getAno());?></td>
 			<td style="text-align:center">
 				<a href="/application/sublotacao/save/id/<?php echo $sublotacao->getId();?>"><span title="Editar" class="ui-icon ui-icon-pencil"/></a>
 				<!-- Remoção do botão "delete"

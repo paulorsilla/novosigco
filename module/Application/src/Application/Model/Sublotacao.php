@@ -35,6 +35,12 @@ class Sublotacao extends Entity {
 	 * @ORM\Column(type="string")
 	 */
 	protected $sigla;
+	
+	/**
+	 * @ORM\Column(type="integer")
+	 */
+	protected $ano;
+	
 	public function getId() {
 		return $this->id;
 	}
@@ -53,6 +59,13 @@ class Sublotacao extends Entity {
 	public function setSigla($sigla) {
 		$this->sigla = $sigla;
 	}
+	public function getAno() {
+		return $this->ano;
+	}
+	public function setAno($ano) {
+		$this->ano = $ano;
+	}
+	
 	
 	/**
 	 * Configura os filtros dos campos da entidade
@@ -113,8 +126,15 @@ class Sublotacao extends Entity {
 							),
 					),
 			)));
+			
+			$inputFilter->add ( $factory->createInput ( array (
+					'name' => 'ano',
+					'required' => true
+			) ) );
+				
 			$this->inputFilter = $inputFilter;
 		}
 		return $this->inputFilter;
 	}
+	
 }

@@ -8,8 +8,9 @@
  				echo $this->form()->openTag($form);
 		
 		echo $this->formRow($form->get("id"));
-		echo $this->formRow($form->get("descricao"))."<br />";
-		echo $this->formRow($form->get("sigla"));
+		echo $this->formRow($form->get("descricao"))."<br /><br />";
+		echo $this->formRow($form->get("sigla"))."<br /><br />";
+		echo $this->formRow($form->get("ano"));
 		echo $this->formRow($form->get("submit"));
 		?>
 	</div>
@@ -40,7 +41,6 @@
 
 	$("#salvar").click(function(e) {
 		e.preventDefault();
-		alert("aqui");
 		$("#submit").click();
 	});
 
