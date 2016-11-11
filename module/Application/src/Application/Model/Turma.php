@@ -6,7 +6,6 @@ use Zend\InputFilter\Factory as InputFactory;
 use Zend\InputFilter\InputFilter;
 use Core\Model\Entity;
 use Doctrine\ORM\Mapping as ORM;
-use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Entidade Turma
@@ -62,14 +61,17 @@ class Turma extends Entity {
 	 */
 	protected $participantes;
 	
-	/**
-	 * @ORM\ManyToMany(targetEntity="Instrutor")
-	 * @ORM\JoinTable(name="turma_instrutor",
-	 * joinColumns={@ORM\JoinColumn(name="turma_id", referencedColumnName="id")},
-	 * inverseJoinColumns={@ORM\JoinColumn(name="instrutor_id", referencedColumnName="cod_func")}
-	 * )
-	 */
-	protected $instrutores;
+	 /**
+     * @ORM\ManyToOne(targetEntity="Instrutor")
+     * @ORM\JoinColumn(name="instrutor_id1", referencedColumnName="id")
+     */
+	protected $instrutor1;
+	
+	 /**
+     * @ORM\ManyToOne(targetEntity="Instrutor")
+     * @ORM\JoinColumn(name="instrutor_id2", referencedColumnName="id")
+     */
+	protected $instrutor2;
 	
 	/**
 	 * @ORM\OneToOne(targetEntity="Empregado")
@@ -84,7 +86,8 @@ class Turma extends Entity {
 	public function __construct() {
 		$this->programacao = new \Doctrine\Common\Collections\ArrayCollection ();
 		$this->participantes = new \Doctrine\Common\Collections\ArrayCollection ();
-		$this->instrutores = new \Doctrine\Common\Collections\ArrayCollection ();
+		$this->instrutor1 = new \Doctrine\Common\Collections\ArrayCollection ();
+		$this->instrutor2 = new \Doctrine\Common\Collections\ArrayCollection ();
 	}
 	public function getId() {
 		return $this->id;
@@ -128,12 +131,6 @@ class Turma extends Entity {
 	public function setParticipantes($participantes) {
 		$this->participantes = $participantes;
 	}
-	public function getInstrutores() {
-		return $this->instrutores;
-	}
-	public function setInstrutores($instrutores) {
-		$this->instrutores = $instrutores;
-	}
 	public function getCoordenacao() {
 		return $this->coordenacao;
 	}
@@ -145,6 +142,18 @@ class Turma extends Entity {
 	}
 	public function setProgramacao($programacao) {
 		$this->programacao = $programacao;
+	}
+	public function getInstrutor1() {
+		return $this->instrutor1;
+	}
+	public function setInstrutor1($instrutor1) {
+		$this->instrutor1 = $instrutor1;
+	}
+	public function getInstrutor2() {
+		return $this->instrutor2;
+	}
+	public function setInstrutor2($instrutor2) {
+		$this->instrutor2 = $instrutor2;
 	}
 	public function getInputFilter() {
 		if (! $this->inputFilter) {

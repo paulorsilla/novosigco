@@ -88,31 +88,6 @@ $(document).ready(function() {
         }
 	});
 
-	 $('button[id="removerInstrutor"]').on("click", function(e) {
-		 	e.preventDefault();
-	        if ($('select[name*="instrutor"]').size() > 1) {
-	            var instrutor = $('select[name*="instrutor"]').last();
-	            instrutor.remove();
-	        }
-	    });
-
-	    $('button[id="adicionarInstrutor"]').on("click",function(e) {
-	    	e.preventDefault();
-	        var novoInstrutor = $("#instrutor").clone();
-	        novoInstrutor.attr("id", "idteste");
-	    	
-	        
-//	        novoInstrutor.find('option').each(function () {
-//	            if ($(this).val() === '') {
-//	                $(this).attr('selected', 'selected');
-//	            }
-//	        });
-	        
-	        
-	        $("#novoInstrutor").append(novoInstrutor);
-
-    });
-	
 //	//busca empregados, em caso de edição
 //	if (listaId > 0) {
 //		$.ajax({
@@ -204,6 +179,7 @@ $(document).ready(function() {
 			});
 	$("#instituicao").selectmenu();
 	$("#instrutor").selectmenu();
+	$("#instrutor2").selectmenu();
 	$("#coordenacao").selectmenu();
 	$("#aplicacao").selectmenu();
 	
@@ -341,7 +317,7 @@ $(document).ready(function() {
 		var id = $("#tabelaProgramacao").dataTable().fnSettings().aoData.length + 1;
 		//alert(id);
 		tabelaProg.row.add([
-			"<td><input type='text' style='width: 210px' id='dataRealizacao_"+id+"' name='dataRealizacao[]'></td>",
+			"<td><input type='text' style='width: 200px' id='dataRealizacao_"+id+"' name='dataRealizacao[]'></td>",
 			"<td><input type='text' style='width: 250px' id='horaInicial_"+id+"' name='horaInicial[]'></td>",
 			"<td><input type='text' style='width: 250px' id='horaFinal_"+id+"' name='horaFinal[]'></td>",
 			"<td><input type='text' style='width: 550px' id='local_"+id+"' name='local[]'></td>",
