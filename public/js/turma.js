@@ -137,7 +137,7 @@ $(document).ready(function() {
 		//text: false,
 	});
 	
-	$("#capacitacao").selectmenu({//aplicando jg e definindo função.
+	$("#capacitacao").selectmenu({//aplicando js e definindo função.
 				change: function(e, ui) {
 					e.preventDefault();
 					$("#tabelaQuestionario tbody").html("");
@@ -176,7 +176,7 @@ $(document).ready(function() {
 					});
 				}
 			});
-	aplicando js nos selects menus
+	//aplicando js nos selects menus
 	$("#instituicao").selectmenu();
 	$("#instrutor1").selectmenu();
 	$("#instrutor2").selectmenu();

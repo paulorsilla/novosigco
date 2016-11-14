@@ -101,7 +101,6 @@ class TurmaController extends ActionController {
 				$turma->setInstrutor2 ( $instrutores2 );
 				$turma->setInstituicao ( $instituicao );
 				$turma->setCoordenacao ( $coordenacao );
-				// $turma->setInstrutores ( $instrutor );
 				$this->getEntityManager ()->persist ( $turma );
 				foreach ( $horaInicial as $i => $hI ) {
 					$programacao = new TurmaProgramacao ();
