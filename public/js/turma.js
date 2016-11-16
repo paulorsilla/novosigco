@@ -307,13 +307,11 @@ $(document).ready(function() {
 	});	
 	$("#novaProgramacao").on('click',function(e){
 		e.preventDefault();
-
 		var capacitacaoID = $("#capacitacao").val();
 		if (capacitacaoID == ""){
 			alert("Selecione uma Capacitação no menu acima");
 			return false;
 		}
-//		 var id = $("#tabelaProgramacao tr").length-1;
 		var id = $("#tabelaProgramacao").dataTable().fnSettings().aoData.length + 1;
 		//alert(id);
 		tabelaProg.row.add([
@@ -323,14 +321,12 @@ $(document).ready(function() {
 			"<td><input type='text' style='width: 500px' id='local_"+id+"' name='local[]'></td>",
 			"<td><button id='removerProgramacao_"+id+"'>Remover</button>"
 		]).draw();
-
 		$("#removerProgramacao_"+id).button({
 			icons: {
 				primary: "ui-icon-trash",
 			},
 		text: false,
 		});
-			
 		//calenadário
 		$("#dataRealizacao_"+id).datepicker({
 		    dateFormat: 'dd-mm-yy',
@@ -349,46 +345,19 @@ $(document).ready(function() {
 			selectOtherMonths : true,
 			DateFormat : ["mm-dd-yyyy"]
 		});
-		
 		//mascara da aba programação:
 		 $('#dataRealizacao_'+id).mask('00-00-0000');
 		 $('#horaInicial_'+id).mask('00:00');
 		 $('#horaFinal_'+id).mask('00:00');
-		
 		var removerProg = $("#removerProgramacao_"+id).on('click',function(e){
 			e.preventDefault();
 			var row = tabelaProg.row($(this).parents('tr')).remove().draw();
 			atualizaId();
 		});
 	});
-	
-//	function adicionaLinhas(){
-//				$("#tabelaProgramacao tbody").append(
-//				"<tr>"+
-//				"<td></td>"+
-//				"<td></td>"+
-//				"<td></td>"+
-//				"<td></td>"+
-//				"<td><button id='removerProgramacao' title='Remover Programação'>Remover</button><input type='text' id='sequencia'></td>"+
-//				"</tr>"
-//				);
-//				$("#removerProgramacao").button({
-//					icons : {
-//						primary : "ui-icon-trash",
-//					},
-//				}).on('click', function(e){
-//					e.preventDefault();
-//					var row = $(this).closest('tr').get(0); 
-//					tabelaProg.row(row).remove().draw();
-//					atualizaSequencia();	
-//				});
-//				atualizaSequencia();
-//	}
 	function atualizaId(){
-//		var sequencia = $("#sequencia");
 		$.each($('input[id^="dataRealizacao_"]'), function (index, value){
 			var arr = ($(this).attr('id')).split('_');
-//			alert(arr[1]+" é "+ (index +1) );
 			var ind = (index + 1);
 			if(arr[1] != ind){
 				$(this).attr('id', 'dataRealizacao_'+ind);

@@ -67,6 +67,7 @@ class TurmaController extends ActionController {
 				$horaInicial = $this->params ()->fromPost ( 'horaInicial' );
 				$horaFinal = $this->params ()->fromPost ( 'horaFinal' );
 				$local = $this->params ()->fromPost ( 'local' );
+				$idProgramacao = $this->params () -> fromPost ( 'idProgramacao' );
 				$capacitacaoId = $this->params ()->fromPost ( 'capacitacao' );
 				$capacitacao = $this->getEntityManager ()->find ( 'Application\Model\Capacitacao', $capacitacaoId );
 				$codigo = $this->params ()->fromPost ( 'instituicao' );
@@ -78,6 +79,10 @@ class TurmaController extends ActionController {
 				$instrutores1 = $this->getEntityManager ()->find ( 'Application\Model\Instrutor', $instrutor1 );
 				$instrutores2 = $this->getEntityManager ()->find ( 'Application\Model\Instrutor', $instrutor2 );
 				$participantes = $this->params ()->fromPost ( "matricula" );
+				if (isset ( $data ['id'] ) && $data ['id'] > 0) {
+					$turma = $this->getEntityManager ()->find ( 'Application\Model\Turma', $data ['id'] );
+				}
+				$turma->getParticipantes ()->clear ();
 				foreach ( $participantes as $participanteId ) {
 					$participante = $this->getEntityManager ()->find ( "Application\Model\Empregado", $participanteId );
 					$turma->getParticipantes ()->add ( $participante );
@@ -86,24 +91,27 @@ class TurmaController extends ActionController {
 				unset ( $data ["instrutores2"] );
 				unset ( $data ["matricula"] );
 				unset ( $data ["coordenacao"] );
-				unset ( $data ["dataInicial"] );
+				unset ( $data ["horaInicial"] );
 				unset ( $data ["instrutor"] );
 				unset ( $data ["dataFinal"] );
 				unset ( $data ["capacitacao"] );
 				unset ( $data ["instituicao"] );
 				unset ( $data ['submit'] );
-				if (isset ( $data ['id'] ) && $data ['id'] > 0) {
-					$turma = $this->getEntityManager ()->find ( 'Application\Model\Turma', $data ['id'] );
-				}
 				$turma->setData ( $data );
 				$turma->setCapacitacao ( $capacitacao );
 				$turma->setInstrutor1 ( $instrutores1 );
 				$turma->setInstrutor2 ( $instrutores2 );
 				$turma->setInstituicao ( $instituicao );
 				$turma->setCoordenacao ( $coordenacao );
+				$turma->getProgramacao ()->clear ();
 				$this->getEntityManager ()->persist ( $turma );
 				foreach ( $horaInicial as $i => $hI ) {
-					$programacao = new TurmaProgramacao ();
+					$programacao = new TurmaProgramacao();
+					if (null != $idProgramacao [$i] ) {
+						$programacao = $this->getEntityManager ()->find ( "Application\Model\TurmaProgramacao", $idProgramacao[$i] );
+						error_log($local[$i]);
+						error_log("id ".$idProgramacao[$i]);
+					} 
 					$programacao->setHoraInicial ( $hI );
 					$programacao->setHoraFinal ( $horaFinal [$i] );
 					$programacao->setLocal ( $local [$i] );
@@ -114,7 +122,7 @@ class TurmaController extends ActionController {
 					$this->getEntityManager ()->flush ();
 					$turma->getProgramacao ()->add ( $programacao );
 				}
-				$this->getEntityManager()->persist($turma);
+				$this->getEntityManager ()->persist ( $turma );
 				$this->getEntityManager ()->flush ();
 				return $this->redirect ()->toUrl ( '/application/turma' );
 			}
@@ -146,12 +154,12 @@ class TurmaController extends ActionController {
 		}
 		$turma = $this->getEntityManager ()->find ( 'Application\Model\Turma', $id );
 		if ($turma) {
-			$turma->getParticipantes()->clear();
-// 			foreach ($turma->getProgramacao() as $programacao){
-// 				$this->getEntityManager()->remove($programacao);
-// 				$this->getEntityManager()->flush();
-// 			}
-			//$turma->getProgramacao()->clear();
+			$turma->getParticipantes ()->clear ();
+			foreach ( $turma->getProgramacao () as $programacao ) {
+				$this->getEntityManager ()->remove ( $programacao );
+				$this->getEntityManager ()->flush ();
+			}
+			$turma->getProgramacao()->clear();
 			$this->getEntityManager ()->remove ( $turma );
 			$this->getEntityManager ()->flush ();
 		}
