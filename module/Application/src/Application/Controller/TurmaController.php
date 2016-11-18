@@ -103,14 +103,11 @@ class TurmaController extends ActionController {
 				$turma->setInstrutor2 ( $instrutores2 );
 				$turma->setInstituicao ( $instituicao );
 				$turma->setCoordenacao ( $coordenacao );
-				$turma->getProgramacao ()->clear ();
 				$this->getEntityManager ()->persist ( $turma );
 				foreach ( $horaInicial as $i => $hI ) {
 					$programacao = new TurmaProgramacao();
 					if (null != $idProgramacao [$i] ) {
 						$programacao = $this->getEntityManager ()->find ( "Application\Model\TurmaProgramacao", $idProgramacao[$i] );
-						error_log($local[$i]);
-						error_log("id ".$idProgramacao[$i]);
 					} 
 					$programacao->setHoraInicial ( $hI );
 					$programacao->setHoraFinal ( $horaFinal [$i] );

@@ -133,6 +133,9 @@ echo $this->formElementErrors ( $form->get ( 'coordenacao' ) ) . "<br />";
 						<div id="esperas"></div>
 					</div>
 				</fieldset>
+				<div id="contadorParticipante">
+					<font size="4">Numero de participantes: <?php echo $this->turma->getParticipantes()->count();?></font>
+				</div>
 			</div>
 		</div>
 		<?php

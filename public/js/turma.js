@@ -40,9 +40,9 @@ $(document).ready(function() {
 	});	
 	
 	var tabelaProg = $('#tabelaProgramacao').DataTable({	
-			  "bInfo": false,
+			  "bInfo": true,
 		      "bFilter": false,
-		      "bLengthChange": false,
+		      "bLengthChange": true,
 		      "paging": false,
 		      "oLanguage": {
 		      	"sZeroRecords": "",
@@ -232,6 +232,7 @@ $(document).ready(function() {
 			 }
 		});
 	});	
+	//contador de elementos na tabela de participantes
 	
 	function adicionaEmpregado(){
 		$.each(empregadosSelecionados, function (index, value){
@@ -241,6 +242,7 @@ $(document).ready(function() {
 				 .row
 				 .add (["<input type= 'hidden' id= 'empregado' name= 'matricula[]' value = '"+value+"'>"+aux[0], aux[1], '<button id="excluirEmpregado_'+value+'">Remover empregado</button>'])
 				 .draw();
+				numeroParticipantes();
 				$("#excluirEmpregado_"+value).button({
 					icons: {
 						primary: "ui-icon-trash",
@@ -250,6 +252,7 @@ $(document).ready(function() {
 					e.preventDefault();
 					if(confirm("Deseja realmente excluir?")) {
 						tabelaEmp.row($(this).parents('tr')).remove().draw();
+						numeroParticipantes();
 						}
 					});
 				}
@@ -351,8 +354,10 @@ $(document).ready(function() {
 		 $('#horaFinal_'+id).mask('00:00');
 		var removerProg = $("#removerProgramacao_"+id).on('click',function(e){
 			e.preventDefault();
+			if(confirm("Deseja realmente excluir?")){
 			var row = tabelaProg.row($(this).parents('tr')).remove().draw();
 			atualizaId();
+			}
 		});
 	});
 	function atualizaId(){
@@ -378,6 +383,7 @@ $(document).ready(function() {
 		e.preventDefault();
 		if(confirm("Deseja realmente excluir?")) {
 			tabelaEmp.row($(this).parents('tr')).remove().draw();
+			numeroParticipantes();
 			}
 		});
 	$("input[id^='dataRealizacao_']").datepicker({
@@ -398,6 +404,11 @@ $(document).ready(function() {
 		DateFormat : ["mm-dd-yyyy"]
 	});
 	
+
+	 $("input[id^='dataRealizacao_']").mask('00-00-0000');
+	 $("input[id^='horaInicial_']").mask('00:00');
+	 $("input[id^='horaFinal_']").mask('00:00');
+	
 	$("button[id^='excluirProgramacao_']").button({
 		icons: {
 			primary: "ui-icon-trash",
@@ -410,6 +421,10 @@ $(document).ready(function() {
 			atualizaId();
 		} 
 	});
-	
+	function numeroParticipantes(){
+		var contadorParticipantes = $("#tabelaParticipantes").dataTable().fnSettings().aoData.length;
+		$("#contadorParticipante").html('<font size="4"> Numero de participantes: '+contadorParticipantes+'</font>');
+	}
+
 //fim do documento
 });
