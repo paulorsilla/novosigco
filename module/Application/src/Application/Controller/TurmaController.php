@@ -67,7 +67,7 @@ class TurmaController extends ActionController {
 				$horaInicial = $this->params ()->fromPost ( 'horaInicial' );
 				$horaFinal = $this->params ()->fromPost ( 'horaFinal' );
 				$local = $this->params ()->fromPost ( 'local' );
-				$idProgramacao = $this->params () -> fromPost ( 'idProgramacao' );
+				$idProgramacao = $this->params ()->fromPost ( 'idProgramacao' );
 				$capacitacaoId = $this->params ()->fromPost ( 'capacitacao' );
 				$capacitacao = $this->getEntityManager ()->find ( 'Application\Model\Capacitacao', $capacitacaoId );
 				$codigo = $this->params ()->fromPost ( 'instituicao' );
@@ -96,7 +96,7 @@ class TurmaController extends ActionController {
 				unset ( $data ["dataFinal"] );
 				unset ( $data ["capacitacao"] );
 				unset ( $data ["instituicao"] );
-				unset ( $data ['submit'] );
+				unset ( $data ["submit"] );
 				$turma->setData ( $data );
 				$turma->setCapacitacao ( $capacitacao );
 				$turma->setInstrutor1 ( $instrutores1 );
@@ -104,11 +104,12 @@ class TurmaController extends ActionController {
 				$turma->setInstituicao ( $instituicao );
 				$turma->setCoordenacao ( $coordenacao );
 				$this->getEntityManager ()->persist ( $turma );
+				$programacoesAux = array ();
 				foreach ( $horaInicial as $i => $hI ) {
-					$programacao = new TurmaProgramacao();
-					if (null != $idProgramacao [$i] ) {
-						$programacao = $this->getEntityManager ()->find ( "Application\Model\TurmaProgramacao", $idProgramacao[$i] );
-					} 
+					$programacao = new TurmaProgramacao ();
+					if (null != $idProgramacao [$i]) {
+						$programacao = $this->getEntityManager ()->find ( "Application\Model\TurmaProgramacao", $idProgramacao [$i] );
+					}
 					$programacao->setHoraInicial ( $hI );
 					$programacao->setHoraFinal ( $horaFinal [$i] );
 					$programacao->setLocal ( $local [$i] );
@@ -118,7 +119,14 @@ class TurmaController extends ActionController {
 					$this->getEntityManager ()->persist ( $programacao );
 					$this->getEntityManager ()->flush ();
 					$turma->getProgramacao ()->add ( $programacao );
+					array_push ( $programacoesAux, $programacao );
 				}
+				foreach ( $turma->getProgramacao () as $prog ) {
+					if (! in_array ( $prog, $programacoesAux )) {
+						$this->getEntityManager ()->remove ( $prog );
+					}
+				}
+				$this->getEntityManager ()->flush ();
 				$this->getEntityManager ()->persist ( $turma );
 				$this->getEntityManager ()->flush ();
 				return $this->redirect ()->toUrl ( '/application/turma' );
