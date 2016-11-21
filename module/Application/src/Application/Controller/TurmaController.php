@@ -107,7 +107,7 @@ class TurmaController extends ActionController {
 				$programacoesAux = array ();
 				foreach ( $horaInicial as $i => $hI ) {
 					$programacao = new TurmaProgramacao ();
-					if (null != $idProgramacao [$i]) {
+					if ( (isset($idProgramacao[$i])) && (null != $idProgramacao [$i])) {
 						$programacao = $this->getEntityManager ()->find ( "Application\Model\TurmaProgramacao", $idProgramacao [$i] );
 					}
 					$programacao->setHoraInicial ( $hI );
