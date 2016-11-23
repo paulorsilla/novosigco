@@ -107,7 +107,7 @@ class TurmaController extends ActionController {
 				$programacoesAux = array ();
 				foreach ( $horaInicial as $i => $hI ) {
 					$programacao = new TurmaProgramacao ();
-					if ( (isset($idProgramacao[$i])) && (null != $idProgramacao [$i])) {
+					if ((isset ( $idProgramacao [$i] )) && (null != $idProgramacao [$i])) {
 						$programacao = $this->getEntityManager ()->find ( "Application\Model\TurmaProgramacao", $idProgramacao [$i] );
 					}
 					$programacao->setHoraInicial ( $hI );
@@ -164,10 +164,29 @@ class TurmaController extends ActionController {
 				$this->getEntityManager ()->remove ( $programacao );
 				$this->getEntityManager ()->flush ();
 			}
-			$turma->getProgramacao()->clear();
+			$turma->getProgramacao ()->clear ();
 			$this->getEntityManager ()->remove ( $turma );
 			$this->getEntityManager ()->flush ();
 		}
 		return $this->redirect ()->toUrl ( '/application/turma' );
+	}
+	/**
+	 * Valida competencias para empregado na turma
+	 *
+	 * @return void
+	 */
+	public function validaAction() {
+		$id = ( int ) $this->params ()->fromRoute ( 'id', 0 );
+		if ($id > 0) {
+			$turmas = $this->getEntityManager ()->find ( 'Application\Model\Turma', $id );
+		}
+		
+		$renderer = $this->getServiceLocator ()->get ( 'Zend\View\Renderer\PhpRenderer' );
+		$renderer->headScript ()->appendFile ( '/js/jquery.dataTables.min.js' );
+		$renderer->headScript ()->appendFile ( '/js/jquery.mask.js' );
+		$renderer->headScript ()->appendFile ( '/js/moneymask.js' );
+		return new ViewModel ( array (
+				'turmas' => $turmas 
+		) );
 	}
 }

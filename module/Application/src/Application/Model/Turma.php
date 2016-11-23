@@ -164,7 +164,32 @@ class Turma extends Entity {
 					'name' => 'id',
 					'required' => false 
 			) ) );
-			$this->inputFilter = $inputFilter;
+			
+		$inputFilter->add ( $factory->createInput ( array (
+				'name' => 'instrutor1',
+				'required' => false,
+				'filters' => array (
+						array (
+								'name' => 'StripTags'
+						),
+						array (
+								'name' => 'StringTrim'
+						)
+				),
+			)));
+		$inputFilter->add ( $factory->createInput ( array (
+				'name' => 'instrutor2',
+				'required' => false,
+				'filters' => array (
+						array (
+								'name' => 'StripTags'
+						),
+						array (
+								'name' => 'StringTrim'
+						)
+				),
+		)));
+		$this->inputFilter = $inputFilter;
 		}
 		return $this->inputFilter;
 	}

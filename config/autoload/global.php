@@ -147,6 +147,7 @@ return array (
 						'Application\Controller\ListaEspera.delete',
 						'Application\Controller\ListaEspera.buscalistaespera',
 						'Application\Controller\Turma.index',
+						'Application\Controller\Turma.valida',
 						'Application\Controller\Turma.save',
 						'Application\Controller\Turma.delete',
 				),
@@ -263,6 +264,7 @@ return array (
 										'Application\Controller\Turma.index',
 										'Application\Controller\Turma.save',
 										'Application\Controller\Turma.delete',
+										'Application\Controller\Turma.valida',
 								) 
 						) 
 				) 
