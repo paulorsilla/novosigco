@@ -25,7 +25,8 @@ echo $this->formElementErrors ( $form->get ( 'nome' ) ) . "<br />";
 			<ul>
 				<li><a href='#dadosTab'><span>Dados</span></a></li>
 				<li><a href='#participantesTab'><span>Participantes</span></a></li>
-				<li><a href='#programacaoTab'><span>Programação</span></a></li>
+				<li><a href='#programacaoTab'><span>Agenda</span></a></li>
+				<li><a href='#conteudosTab'><span>Conteúdos</span></a></li>
 			</ul>
 
 			<br>
@@ -45,15 +46,14 @@ echo $this->formSelect ( $form->get ( 'instituicao' ) ) . "<br />";
 echo $this->formElementErrors ( $form->get ( 'instituicao' ) ) . "<br />";
 
 echo $this->formLabel ( $form->get ( 'instrutor1' ) ) . "<br />";
-echo $this->formSelect ( $form->get ( 'instrutor1') ) . "<br />";
+echo $this->formSelect ( $form->get ( 'instrutor1' ) ) . "<br />";
 echo $this->formElementErrors ( $form->get ( 'instrutor1' ) ) . "<br />";
 
 echo $this->formLabel ( $form->get ( 'instrutor2' ) ) . "<br />";
-echo $this->formSelect ( $form->get ( 'instrutor2') ) . "<br />";
+echo $this->formSelect ( $form->get ( 'instrutor2' ) ) . "<br />";
 echo $this->formElementErrors ( $form->get ( 'instrutor2' ) ) . "<br />";
 ?>
-<div id="novoInstrutor">
-</div>
+<div id="novoInstrutor"></div>
 <?php
 echo $this->formLabel ( $form->get ( 'coordenacao' ) ) . "<br />";
 echo $this->formSelect ( $form->get ( 'coordenacao' ) ) . "<br />";
@@ -62,37 +62,6 @@ echo $this->formElementErrors ( $form->get ( 'coordenacao' ) ) . "<br />";
 ?>
 
 </div>
-			<div id="programacaoTab">
-					<table class="hover" id="tabelaProgramacao">
-						<thead>
-							<tr>
-								<th>Data Realizacao</th>
-								<th>Hora Inicio</th>
-								<th>Hora termino</th>
-								<th>Local</th>
-								<th>Opções</th>
-							</tr>
-							</thead>
-							<tbody>
-								<?php foreach ($this->turma->getProgramacao() as $key => $programacao):?>
-								<tr>
-								<td><input id='dataRealizacao_<?php echo $key+1;?>' name='dataRealizacao[]'
-								 type='text' style='width: 190px'value="<?php echo $this->escapeHtml($programacao->getDataRealizacao());?>"></td>
-								<td><input id='horaInicial_<?php echo $key+1;?>' name='horaInicial[]'
-								type='text' style='width: 250px'value="<?php echo $this->escapeHtml($programacao->getHoraInicial());?>"></td>
-								<td><input id='horaFinal_<?php echo $key+1;?>' name='horaFinal[]'
-								 type='text' style='width: 250px'value="<?php echo $this->escapeHtml($programacao->getHoraFinal());?>"></td>
-								<td><input id='local_<?php echo $key+1;?>' name='local[]'
-								type='text' style='width: 500px'value="<?php echo $this->escapeHtml($programacao->getLocal());?>"></td>
-								<td><button id='excluirProgramacao_<?php $key+1;?>'<?php $programacao->getDataRealizacao();?>>Remover Programacao</button>
-								<input id='idProgramacao_<?php echo $key+1;?>' type='hidden' value='<?php echo $this->escapeHtml($programacao->getId());?>' name='idProgramacao[]'>
-								</td>
-								</tr>
-								<?php endforeach?>
-							</tbody>
-					</table><br>
-					<button id='novaProgramacao' title ='Adicionar Programação'>Adicionar programação</button>
-			</div>
 
 			<div id="participantesTab">
 				<fieldset class="coluna100">
@@ -126,10 +95,11 @@ echo $this->formElementErrors ( $form->get ( 'coordenacao' ) ) . "<br />";
 					<div id="modal-participantes" title="Adicionar Participantes"
 						class="ui-widget">
 						<div id="empregados"></div>
-					</div> <!-- Botão novaLista não se refere a criar uma "nova lista de espera" -->
+					</div>
+					<!-- Botão novaLista não se refere a criar uma "nova lista de espera" -->
 					<button id="novalistaEspera">Lista de Espera</button>
 					<div id="modal-listaEspera" title="Lista de Espera"
-					class="ui-widget">
+						class="ui-widget">
 						<div id="esperas"></div>
 					</div>
 				</fieldset>
@@ -137,6 +107,52 @@ echo $this->formElementErrors ( $form->get ( 'coordenacao' ) ) . "<br />";
 					<font size="4">Numero de participantes: <?php echo $this->turma->getParticipantes()->count();?></font>
 				</div>
 			</div>
+
+			<div id="programacaoTab">
+				<table class="hover" id="tabelaProgramacao">
+					<thead>
+						<tr>
+							<th>Data Realizacao</th>
+							<th>Hora Inicio</th>
+							<th>Hora termino</th>
+							<th>Local</th>
+							<th>Opções</th>
+						</tr>
+					</thead>
+					<tbody>
+								<?php foreach ($this->turma->getProgramacao() as $key => $programacao):?>
+								<tr>
+							<td><input id='dataRealizacao_<?php echo $key+1;?>'
+								name='dataRealizacao[]' type='text' style='width: 190px'
+								value="<?php echo $this->escapeHtml($programacao->getDataRealizacao());?>"></td>
+							<td><input id='horaInicial_<?php echo $key+1;?>'
+								name='horaInicial[]' type='text' style='width: 250px'
+								value="<?php echo $this->escapeHtml($programacao->getHoraInicial());?>"></td>
+							<td><input id='horaFinal_<?php echo $key+1;?>' name='horaFinal[]'
+								type='text' style='width: 250px'
+								value="<?php echo $this->escapeHtml($programacao->getHoraFinal());?>"></td>
+							<td><input id='local_<?php echo $key+1;?>' name='local[]'
+								type='text' style='width: 500px'
+								value="<?php echo $this->escapeHtml($programacao->getLocal());?>"></td>
+							<td><button id='excluirProgramacao_<?php $key+1;?>'
+									<?php $programacao->getDataRealizacao();?>>Remover Programacao</button>
+								<input id='idProgramacao_<?php echo $key+1;?>' type='hidden'
+								value='<?php echo $this->escapeHtml($programacao->getId());?>'
+								name='idProgramacao[]'></td>
+						</tr>
+								<?php endforeach?>
+							</tbody>
+				</table>
+				<br>
+				<button id='novaProgramacao' title='Adicionar Programação'>Adicionar
+					programação</button>
+			</div>
+	
+			<div id="conteudosTab">
+				
+			
+			</div>
+	
 		</div>
 		<?php
 		echo $this->formInput ( $form->get ( "submit" ) );

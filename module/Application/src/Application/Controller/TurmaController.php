@@ -141,7 +141,7 @@ class TurmaController extends ActionController {
 		$renderer->headScript ()->appendFile ( '/js/jquery.dataTables.min.js' );
 		$renderer->headScript ()->appendFile ( '/js/turma.js' );
 		$renderer->headScript ()->appendFile ( '/js/jquery.mask.js' );
-		$renderer->headScript ()->appendFile ( '/js/moneymask.js' );
+		$renderer->headScript ()->appendFile ( '/js/jquery.priceformat.min.js' );
 		return new ViewModel ( array (
 				'form' => $form,
 				'turma' => $turma 
@@ -176,17 +176,16 @@ class TurmaController extends ActionController {
 	 * @return void
 	 */
 	public function validaAction() {
-		$id = ( int ) $this->params ()->fromRoute ( 'id', 0 );
-		if ($id > 0) {
-			$turmas = $this->getEntityManager ()->find ( 'Application\Model\Turma', $id );
-		}
-		
+		$turmas = $this->getEntityManager ()->getRepository ( "Application\Model\Turma" )->findAll ( array (), array (
+				'inicial' => 'ASC'
+		) );
+		// adiciona os arquivos indexcomum.js e jquery.dataTable.min.js
+		// ao head da página
 		$renderer = $this->getServiceLocator ()->get ( 'Zend\View\Renderer\PhpRenderer' );
 		$renderer->headScript ()->appendFile ( '/js/jquery.dataTables.min.js' );
-		$renderer->headScript ()->appendFile ( '/js/jquery.mask.js' );
-		$renderer->headScript ()->appendFile ( '/js/moneymask.js' );
+		$renderer->headScript ()->appendFile ( '/js/indexcomum.js' );
 		return new ViewModel ( array (
-				'turmas' => $turmas 
+				'turmas' => $turmas
 		) );
 	}
 }

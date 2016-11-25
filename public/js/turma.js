@@ -182,6 +182,12 @@ $(document).ready(function() {
 	$("#instrutor2").selectmenu();
 	$("#coordenacao").selectmenu();
 	$("#aplicacao").selectmenu();
+	$('#valor').priceFormat({
+         prefix: 'R$ ',
+         centsSeparator: ',',
+         thousandsSeparator: '.'
+     });
+
 	
 	
 	//janela modal para seleção de empregados

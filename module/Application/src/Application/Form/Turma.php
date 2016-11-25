@@ -80,7 +80,8 @@ class Turma extends Form {
 				'attributes' => array (
 						'style' => 'width:780px',
 						'type' => 'text',
-						'required' => false 
+						'required' => false,
+						'id' => 'valor'
 				),
 				'options' => array (
 						'label' => 'Valor total:' 
