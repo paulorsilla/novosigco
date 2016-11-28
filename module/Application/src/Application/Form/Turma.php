@@ -147,14 +147,14 @@ class Turma extends Form {
 		
 		$this->add ( array (
 				'type' => 'DoctrineModule\Form\Element\ObjectSelect',
-				'name' => 'instrutor1',
+				'name' => 'instrutor',
 				'attributes' => array (
 						'style' => 'width: 800px',
-						'id' => 'instrutor1',
+						'id' => 'instrutor_1',
 						'required' => false 
 				),
 				'options' => array (
-						'label' => 'Instrutor:',
+						'label' => 'Instrutor(es):',
 						'empty_option' => '--- Escolha um Instrutor ---',
 						'object_manager' => $em,
 						'target_class' => 'Application\Model\Instrutor',

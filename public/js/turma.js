@@ -137,6 +137,22 @@ $(document).ready(function() {
 		//text: false,
 	});
 	
+	//botão "remover" com sinal de -
+	$("button[id^='remover']").button({
+		icons: {
+			primary: "ui-icon-trash",
+		},
+		text: true,
+	});
+
+	//botão "novoInstrutor" com sinal de +
+	$("button[id^='novoInstrutor']").button({
+		icons: {
+			primary: "ui-icon-plus",
+		},
+		text: true,
+	});
+	
 	$("#capacitacao").selectmenu({//aplicando js e definindo função.
 				change: function(e, ui) {
 					e.preventDefault();
@@ -178,8 +194,7 @@ $(document).ready(function() {
 			});
 	//aplicando js nos selects menus
 	$("#instituicao").selectmenu();
-	$("#instrutor1").selectmenu();
-	$("#instrutor2").selectmenu();
+	$("#instrutor_1").selectmenu();
 	$("#coordenacao").selectmenu();
 	$("#aplicacao").selectmenu();
 	$('#valor').priceFormat({
@@ -431,6 +446,27 @@ $(document).ready(function() {
 		var contadorParticipantes = $("#tabelaParticipantes").dataTable().fnSettings().aoData.length;
 		$("#contadorParticipante").html('<font size="4"> Numero de participantes: '+contadorParticipantes+'</font>');
 	}
+	
+	$("#novoInstrutor").on("click", function(e) {
+		e.preventDefault();
+		$("#instrutor_1").selectmenu("destroy");
+		var novoInstrutor = $("#instrutor_1").clone();
+		var id = $("select[id^='instrutor_']").last().attr("id").split("_");
+		var novoId = parseInt(id[1])+1;
+		$(".instrutores").append("<br /><br />");
+		novoInstrutor.attr("id", "instrutor_"+novoId).appendTo(".instrutores").selectmenu();
+		novoInstrutor.attr("name", "instrutores[]");
+		$("#instrutor_1").selectmenu();
+	});
+	
+	$("#removerInstrutor").on("click", function(e) {
+		e.preventDefault();
+		if ( $("select[id^='instrutor_']").length > 1) {
+			$("select[id^='instrutor_']").last().remove();
+			$(".instrutores").find('br').last().remove();
+			$(".instrutores").find('br').last().remove();
+		}
+	});
 
 //fim do documento
 });

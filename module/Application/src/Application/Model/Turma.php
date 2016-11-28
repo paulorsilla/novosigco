@@ -70,14 +70,8 @@ class Turma extends Entity {
 	 * @ORM\ManyToOne(targetEntity="Instrutor")
 	 * @ORM\JoinColumn(name="instrutor_id1", referencedColumnName="id")
 	 */
-	protected $instrutor1;
-	
-	/**
-	 * @ORM\ManyToOne(targetEntity="Instrutor")
-	 * @ORM\JoinColumn(name="instrutor_id2", referencedColumnName="id")
-	 */
-	protected $instrutor2;
-	
+	protected $instrutor;
+
 	/**
 	 * @ORM\OneToOne(targetEntity="Empregado")
 	 * @ORM\JoinColumn(name="coordenacao_tecnica", referencedColumnName="cod_func")
@@ -91,8 +85,7 @@ class Turma extends Entity {
 	public function __construct() {
 		$this->programacao = new \Doctrine\Common\Collections\ArrayCollection ();
 		$this->participantes = new \Doctrine\Common\Collections\ArrayCollection ();
-		$this->instrutor1 = new \Doctrine\Common\Collections\ArrayCollection ();
-		$this->instrutor2 = new \Doctrine\Common\Collections\ArrayCollection ();
+		$this->instrutor = new \Doctrine\Common\Collections\ArrayCollection ();
 	}
 	public function getId() {
 		return $this->id;
@@ -154,17 +147,11 @@ class Turma extends Entity {
 	public function setProgramacao($programacao) {
 		$this->programacao = $programacao;
 	}
-	public function getInstrutor1() {
-		return $this->instrutor1;
+	public function getInstrutor() {
+		return $this->instrutor;
 	}
-	public function setInstrutor1($instrutor1) {
-		$this->instrutor1 = $instrutor1;
-	}
-	public function getInstrutor2() {
-		return $this->instrutor2;
-	}
-	public function setInstrutor2($instrutor2) {
-		$this->instrutor2 = $instrutor2;
+	public function setInstrutor($instrutor) {
+		$this->instrutor = $instrutor;
 	}
 	public function getInputFilter() {
 		if (! $this->inputFilter) {
@@ -177,7 +164,7 @@ class Turma extends Entity {
 			) ) );
 			
 			$inputFilter->add ( $factory->createInput ( array (
-					'name' => 'instrutor1',
+					'name' => 'instrutor',
 					'required' => false,
 					'filters' => array (
 							array (
@@ -188,18 +175,6 @@ class Turma extends Entity {
 							) 
 					) 
 			) ) );
-			$inputFilter->add ( $factory->createInput ( array (
-					'name' => 'instrutor2',
-					'required' => false,
-					'filters' => array (
-							array (
-									'name' => 'StripTags' 
-							),
-							array (
-									'name' => 'StringTrim'
-						)
-				),
-		)));
 			$inputFilter->add ( $factory->createInput ( array (
 					'name' => 'conteudos',
 					'required' => false,

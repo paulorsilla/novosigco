@@ -44,17 +44,15 @@ echo $this->formElementErrors ( $form->get ( 'valor' ) ) . "<br />";
 echo $this->formLabel ( $form->get ( 'instituicao' ) ) . "<br />";
 echo $this->formSelect ( $form->get ( 'instituicao' ) ) . "<br />";
 echo $this->formElementErrors ( $form->get ( 'instituicao' ) ) . "<br />";
+echo "<div class='instrutores'>";
 
-echo $this->formLabel ( $form->get ( 'instrutor1' ) ) . "<br />";
-echo $this->formSelect ( $form->get ( 'instrutor1' ) ) . "<br />";
-echo $this->formElementErrors ( $form->get ( 'instrutor1' ) ) . "<br />";
+echo $this->formLabel ( $form->get ( 'instrutor' ) ) . "<br />";
+echo $this->formSelect ( $form->get ( 'instrutor' ) );
+echo $this->formElementErrors ( $form->get ( 'instrutor' ) ) ;
+echo "</div><br />";
+echo "<button id='novoInstrutor'>Adicionar</button>";
+echo "<button id='removerInstrutor'>Remover</button><br /><br />";
 
-echo $this->formLabel ( $form->get ( 'instrutor2' ) ) . "<br />";
-echo $this->formSelect ( $form->get ( 'instrutor2' ) ) . "<br />";
-echo $this->formElementErrors ( $form->get ( 'instrutor2' ) ) . "<br />";
-?>
-<div id="novoInstrutor"></div>
-<?php
 echo $this->formLabel ( $form->get ( 'coordenacao' ) ) . "<br />";
 echo $this->formSelect ( $form->get ( 'coordenacao' ) ) . "<br />";
 echo $this->formElementErrors ( $form->get ( 'coordenacao' ) ) . "<br />";
