@@ -45,26 +45,26 @@ class Comissoes extends Form {
 				) 
 		) );
 		
-// 		$this->add ( array (
-// 				'type' => 'Zend\Form\Element\Select',
-// 				'name' => 'nivel',
-// 				'attributes' => array(
-// 						'required' => true,
-// 						'style' => 'width:818px',
-// 						'id' => 'nivel',
-// 				),
-// 				'options' => array (
-// 						'label' => 'Nível:*',
-// 						'empty_option' => ' --- Selecione um nível ---* ',
-// 						'value_options' => array (
-// 								'Presidente' => 'Presidente',
-// 								'Coorndeador' => 'Coorndeador',
-// 								'Secretário' => 'Secretário',
-// 								'Membro' => 'Membro',
-// 								'Suplente' => 'Suplente' 
-// 						) 
-// 				) 
-// 		) );
+		// $this->add ( array (
+		// 'type' => 'Zend\Form\Element\Select',
+		// 'name' => 'nivel',
+		// 'attributes' => array(
+		// 'required' => true,
+		// 'style' => 'width:818px',
+		// 'id' => 'nivel',
+		// ),
+		// 'options' => array (
+		// 'label' => 'Nível:*',
+		// 'empty_option' => ' --- Selecione um nível ---* ',
+		// 'value_options' => array (
+		// 'Presidente' => 'Presidente',
+		// 'Coorndeador' => 'Coorndeador',
+		// 'Secretário' => 'Secretário',
+		// 'Membro' => 'Membro',
+		// 'Suplente' => 'Suplente'
+		// )
+		// )
+		// ) );
 		
 		$this->add ( array (
 				'name' => 'descricao',
@@ -79,6 +79,7 @@ class Comissoes extends Form {
 						'label' => 'Descricao:*' 
 				) 
 		) );
+		
 		$this->add ( array (
 				'name' => 'submit',
 				'attributes' => array (

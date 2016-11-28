@@ -31,6 +31,11 @@ class Turma extends Entity {
 	protected $nome;
 	
 	/**
+	 * @ORM\column(type="string", name="conteudo")
+	 */
+	protected $conteudos;
+	
+	/**
 	 * @ORM\column(type="decimal", precision=2, name="valor")
 	 */
 	protected $valor;
@@ -61,16 +66,16 @@ class Turma extends Entity {
 	 */
 	protected $participantes;
 	
-	 /**
-     * @ORM\ManyToOne(targetEntity="Instrutor")
-     * @ORM\JoinColumn(name="instrutor_id1", referencedColumnName="id")
-     */
+	/**
+	 * @ORM\ManyToOne(targetEntity="Instrutor")
+	 * @ORM\JoinColumn(name="instrutor_id1", referencedColumnName="id")
+	 */
 	protected $instrutor1;
 	
-	 /**
-     * @ORM\ManyToOne(targetEntity="Instrutor")
-     * @ORM\JoinColumn(name="instrutor_id2", referencedColumnName="id")
-     */
+	/**
+	 * @ORM\ManyToOne(targetEntity="Instrutor")
+	 * @ORM\JoinColumn(name="instrutor_id2", referencedColumnName="id")
+	 */
 	protected $instrutor2;
 	
 	/**
@@ -115,6 +120,12 @@ class Turma extends Entity {
 	}
 	public function getCapacitacao() {
 		return $this->capacitacao;
+	}
+	public function getConteudos() {
+		return $this->conteudos;
+	}
+	public function setConteudos($conteudos) {
+		$this->conteudos = $conteudos;
 	}
 	public function setCapacitacao($capacitacao) {
 		$this->capacitacao = $capacitacao;
@@ -165,30 +176,52 @@ class Turma extends Entity {
 					'required' => false 
 			) ) );
 			
-		$inputFilter->add ( $factory->createInput ( array (
-				'name' => 'instrutor1',
-				'required' => false,
-				'filters' => array (
-						array (
-								'name' => 'StripTags'
-						),
-						array (
-								'name' => 'StringTrim'
-						)
-				),
-			)));
-		$inputFilter->add ( $factory->createInput ( array (
-				'name' => 'instrutor2',
-				'required' => false,
-				'filters' => array (
-						array (
-								'name' => 'StripTags'
-						),
-						array (
-								'name' => 'StringTrim'
+			$inputFilter->add ( $factory->createInput ( array (
+					'name' => 'instrutor1',
+					'required' => false,
+					'filters' => array (
+							array (
+									'name' => 'StripTags' 
+							),
+							array (
+									'name' => 'StringTrim' 
+							) 
+					) 
+			) ) );
+			$inputFilter->add ( $factory->createInput ( array (
+					'name' => 'instrutor2',
+					'required' => false,
+					'filters' => array (
+							array (
+									'name' => 'StripTags' 
+							),
+							array (
+									'name' => 'StringTrim'
 						)
 				),
 		)));
+			$inputFilter->add ( $factory->createInput ( array (
+					'name' => 'conteudos',
+					'required' => false,
+					'filters' => array (
+							array (
+									'name' => 'StripTags'
+							),
+							array (
+									'name' => 'StringTrim'
+							)
+					),
+					'validators' => array (
+							array (
+									'name' => 'StringLength',
+									'options' => array (
+											'encoding' => 'UTF-8',
+											'min' => 2,
+											'max' => 500
+									)
+							)
+					)
+			) ) );
 		$this->inputFilter = $inputFilter;
 		}
 		return $this->inputFilter;

@@ -147,12 +147,15 @@ echo $this->formElementErrors ( $form->get ( 'coordenacao' ) ) . "<br />";
 				<button id='novaProgramacao' title='Adicionar Programação'>Adicionar
 					programação</button>
 			</div>
-	
+
 			<div id="conteudosTab">
-				
-			
+				<?php
+				echo $this->formLabel ( $form->get ( 'conteudos' ) ) . "<br />";
+				echo $this->formTextarea ( $form->get ( 'conteudos' ) ) . "<br />";
+				echo $this->formElementErrors ( $form->get ( 'conteudos' ) ) . "<br />";
+				?>
 			</div>
-	
+
 		</div>
 		<?php
 		echo $this->formInput ( $form->get ( "submit" ) );

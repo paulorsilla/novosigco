@@ -65,7 +65,9 @@ class TurmaController extends ActionController {
 				$data = $form->getData ();
 				$dataRealizacao = $this->params ()->fromPost ( 'dataRealizacao' );
 				$horaInicial = $this->params ()->fromPost ( 'horaInicial' );
+				$conteudos = $this->params ()->fromPost ( 'conteudos' );
 				$horaFinal = $this->params ()->fromPost ( 'horaFinal' );
+				$valor = $this->params ()->fromPost ( 'valor' );
 				$local = $this->params ()->fromPost ( 'local' );
 				$idProgramacao = $this->params ()->fromPost ( 'idProgramacao' );
 				$capacitacaoId = $this->params ()->fromPost ( 'capacitacao' );
@@ -82,6 +84,11 @@ class TurmaController extends ActionController {
 				if (isset ( $data ['id'] ) && $data ['id'] > 0) {
 					$turma = $this->getEntityManager ()->find ( 'Application\Model\Turma', $data ['id'] );
 				}
+				//$valor = preg_replace ( '/[^0-9]/', '', $this->params()->fromPost("valor"));
+				$valor = preg_replace('/R\$/', '', $valor);
+				error_log($valor." 1");
+				$valor = \Admin\Model\Util::converteDecimal($valor);
+				error_log($valor." 2");
 				$turma->getParticipantes ()->clear ();
 				foreach ( $participantes as $participanteId ) {
 					$participante = $this->getEntityManager ()->find ( "Application\Model\Empregado", $participanteId );
@@ -91,6 +98,8 @@ class TurmaController extends ActionController {
 				unset ( $data ["instrutores2"] );
 				unset ( $data ["matricula"] );
 				unset ( $data ["coordenacao"] );
+				unset ( $data ["conteudos"] );
+				unset ( $data ["valor"] );
 				unset ( $data ["horaInicial"] );
 				unset ( $data ["instrutor"] );
 				unset ( $data ["dataFinal"] );
@@ -102,6 +111,8 @@ class TurmaController extends ActionController {
 				$turma->setInstrutor1 ( $instrutores1 );
 				$turma->setInstrutor2 ( $instrutores2 );
 				$turma->setInstituicao ( $instituicao );
+				$turma->setConteudos ( $conteudos );
+				$turma->setValor ( $valor );
 				$turma->setCoordenacao ( $coordenacao );
 				$this->getEntityManager ()->persist ( $turma );
 				$programacoesAux = array ();
@@ -177,7 +188,7 @@ class TurmaController extends ActionController {
 	 */
 	public function validaAction() {
 		$turmas = $this->getEntityManager ()->getRepository ( "Application\Model\Turma" )->findAll ( array (), array (
-				'inicial' => 'ASC'
+				'inicial' => 'ASC' 
 		) );
 		// adiciona os arquivos indexcomum.js e jquery.dataTable.min.js
 		// ao head da página
@@ -185,7 +196,7 @@ class TurmaController extends ActionController {
 		$renderer->headScript ()->appendFile ( '/js/jquery.dataTables.min.js' );
 		$renderer->headScript ()->appendFile ( '/js/indexcomum.js' );
 		return new ViewModel ( array (
-				'turmas' => $turmas
+				'turmas' => $turmas 
 		) );
 	}
 }

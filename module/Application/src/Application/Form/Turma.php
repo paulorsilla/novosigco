@@ -32,21 +32,20 @@ class Turma extends Form {
 		
 		$this->add ( array (
 				'name' => 'aplicacao',
-				'type' => 'Zend\Form\Element\Select', 
+				'type' => 'Zend\Form\Element\Select',
 				'attributes' => array (
 						'id' => 'aplicacao',
 						'style' => 'width:800px',
 						'required' => false,
-						'options' => array(
-							'empty_option' => '--- Seleciona uma aplicação ---',
-							'1' => 'À Distância',
-							'2' => 'Presencial',
-						),
+						'options' => array (
+								'empty_option' => '--- Seleciona uma aplicação ---',
+								'1' => 'À Distância',
+								'2' => 'Presencial' 
+						) 
 				),
 				'options' => array (
 						'label' => 'Aplicação:' 
 				) 
-				
 		) );
 		
 		$this->add ( array (
@@ -81,7 +80,7 @@ class Turma extends Form {
 						'style' => 'width:780px',
 						'type' => 'text',
 						'required' => false,
-						'id' => 'valor'
+						'id' => 'valor' 
 				),
 				'options' => array (
 						'label' => 'Valor total:' 
@@ -146,14 +145,13 @@ class Turma extends Form {
 				) 
 		) );
 		
-
 		$this->add ( array (
 				'type' => 'DoctrineModule\Form\Element\ObjectSelect',
 				'name' => 'instrutor1',
 				'attributes' => array (
 						'style' => 'width: 800px',
 						'id' => 'instrutor1',
-						'required' => false
+						'required' => false 
 				),
 				'options' => array (
 						'label' => 'Instrutor:',
@@ -162,9 +160,9 @@ class Turma extends Form {
 						'target_class' => 'Application\Model\Instrutor',
 						'property' => 'nome',
 						'find_method' => array (
-								'name' => 'getInstrutores'
-						)
-				)
+								'name' => 'getInstrutores' 
+						) 
+				) 
 		) );
 		
 		$this->add ( array (
@@ -173,7 +171,7 @@ class Turma extends Form {
 				'attributes' => array (
 						'style' => 'width: 800px',
 						'id' => 'instrutor2',
-						'required' => false
+						'required' => false 
 				),
 				'options' => array (
 						'label' => 'Instrutor:',
@@ -182,9 +180,9 @@ class Turma extends Form {
 						'target_class' => 'Application\Model\Instrutor',
 						'property' => 'nome',
 						'find_method' => array (
-								'name' => 'getInstrutores'
-						)
-				)
+								'name' => 'getInstrutores' 
+						) 
+				) 
 		) );
 		
 		$this->add ( array (
@@ -193,11 +191,11 @@ class Turma extends Form {
 						'id' => 'dataRealizacao',
 						'style' => 'width:210px',
 						'type' => 'text',
-						'required' => true
+						'required' => true 
 				),
 				'options' => array (
-						'label' => 'Data de realização:*'
-				)
+						'label' => 'Data de realização:*' 
+				) 
 		) );
 		
 		$this->add ( array (
@@ -206,11 +204,11 @@ class Turma extends Form {
 						'id' => 'horaInicial',
 						'style' => 'width:250px',
 						'type' => 'text',
-						'required' => true
+						'required' => true 
 				),
 				'options' => array (
-						'label' => 'Horario de inicio:*'
-				)
+						'label' => 'Horario de inicio:*' 
+				) 
 		) );
 		
 		$this->add ( array (
@@ -219,11 +217,11 @@ class Turma extends Form {
 						'id' => 'horaFinal',
 						'style' => 'width:250px',
 						'type' => 'text',
-						'required' => true
+						'required' => true 
 				),
 				'options' => array (
-					'label' => 'Horario final:*'
-				)
+						'label' => 'Horario final:*' 
+				) 
 		) );
 		
 		$this->add ( array (
@@ -232,11 +230,25 @@ class Turma extends Form {
 						'id' => 'local',
 						'style' => 'width:550px',
 						'type' => 'text',
-						'required' => true
+						'required' => true 
 				),
 				'options' => array (
-					'label' => 'Local de realização:*'
-				)
+						'label' => 'Local de realização:*' 
+				) 
+		) );
+		
+		$this->add ( array (
+				'name' => 'conteudos',
+				'attributes' => array (
+						'type' => 'textarea',
+						'style' => 'width:800px',
+						'rows' => '6',
+						'id' => 'conteudos',
+						'required' => false 
+				),
+				'options' => array (
+						'label' => 'Conteúdo:*' 
+				) 
 		) );
 		
 		$this->add ( array (
