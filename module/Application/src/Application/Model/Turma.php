@@ -216,8 +216,6 @@ class Turma extends Entity {
 									'name' => 'StringLength',
 									'options' => array (
 											'encoding' => 'UTF-8',
-											'min' => 2,
-											'max' => 500
 									)
 							)
 					)

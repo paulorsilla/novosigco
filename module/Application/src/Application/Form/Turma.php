@@ -241,8 +241,8 @@ class Turma extends Form {
 				'name' => 'conteudos',
 				'attributes' => array (
 						'type' => 'textarea',
-						'style' => 'width:800px',
-						'rows' => '6',
+						'style' => 'width:900px',
+						'rows' => '10',
 						'id' => 'conteudos',
 						'required' => false 
 				),
