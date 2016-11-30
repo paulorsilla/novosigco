@@ -67,10 +67,13 @@ class Turma extends Entity {
 	protected $participantes;
 	
 	/**
-	 * @ORM\ManyToOne(targetEntity="Instrutor")
-	 * @ORM\JoinColumn(name="instrutor_id1", referencedColumnName="id")
+	 * @ORM\ManyToMany(targetEntity="Instrutor")
+	 * @ORM\JoinTable(name="turma_instrutor",
+	 * joinColumns={@ORM\JoinColumn(name="turma_id", referencedColumnName="id")},
+	 * inverseJoinColumns={@ORM\JoinColumn(name="instrutor_id", referencedColumnName="id")}
+	 * )
 	 */
-	protected $instrutor;
+	protected $instrutores;
 
 	/**
 	 * @ORM\OneToOne(targetEntity="Empregado")
@@ -85,7 +88,7 @@ class Turma extends Entity {
 	public function __construct() {
 		$this->programacao = new \Doctrine\Common\Collections\ArrayCollection ();
 		$this->participantes = new \Doctrine\Common\Collections\ArrayCollection ();
-		$this->instrutor = new \Doctrine\Common\Collections\ArrayCollection ();
+		$this->instrutores = new \Doctrine\Common\Collections\ArrayCollection ();
 	}
 	public function getId() {
 		return $this->id;
@@ -147,11 +150,11 @@ class Turma extends Entity {
 	public function setProgramacao($programacao) {
 		$this->programacao = $programacao;
 	}
-	public function getInstrutor() {
-		return $this->instrutor;
+	public function getInstrutores() {
+		return $this->instrutores;
 	}
-	public function setInstrutor($instrutor) {
-		$this->instrutor = $instrutor;
+	public function setInstrutores($instrutores) {
+		$this->instrutores = $instrutores;
 	}
 	public function getInputFilter() {
 		if (! $this->inputFilter) {
@@ -162,18 +165,9 @@ class Turma extends Entity {
 					'name' => 'id',
 					'required' => false 
 			) ) );
-			
 			$inputFilter->add ( $factory->createInput ( array (
-					'name' => 'instrutor',
+					'name' => 'instrutores[]',
 					'required' => false,
-					'filters' => array (
-							array (
-									'name' => 'StripTags' 
-							),
-							array (
-									'name' => 'StringTrim' 
-							) 
-					) 
 			) ) );
 			$inputFilter->add ( $factory->createInput ( array (
 					'name' => 'conteudos',

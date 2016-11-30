@@ -46,9 +46,9 @@ echo $this->formSelect ( $form->get ( 'instituicao' ) ) . "<br />";
 echo $this->formElementErrors ( $form->get ( 'instituicao' ) ) . "<br />";
 echo "<div class='instrutores'>";
 
-echo $this->formLabel ( $form->get ( 'instrutor' ) ) . "<br />";
-echo $this->formSelect ( $form->get ( 'instrutor' ) );
-echo $this->formElementErrors ( $form->get ( 'instrutor' ) ) ;
+echo $this->formLabel ( $form->get ( 'instrutores[]' ) ) . "<br />";
+echo $this->formSelect ( $form->get ( 'instrutores[]' ) );
+echo $this->formElementErrors ( $form->get ( 'instrutores[]' ) ) ;
 echo "</div><br />";
 echo "<button id='novoInstrutor'>Adicionar</button>";
 echo "<button id='removerInstrutor'>Remover</button><br /><br />";
@@ -69,9 +69,6 @@ echo $this->formElementErrors ( $form->get ( 'coordenacao' ) ) . "<br />";
 							<tr>
 								<th>Mátricula</th>
 								<th>Nome</th>
-								<!-- <th>Ramal</th>
-								<th>Sublotação</th>
-								<th>Cargo</th> -->
 								<th>Opções</th>
 							</tr>
 						</thead>

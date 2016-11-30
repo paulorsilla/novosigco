@@ -76,26 +76,27 @@ class TurmaController extends ActionController {
 				$instituicao = $this->getEntityManager ()->find ( 'Application\Model\Instituicao', $codigo );
 				$coordenacaoId = $this->params ()->fromPost ( 'coordenacao' );
 				$coordenacao = $this->getEntityManager ()->find ( 'Application\Model\Empregado', $coordenacaoId );
-				$instrutor1 = $this->params ()->fromPost ( 'instrutor1' );
-				$instrutor2 = $this->params ()->fromPost ( 'instrutor2' );
-				$instrutores1 = $this->getEntityManager ()->find ( 'Application\Model\Instrutor', $instrutor1 );
-				$instrutores2 = $this->getEntityManager ()->find ( 'Application\Model\Instrutor', $instrutor2 );
+				$instrutores = $this->params ()->fromPost ( 'instrutores' );
 				$participantes = $this->params ()->fromPost ( "matricula" );
 				if (isset ( $data ['id'] ) && $data ['id'] > 0) {
 					$turma = $this->getEntityManager ()->find ( 'Application\Model\Turma', $data ['id'] );
 				}
-				//$valor = preg_replace ( '/[^0-9]/', '', $this->params()->fromPost("valor"));
 				$valor = preg_replace('/R\$/', '', $valor);
-				error_log($valor." 1");
 				$valor = \Admin\Model\Util::converteDecimal($valor);
-				error_log($valor." 2");
 				$turma->getParticipantes ()->clear ();
 				foreach ( $participantes as $participanteId ) {
 					$participante = $this->getEntityManager ()->find ( "Application\Model\Empregado", $participanteId );
 					$turma->getParticipantes ()->add ( $participante );
 				}
+				$turma->getInstrutores()->clear();
+				error_log($turma);
+				foreach ($instrutores as $instrutorId){
+					error_log($instrutorId);
+					$instrutor = $this->getEntityManager()->find("Application\Model\Instrutor", $instrutorId);
+					error_log($instrutor);
+					$turma->getInstrutores()->add($instrutor);
+				}
 				unset ( $data ["instrutores1"] );
-				unset ( $data ["instrutores2"] );
 				unset ( $data ["matricula"] );
 				unset ( $data ["coordenacao"] );
 				unset ( $data ["conteudos"] );
@@ -108,8 +109,6 @@ class TurmaController extends ActionController {
 				unset ( $data ["submit"] );
 				$turma->setData ( $data );
 				$turma->setCapacitacao ( $capacitacao );
-				$turma->setInstrutor1 ( $instrutores1 );
-				$turma->setInstrutor2 ( $instrutores2 );
 				$turma->setInstituicao ( $instituicao );
 				$turma->setConteudos ( $conteudos );
 				$turma->setValor ( $valor );
