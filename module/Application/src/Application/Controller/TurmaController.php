@@ -89,11 +89,8 @@ class TurmaController extends ActionController {
 					$turma->getParticipantes ()->add ( $participante );
 				}
 				$turma->getInstrutores()->clear();
-				error_log($turma);
 				foreach ($instrutores as $instrutorId){
-					error_log($instrutorId);
 					$instrutor = $this->getEntityManager()->find("Application\Model\Instrutor", $instrutorId);
-					error_log($instrutor);
 					$turma->getInstrutores()->add($instrutor);
 				}
 				unset ( $data ["instrutores1"] );
