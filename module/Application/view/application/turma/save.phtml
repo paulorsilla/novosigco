@@ -47,7 +47,15 @@ echo $this->formElementErrors ( $form->get ( 'instituicao' ) ) . "<br />";
 echo "<div class='instrutores'>";
 echo $this->formLabel ( $form->get ( 'instrutores[]' ) ) . "<br />";
 echo $this->formSelect ( $form->get ( 'instrutores[]' ) );
-echo $this->formElementErrors ( $form->get ( 'instrutores[]' ) ) ;
+echo $this->formElementErrors ( $form->get ( 'instrutores[]' ) ) ;?>
+<br/>
+<?php foreach ($this->turma->getInstrutores() as $key=>$instrutor):?>
+<select id="instrutor_<?php echo $key+1;?>" style="width:800px">
+<?php echo $option?>
+</select>
+<br>
+<?php endforeach;?>
+<?php 
 echo "</div><br />";
 echo "<button id='novoInstrutor'>Adicionar</button>";
 echo "<button id='removerInstrutor'>Remover</button><br /><br />";

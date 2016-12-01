@@ -194,7 +194,7 @@ $(document).ready(function() {
 			});
 	//aplicando js nos selects menus
 	$("#instituicao").selectmenu();
-	$("#instrutor_1").selectmenu();
+	$("select[id^='instrutor_").selectmenu();
 	$("#coordenacao").selectmenu();
 	$("#aplicacao").selectmenu();
 	$('#valor').priceFormat({
@@ -469,5 +469,6 @@ $(document).ready(function() {
 		}
 	});
 
+	$("#instrutores").selectmenu();
 //fim do documento
 });
