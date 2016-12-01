@@ -54,14 +54,23 @@ class InstituicaoController extends ActionController
         //adiciona os arquivos indexcomum.js e jquery.dataTable.min.js
         //ao head da página
         
-		$instituicoes = $this->getEntityManager ()->getRepository ( "Application\Model\Instituicao" )->findAll ( array (), array (
-				'tipoPessoa' => 'ASC'
-		) );
-        $renderer = $this->getServiceLocator()->get('Zend\View\Renderer\PhpRenderer');
+// 		$instituicoes = $this->getEntityManager ()->getRepository ( "Application\Model\Instituicao" )->findAll ( array (), array (
+// 				'tipoPessoa' => 'ASC'
+// 		) );
+
+		$instituicoes = $this->getEntityManager ()->getRepository ( "Application\Model\Instituicao" )->findAll();
+		
+		$collection = new \Doctrine\Common\Collections\ArrayCollection($instituicoes);
+		$paginator = new \Zend\Paginator\Paginator(new \DoctrineModule\Paginator\Adapter\Collection($collection));
+		$paginator->setDefaultItemCountPerPage(20);
+		$page = (int)$this->params()->fromRoute('page', 0);
+		if($page) $paginator->setCurrentPageNumber($page);
+		
+		$renderer = $this->getServiceLocator()->get('Zend\View\Renderer\PhpRenderer');
         $renderer->headScript()->appendFile('/js/jquery.dataTables.min.js');
         $renderer->headScript()->appendFile('/js/indexcomum.js');
         return new ViewModel(array(
-			'instituicoes' => $instituicoes
+			'instituicoes' => $paginator
 		));
 	}
 	
