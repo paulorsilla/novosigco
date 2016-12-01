@@ -49,10 +49,14 @@ class InstituicaoController extends ActionController
 // 		   ->where($expr->neq('i.cnpj', 0))
 // 		   ->orderBy('i.razao', 'ASC');
 
-		$instituicoes = $this->getEntityManager ()->getRepository ( "Application\Model\Instituicao" )->findBy ( array ('tipoPessoa' => 'Pessoa Jurídica'), array (	'razao' => 'ASC') );
+	//	$instituicoes = $this->getEntityManager ()->getRepository ( "Application\Model\Instituicao" )->findAll ( array ('tipoPessoa' => 'Pessoa Jurídica'), array (	'razao' => 'ASC') );
         
         //adiciona os arquivos indexcomum.js e jquery.dataTable.min.js
         //ao head da página
+        
+		$instituicoes = $this->getEntityManager ()->getRepository ( "Application\Model\Instituicao" )->findAll ( array (), array (
+				'tipoPessoa' => 'ASC'
+		) );
         $renderer = $this->getServiceLocator()->get('Zend\View\Renderer\PhpRenderer');
         $renderer->headScript()->appendFile('/js/jquery.dataTables.min.js');
         $renderer->headScript()->appendFile('/js/indexcomum.js');

@@ -407,6 +407,7 @@ $(document).ready(function() {
 			numeroParticipantes();
 			}
 		});
+	
 	$("input[id^='dataRealizacao_']").datepicker({
 	    dateFormat: 'dd-mm-yy',
 	    dayNames: ['Domingo','Segunda','Terça','Quarta','Quinta','Sexta','Sábado'],
