@@ -38,16 +38,16 @@ class CompetenciaController extends ActionController {
 	 */
 	public function indexAction() {
 		$competencias = $this->getEntityManager ()->getRepository ( "Application\Model\Competencia" )->findAll ( array (), array (
-				'titulo' => 'ASC'
+				'titulo' => 'ASC' 
 		) );
-
+		
 		// adiciona os arquivos indexcomum.js e jquery.dataTable.min.js
 		// ao head da página
 		$renderer = $this->getServiceLocator ()->get ( 'Zend\View\Renderer\PhpRenderer' );
 		$renderer->headScript ()->appendFile ( '/js/jquery.dataTables.min.js' );
 		$renderer->headScript ()->appendFile ( '/js/indexcomum.js' );
 		return new ViewModel ( array (
-				'competencias' => $competencias
+				'competencias' => $competencias 
 		) );
 	}
 	public function buscacompetenciaAction() {
@@ -55,11 +55,11 @@ class CompetenciaController extends ActionController {
 		$response = $this->getResponse ();
 		$response->setContent ( \Zend\Json\Json::encode ( array (
 				'dataType' => 'json',
-				'response' => false
+				'response' => false 
 		) ) );
 		if ($request->isPost ()) {
 			$competencias = $this->getEntityManager ()->getRepository ( "Application\Model\Competencia" )->findAll ( array (), array (
-					'titulo' => 'ASC'
+					'titulo' => 'ASC' 
 			) );
 			$stringCompetencias = '[';
 			foreach ( $competencias as $key => $competencia ) { // array de tipoCompetencia definido na linha 60
@@ -72,10 +72,10 @@ class CompetenciaController extends ActionController {
 			$response->setContent ( \Zend\Json\Json::encode ( array (
 					'dataType' => 'json',
 					'response' => true,
-					'competencias' => $stringCompetencias
+					'competencias' => $stringCompetencias 
 			) ) );
 		}
-
+		
 		return $response;
 	}
 	public function saveAction() {
@@ -85,7 +85,7 @@ class CompetenciaController extends ActionController {
 		$request = $this->getRequest ();
 		$competencia = null;
 		if ($request->isPost ()) {
-			$competencia = new Competencia();
+			$competencia = new Competencia ();
 			$form->setInputFilter ( $competencia->getInputFilter () );
 			$form->setData ( $request->getPost () );
 			if ($form->isValid ()) {
@@ -112,7 +112,7 @@ class CompetenciaController extends ActionController {
 		$renderer->headScript ()->appendFile ( '/js/jquery.dataTables.min.js' );
 		$renderer->headScript ()->appendFile ( '/js/capacitacao.js' );
 		return new ViewModel ( array (
-				'form' => $form
+				'form' => $form 
 		) );
 	}
 	public function deleteAction() {

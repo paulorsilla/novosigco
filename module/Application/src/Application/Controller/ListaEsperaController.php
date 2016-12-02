@@ -61,7 +61,7 @@ class ListaEsperaController extends ActionController {
 		if ($request->isPost ()) {
 			$idCapacitacao = $this->params ()->fromPost ( 'idCapacitacao' );
 			$capacitacao = $this->getEntityManager ()->find ( "Application\Model\Capacitacao", $idCapacitacao );
-			//if para verificar se a capacitacao existe e se a lista de espera não está em branco
+			// if para verificar se a capacitacao existe e se a lista de espera não está em branco
 			if ((null != $capacitacao) && (null != $capacitacao->getListaEspera ())) {
 				$empregados = $capacitacao->getListaEspera ()->getMatricula ();
 				$stringEmpregados = '[';

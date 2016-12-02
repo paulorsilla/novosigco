@@ -34,7 +34,7 @@ class EscolaridadeController extends ActionController {
 	
 	/**
 	 * Mostra as Escolaridades cadastrados
-	 * 
+	 *
 	 * @return void
 	 */
 	public function indexAction() {
@@ -78,7 +78,7 @@ class EscolaridadeController extends ActionController {
 	
 	/**
 	 * Cria ou edita um Escolaridade
-	 * 
+	 *
 	 * @return void
 	 */
 	public function saveAction() {
@@ -114,7 +114,7 @@ class EscolaridadeController extends ActionController {
 	
 	/**
 	 * Exclui uma Escolaridade
-	 * 
+	 *
 	 * @return void
 	 */
 	public function deleteAction() {
