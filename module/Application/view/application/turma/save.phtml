@@ -49,7 +49,8 @@ echo $this->formLabel ( $form->get ( 'instrutores[]' ) ) . "<br />";
 echo $this->formSelect ( $form->get ( 'instrutores[]' ) );
 echo $this->formElementErrors ( $form->get ( 'instrutores[]' ) ) ;?>
 <br/>
-<?php foreach ($this->turma->getInstrutores() as $key=>$instrutor):?>
+<?php foreach ($this->turma->getInstrutores() as $key=>$instrutor):
+?>
 <select id="instrutor_<?php echo $key+1;?>" style="width:800px">
 <?php echo $option?>
 </select>
