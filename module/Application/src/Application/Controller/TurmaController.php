@@ -140,8 +140,13 @@ class TurmaController extends ActionController {
 			}
 		}
 		$id = ( int ) $this->params ()->fromRoute ( 'id', 0 );
+		$option = "<option value=''>--- Escolha um Instrutor ---</option>";
 		if ($id > 0) {
 			$turma = $this->getEntityManager ()->find ( 'Application\Model\Turma', $id );
+			$instrutores = $this->getEntityManager()->getRepository("Application\Model\Instrutor")->findAll();
+			foreach($instrutores as $instrutor){
+				$option .= "<option value=".$instrutor->getId().">".$instrutor->getNome()."</option>"; 
+			}
 			$form->bind ( $turma );
 		}
 		$renderer = $this->getServiceLocator ()->get ( 'Zend\View\Renderer\PhpRenderer' );
@@ -151,7 +156,8 @@ class TurmaController extends ActionController {
 		$renderer->headScript ()->appendFile ( '/js/jquery.priceformat.min.js' );
 		return new ViewModel ( array (
 				'form' => $form,
-				'turma' => $turma 
+				'turma' => $turma,
+				'option' => $option
 		) );
 	}
 	/**
