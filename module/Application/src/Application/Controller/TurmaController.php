@@ -148,6 +148,8 @@ class TurmaController extends ActionController {
 				$option .= "<option value=".$instrutor->getId().">".$instrutor->getNome()."</option>"; 
 			}
 			$form->bind ( $turma );
+			$instrutores = $turma->getInstrutores();
+				$form->get ( 'instrutores[]' )->setAttribute ( 'value', $instrutores[0]->getId() );
 		}
 		$renderer = $this->getServiceLocator ()->get ( 'Zend\View\Renderer\PhpRenderer' );
 		$renderer->headScript ()->appendFile ( '/js/jquery.dataTables.min.js' );

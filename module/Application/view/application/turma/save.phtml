@@ -49,13 +49,13 @@ echo $this->formLabel ( $form->get ( 'instrutores[]' ) ) . "<br />";
 echo $this->formSelect ( $form->get ( 'instrutores[]' ) );
 echo $this->formElementErrors ( $form->get ( 'instrutores[]' ) ) ;?>
 <br/>
-<?php foreach ($this->turma->getInstrutores() as $key=>$instrutor):
+<?php for ($key=1; $key<$turma->getInstrutores()->count(); $key++):
 ?>
 <select id="instrutor_<?php echo $key+1;?>" style="width:800px">
 <?php echo $option?>
 </select>
 <br>
-<?php endforeach;?>
+<?php endfor;?>
 <?php 
 echo "</div><br />";
 echo "<button id='novoInstrutor'>Adicionar</button>";

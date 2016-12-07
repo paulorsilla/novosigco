@@ -46,7 +46,7 @@ class InstituicaoController extends ActionController {
 		// ->from('Application\Model\Instituicao', 'i')
 		// ->where($expr->neq('i.cnpj', 0))
 		// ->orderBy('i.razao', 'ASC');
-		$instituicoes = $this->getEntityManager ()->getRepository ( "Application\Model\Instituicao" )->findBy ( array (
+		$instituicoes = $this->getEntityManager ()->getRepository ( "Application\Model\Instituicao" )->findBy( array (
 				'tipoPessoa' => 'Pessoa Jurídica' 
 		), array (
 				'razao' => 'ASC' 
