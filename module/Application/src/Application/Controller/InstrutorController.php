@@ -41,7 +41,6 @@ class InstrutorController extends ActionController {
 		}
 		return $this->em2;
 	}
-	
 	public function indexAction() {
 		$instrutores = $this->getEntityManager ()->getRepository ( "Application\Model\Instrutor" )->findAll ( array (), array (
 				'ordem' => 'ASC' 
@@ -52,11 +51,11 @@ class InstrutorController extends ActionController {
 		$renderer->headScript ()->appendFile ( '/js/jquery.dataTables.min.js' );
 		$renderer->headScript ()->appendFile ( '/js/indexcomum.js' );
 		return new ViewModel ( array (
-				'instrutores' => $instrutores,
+				'instrutores' => $instrutores 
 		) );
 	}
 	public function saveAction() {
-		$form = new InstrutorForm ($this->getEntityManager2());
+		$form = new InstrutorForm ( $this->getEntityManager2 () );
 		$request = $this->getRequest ();
 		if ($request->isPost ()) {
 			$instrutor = new Instrutor ();
@@ -64,21 +63,21 @@ class InstrutorController extends ActionController {
 			$form->setData ( $request->getPost () );
 			if ($form->isValid ()) {
 				$data = $form->getData ();
-//				$nascimento = new \DateTime($this->params()->fromPost("nascimento"));
-//				$cpf = preg_replace('/[^0-9]/', '',  $this->params()->fromPost("cpf"));
-				$instituicao_id = $this->params()->fromPost("instituicao");
-				$instituicao = $this->getEntityManager()->find ('Application\Model\Instituicao', $instituicao_id);
+				// $nascimento = new \DateTime($this->params()->fromPost("nascimento"));
+				// $cpf = preg_replace('/[^0-9]/', '', $this->params()->fromPost("cpf"));
+				$instituicao_id = $this->params ()->fromPost ( "instituicao" );
+				$instituicao = $this->getEntityManager ()->find ( 'Application\Model\Instituicao', $instituicao_id );
 				unset ( $data ['submit'] );
-// 				unset ($data["nascimento"]);
-// 				unset ($data["cpf"]);
-				unset ($data["instituicao"]);
+				// unset ($data["nascimento"]);
+				// unset ($data["cpf"]);
+				unset ( $data ["instituicao"] );
 				if (isset ( $data ['id'] ) && $data ['id'] > 0) {
 					$instrutor = $this->getEntityManager ()->find ( 'Application\Model\Instrutor', $data ['id'] );
 				}
 				$instrutor->setData ( $data );
-//				$instrutor->setNascimento($nascimento);
-//				$instrutor->setCpf($cpf);
-				$instrutor->setInstituicao($instituicao);
+				// $instrutor->setNascimento($nascimento);
+				// $instrutor->setCpf($cpf);
+				$instrutor->setInstituicao ( $instituicao );
 				$this->getEntityManager ()->persist ( $instrutor );
 				$this->getEntityManager ()->flush ();
 				return $this->redirect ()->toUrl ( '/application/instrutor' );
@@ -88,13 +87,13 @@ class InstrutorController extends ActionController {
 		if ($id > 0) {
 			$instrutor = $this->getEntityManager ()->find ( 'Application\Model\Instrutor', $id );
 			$form->bind ( $instrutor );
-//			$form->get('nascimento') ->setAttribute( 'value', $instrutor->getNascimento());
+			// $form->get('nascimento') ->setAttribute( 'value', $instrutor->getNascimento());
 			$form->get ( 'submit' )->setAttribute ( 'value', 'Edit' );
 		}
 		$renderer = $this->getServiceLocator ()->get ( 'Zend\View\Renderer\PhpRenderer' );
 		$renderer->headScript ()->appendFile ( '/js/jquery.mask.js' );
 		return new ViewModel ( array (
-				'form' => $form,
+				'form' => $form 
 		) );
 	}
 	/**

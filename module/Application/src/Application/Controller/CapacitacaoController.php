@@ -135,6 +135,4 @@ class CapacitacaoController extends ActionController {
 		}
 		return $this->redirect ()->toUrl ( '/application/capacitacao' );
 	}
-	
-	
 }

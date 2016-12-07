@@ -468,7 +468,5 @@ $(document).ready(function() {
 			$(".instrutores").find('br').last().remove();
 		}
 	});
-
-	$("#instrutores").selectmenu();
 //fim do documento
 });

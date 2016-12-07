@@ -1,134 +1,137 @@
 <?php
+
 namespace Application\Controller;
- 
+
 use Zend\View\Model\ViewModel;
 use Core\Controller\ActionController;
 use Application\Model\Cargo;
 use Application\Form\Cargo as CargoForm;
- 
 use Doctrine\ORM\EntityManager;
- 
+
 /**
-* Controlador que gerencia o cadastro de Cargos
-*
-* @category Application
-* @package Controller
-* @author Paulo R. Silla <paulo.silla@embrapa.br>
-*/
-class CargoController extends ActionController
-{
+ * Controlador que gerencia o cadastro de Cargos
+ *
+ * @category Application
+ * @package Controller
+ * @author Paulo R. Silla <paulo.silla@embrapa.br>
+ *        
+ */
+class CargoController extends ActionController {
 	/**
-	* @var Doctrine\ORM\EntityManager
-	*/
+	 *
+	 * @var Doctrine\ORM\EntityManager
+	 */
 	protected $em;
-	
-	public function setEntityManager(EntityManager $em)
-	{
+	public function setEntityManager(EntityManager $em) {
 		$this->em = $em;
 	}
-	public function getEntityManager()
-	{
+	public function getEntityManager() {
 		if (null === $this->em) {
-			$this->em = $this->getServiceLocator()->get('doctrine.entitymanager.orm_default');
+			$this->em = $this->getServiceLocator ()->get ( 'doctrine.entitymanager.orm_default' );
 		}
 		return $this->em;
 	}
 	
 	/**
-	* Mostra os cargos cadastrados
-	* @return void
-	*/
-	public function indexAction()
-	{
-        $cargos = $this->getEntityManager()
-                       ->getRepository("Application\Model\Cargo")
-                       ->findAll(array(), array('pce' => 'ASC'));
-
-        //adiciona os arquivos indexcomum.js e jquery.dataTable.min.js ao head da página
-        $renderer = $this->getServiceLocator()->get('Zend\View\Renderer\PhpRenderer');
-        $renderer->headScript()->appendFile('/js/jquery.dataTables.min.js');
-        return new ViewModel(array(
-			'cargos' => $cargos
-		));
+	 * Mostra os cargos cadastrados
+	 * 
+	 * @return void
+	 */
+	public function indexAction() {
+		$cargos = $this->getEntityManager ()->getRepository ( "Application\Model\Cargo" )->findAll ( array (), array (
+				'pce' => 'ASC' 
+		) );
+		
+		// adiciona os arquivos indexcomum.js e jquery.dataTable.min.js ao head da página
+		$renderer = $this->getServiceLocator ()->get ( 'Zend\View\Renderer\PhpRenderer' );
+		$renderer->headScript ()->appendFile ( '/js/jquery.dataTables.min.js' );
+		return new ViewModel ( array (
+				'cargos' => $cargos 
+		) );
 	}
-	
 	public function buscacargosAction() {
-		$request = $this->getRequest();
-		$response = $this->getResponse();
-		$response->setContent(\Zend\Json\Json::encode(array('dataType' => 'json', 'response' => false)));
-		if ($request->isPost()) {
-				
-        	$cargos = $this->getEntityManager()
-                           ->getRepository("Application\Model\Cargo")
-                           ->findBy(array(), array('pce' => 'DESC', 'descricao' => 'ASC'));
+		$request = $this->getRequest ();
+		$response = $this->getResponse ();
+		$response->setContent ( \Zend\Json\Json::encode ( array (
+				'dataType' => 'json',
+				'response' => false 
+		) ) );
+		if ($request->isPost ()) {
+			
+			$cargos = $this->getEntityManager ()->getRepository ( "Application\Model\Cargo" )->findBy ( array (), array (
+					'pce' => 'DESC',
+					'descricao' => 'ASC' 
+			) );
 			$cargosOption = "<option value=''>Selecione um cargo...</option>";
-			foreach($cargos as $cargo) {
+			foreach ( $cargos as $cargo ) {
 				$tituloPce = "";
-				if ($cargo->getPce() >= 2006) {
+				if ($cargo->getPce () >= 2006) {
 					$tituloPce = "PCE";
-				} else if ($cargo->getPce() > 1977) {
+				} else if ($cargo->getPce () > 1977) {
 					$tituloPce = "PCS";
 				}
-				$cargosOption .= "<option value='".$cargo->getId()."'>".$cargo->getDescricao()." - ".$tituloPce." ".$cargo->getPce()."</option>";
+				$cargosOption .= "<option value='" . $cargo->getId () . "'>" . $cargo->getDescricao () . " - " . $tituloPce . " " . $cargo->getPce () . "</option>";
 			}
-			$response->setContent(\Zend\Json\Json::encode(array('dataType' => 'json',
+			$response->setContent ( \Zend\Json\Json::encode ( array (
+					'dataType' => 'json',
 					'response' => true,
-					'cargos' => $cargosOption)));
+					'cargos' => $cargosOption 
+			) ) );
 		}
 		return $response;
 	}
-
+	
 	/**
-	* Cria ou edita um Cargo
-	* @return void
-	*/
-	public function saveAction()
-	{
-        $form = new CargoForm();
-		$request = $this->getRequest();
-		if ($request->isPost()) {
-			$cargo = new Cargo();
-			$form->setInputFilter($cargo->getInputFilter());
-			$form->setData($request->getPost());
-			if ($form->isValid()) {
-				$data = $form->getData();
-				unset($data['submit']);
-				if (isset($data['id']) && $data['id'] > 0) {
-					$cargo = $this->getEntityManager()->find('Application\Model\Cargo', $data['id']);
+	 * Cria ou edita um Cargo
+	 * 
+	 * @return void
+	 */
+	public function saveAction() {
+		$form = new CargoForm ();
+		$request = $this->getRequest ();
+		if ($request->isPost ()) {
+			$cargo = new Cargo ();
+			$form->setInputFilter ( $cargo->getInputFilter () );
+			$form->setData ( $request->getPost () );
+			if ($form->isValid ()) {
+				$data = $form->getData ();
+				unset ( $data ['submit'] );
+				if (isset ( $data ['id'] ) && $data ['id'] > 0) {
+					$cargo = $this->getEntityManager ()->find ( 'Application\Model\Cargo', $data ['id'] );
 				}
-				$cargo->setData($data);
-				$this->getEntityManager()->persist($cargo);
-				$this->getEntityManager()->flush();
+				$cargo->setData ( $data );
+				$this->getEntityManager ()->persist ( $cargo );
+				$this->getEntityManager ()->flush ();
 				
-				return $this->redirect()->toUrl('/application/cargo');
-			} 
+				return $this->redirect ()->toUrl ( '/application/cargo' );
+			}
 		}
-		$id = (int) $this->params()->fromRoute('id', 0);
+		$id = ( int ) $this->params ()->fromRoute ( 'id', 0 );
 		if ($id > 0) {
-			$cargo = $this->getEntityManager()->find('Application\Model\Cargo', $id);
-			$form->bind($cargo);
-			$form->get('submit')->setAttribute('value', 'Edit');
+			$cargo = $this->getEntityManager ()->find ( 'Application\Model\Cargo', $id );
+			$form->bind ( $cargo );
+			$form->get ( 'submit' )->setAttribute ( 'value', 'Edit' );
 		}
-		return new ViewModel(
-			array('form' => $form)
-		);
+		return new ViewModel ( array (
+				'form' => $form 
+		) );
 	}
-
+	
 	/**
-	* Exclui um Cargo
-	* @return void
-	*/
-	public function deleteAction()
-	{
-		$id = (int) $this->params()->fromRoute('id', 0);
+	 * Exclui um Cargo
+	 * 
+	 * @return void
+	 */
+	public function deleteAction() {
+		$id = ( int ) $this->params ()->fromRoute ( 'id', 0 );
 		if ($id == 0) {
-			throw new \ErrorException("Código obrigatório");
+			throw new \ErrorException ( "Código obrigatório" );
 		}
-		$Cargo = $this->getEntityManager()->find('Application\Model\Cargo', $id);
+		$Cargo = $this->getEntityManager ()->find ( 'Application\Model\Cargo', $id );
 		if ($Cargo) {
-			$this->getEntityManager()->remove($Cargo);
-			$this->getEntityManager()->flush();
+			$this->getEntityManager ()->remove ( $Cargo );
+			$this->getEntityManager ()->flush ();
 		}
-		return $this->redirect()->toUrl('/application/cargo');
+		return $this->redirect ()->toUrl ( '/application/cargo' );
 	}
 }

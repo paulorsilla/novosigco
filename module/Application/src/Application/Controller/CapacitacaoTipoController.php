@@ -46,8 +46,8 @@ class CapacitacaoTipoController extends ActionController {
 	}
 	public function saveAction() {
 		$form = new CapacitacaoTipoForm ();
-		//Hidratação para verificar o nome das classes
-		$form->setHydrator(new \Zend\Stdlib\Hydrator\ClassMethods(false));
+		// Hidratação para verificar o nome das classes
+		$form->setHydrator ( new \Zend\Stdlib\Hydrator\ClassMethods ( false ) );
 		$request = $this->getRequest ();
 		if ($request->isPost ()) {
 			$capacitacaoTipo = new CapacitacaoTipo ();

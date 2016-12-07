@@ -70,12 +70,12 @@ class EmpregadoController extends ActionController {
 		) ) );
 		if ($request->isPost ()) {
 			$qb = $this->getEntityManager ()->createQueryBuilder ();
-			//$qb->select ( 'e' )->from ( 'Application\Model\Empregado', 'e' )->where ( 'e.matricula < 500000' )->andWhere ( 'e.ativo = :ativo' )->setParameter ( "ativo", "S" )->orderby ( 'e.nome' );
+			// $qb->select ( 'e' )->from ( 'Application\Model\Empregado', 'e' )->where ( 'e.matricula < 500000' )->andWhere ( 'e.ativo = :ativo' )->setParameter ( "ativo", "S" )->orderby ( 'e.nome' );
 			$qb->select ( 'e' )->from ( 'Application\Model\Empregado', 'e' )->where ( 'e.ativo = :ativo' )->setParameter ( "ativo", "S" )->orderby ( 'e.nome' );
 			$empregados = $qb->getQuery ()->getResult ();
 			$stringEmpregados = '[';
 			foreach ( $empregados as $key => $empregado ) { // array de tipoCompetencia definido na linha 60
-				$stringEmpregados .= '{"matricula": "' . $empregado->getMatricula () . '", "nome": "' . $empregado->getNome () . '", "ramal": "' . $empregado->getRamal().'"}';
+				$stringEmpregados .= '{"matricula": "' . $empregado->getMatricula () . '", "nome": "' . $empregado->getNome () . '", "ramal": "' . $empregado->getRamal () . '"}';
 				if (isset ( $empregados [$key + 1] )) {
 					$stringEmpregados .= ',';
 				}
@@ -172,18 +172,18 @@ class EmpregadoController extends ActionController {
 			
 			$dataInicial = $this->params ()->fromPost ( "dataInicialCargo" );
 			$dataFinal = $this->params ()->fromPost ( "dataFinalCargo" );
-				
+			
 			if ($dataInicial != "") {
 				$dataInicial = \DateTime::createFromFormat ( "d/m/Y", $dataInicial );
 			} else {
 				$dataInicial = null;
 			}
 			if ($dataFinal != "") {
-				$dataFinal = \DateTime::createFromFormat ( "d/m/Y", $dataFinal ); 
+				$dataFinal = \DateTime::createFromFormat ( "d/m/Y", $dataFinal );
 			} else {
 				$dataFinal = null;
 			}
-				
+			
 			$cargo = $em->find ( 'Application\Model\Cargo', $cargo_id );
 			
 			$id = $this->params ()->fromPost ( 'id' );
@@ -192,14 +192,14 @@ class EmpregadoController extends ActionController {
 			} else {
 				$empregadocargo = new EmpregadoCargo ();
 			}
-				
+			
 			$empregadocargo->setEmpregado ( $matricula );
 			$empregadocargo->setCargo ( $cargo );
 			$empregadocargo->setDataInicial ( $dataInicial );
 			$empregadocargo->setDataFinal ( $dataFinal );
 			$em->persist ( $empregadocargo );
 			$em->flush ();
-				
+			
 			$response->setContent ( \Zend\Json\Json::encode ( array (
 					'dataType' => 'json',
 					'response' => true 
@@ -260,10 +260,10 @@ class EmpregadoController extends ActionController {
 			
 			$matricula = $this->params ()->fromPost ( 'matricula' );
 			$funcao_id = $this->params ()->fromPost ( 'funcao' );
- 			$dataInicial = $this->params ()->fromPost ( "dataInicialFuncao" );
- 			$dataFinal =  $this->params ()->fromPost ( "dataFinalFuncao" );
- 			$cbo = $this->params()->fromPost('cbo');
- 			
+			$dataInicial = $this->params ()->fromPost ( "dataInicialFuncao" );
+			$dataFinal = $this->params ()->fromPost ( "dataFinalFuncao" );
+			$cbo = $this->params ()->fromPost ( 'cbo' );
+			
 			if ($dataInicial != "") {
 				$dataInicial = \DateTime::createFromFormat ( "d/m/Y", $dataInicial );
 			} else {
@@ -274,7 +274,7 @@ class EmpregadoController extends ActionController {
 			} else {
 				$dataFinal = null;
 			}
-
+			
 			$funcao = $em->find ( 'Application\Model\Funcao', $funcao_id );
 			
 			$id = $this->params ()->fromPost ( 'id' );
@@ -288,7 +288,7 @@ class EmpregadoController extends ActionController {
 			$empregadofuncao->setFuncao ( $funcao );
 			$empregadofuncao->setDataInicial ( $dataInicial );
 			$empregadofuncao->setDataFinal ( $dataFinal );
-			$empregadofuncao->setCbo($cbo);
+			$empregadofuncao->setCbo ( $cbo );
 			$em->persist ( $empregadofuncao );
 			$em->flush ();
 			
@@ -420,13 +420,12 @@ class EmpregadoController extends ActionController {
 		if ($request->isPost ()) {
 			$em = $this->getServiceLocator ()->get ( 'doctrine.entitymanager.orm_default' );
 			
-			
 			$matricula = $this->params ()->fromPost ( 'matricula' );
 			$escolaridadeId = $this->params ()->fromPost ( 'escolaridade' );
 			$instituicaoId = $this->params ()->fromPost ( 'instituicao' );
 			$curso = $this->params ()->fromPost ( 'curso' );
 			$anoconclusao = $this->params ()->fromPost ( 'anoconclusao' );
-			error_log('aqui -->'.$anoconclusao);
+			error_log ( 'aqui -->' . $anoconclusao );
 			if ($anoconclusao == "")
 				$anoconclusao = null;
 			$escolaridade = $em->find ( 'Application\Model\Escolaridade', $escolaridadeId );
@@ -445,7 +444,7 @@ class EmpregadoController extends ActionController {
 			$empregadoescolaridade->setAnoConclusao ( $anoconclusao );
 			$em->persist ( $empregadoescolaridade );
 			$em->flush ();
-				
+			
 			$response->setContent ( \Zend\Json\Json::encode ( array (
 					
 					'dataType' => 'json',
@@ -505,19 +504,19 @@ class EmpregadoController extends ActionController {
 			$empregadoCargos = $em->getRepository ( 'Application\Model\EmpregadoCargo' )->findBy ( array (
 					'empregado' => $matricula 
 			), array (
-					'dataInicial' => 'DESC'
+					'dataInicial' => 'DESC' 
 			) );
 			$cargos = array ();
 			foreach ( $empregadoCargos as $empregadoCargo ) {
-				($empregadoCargo->getDataInicial() != null) ? $dataInicial = $empregadoCargo->getDataInicial()->format("d/m/Y") : $dataInicial = "";
-				($empregadoCargo->getDataFinal() != null) ? $dataFinal = $empregadoCargo->getDataFinal ()->format("d/m/Y"): $dataFinal = "";
+				($empregadoCargo->getDataInicial () != null) ? $dataInicial = $empregadoCargo->getDataInicial ()->format ( "d/m/Y" ) : $dataInicial = "";
+				($empregadoCargo->getDataFinal () != null) ? $dataFinal = $empregadoCargo->getDataFinal ()->format ( "d/m/Y" ) : $dataFinal = "";
 				$tituloPce = "";
-				if ($empregadoCargo->getCargo()->getPce() >= 2006) {
+				if ($empregadoCargo->getCargo ()->getPce () >= 2006) {
 					$tituloPce = "PCE";
-				} else if ($empregadoCargo->getCargo()->getPce() > 1977) {
+				} else if ($empregadoCargo->getCargo ()->getPce () > 1977) {
 					$tituloPce = "PCS";
 				}
-				array_push ( $cargos, $empregadoCargo->getId () . ";" . $empregadoCargo->getCargo ()->getDescricao () . " - ".$tituloPce. " " . $empregadoCargo->getCargo ()->getPce () . ";" . $dataInicial . ";" . $dataFinal . ";" . $empregadoCargo->getCargo ()->getId () );
+				array_push ( $cargos, $empregadoCargo->getId () . ";" . $empregadoCargo->getCargo ()->getDescricao () . " - " . $tituloPce . " " . $empregadoCargo->getCargo ()->getPce () . ";" . $dataInicial . ";" . $dataFinal . ";" . $empregadoCargo->getCargo ()->getId () );
 			}
 			
 			$response->setContent ( \Zend\Json\Json::encode ( array (
@@ -577,14 +576,13 @@ class EmpregadoController extends ActionController {
 			
 			$funcoes = array ();
 			foreach ( $empregadoFuncoes as $empregadoFuncao ) {
-//				$dataInicial = \Admin\Model\Util::converteData ( str_replace ( "-", "/", $empregadoFuncao->getDataInicial () ) );
-//				$dataFinal = \Admin\Model\Util::converteData ( str_replace ( "-", "/", $empregadoFuncao->getDataFinal () ) );
+				// $dataInicial = \Admin\Model\Util::converteData ( str_replace ( "-", "/", $empregadoFuncao->getDataInicial () ) );
+				// $dataFinal = \Admin\Model\Util::converteData ( str_replace ( "-", "/", $empregadoFuncao->getDataFinal () ) );
 				
-				($empregadoFuncao->getDataInicial() != null) ? $dataInicial = $empregadoFuncao->getDataInicial()->format("d/m/Y") : $dataInicial = "";
-				($empregadoFuncao->getDataFinal() != null) ? $dataFinal = $empregadoFuncao->getDataFinal ()->format("d/m/Y"): $dataFinal = "";
+				($empregadoFuncao->getDataInicial () != null) ? $dataInicial = $empregadoFuncao->getDataInicial ()->format ( "d/m/Y" ) : $dataInicial = "";
+				($empregadoFuncao->getDataFinal () != null) ? $dataFinal = $empregadoFuncao->getDataFinal ()->format ( "d/m/Y" ) : $dataFinal = "";
 				
-				
-				array_push ( $funcoes, $empregadoFuncao->getId () . ";" . $empregadoFuncao->getFuncao ()->getDescricao () . ";" . $dataInicial . ";" . $dataFinal . ";" . $empregadoFuncao->getFuncao ()->getId () . ";" . $empregadoFuncao->getCbo() );
+				array_push ( $funcoes, $empregadoFuncao->getId () . ";" . $empregadoFuncao->getFuncao ()->getDescricao () . ";" . $dataInicial . ";" . $dataFinal . ";" . $empregadoFuncao->getFuncao ()->getId () . ";" . $empregadoFuncao->getCbo () );
 			}
 			
 			$response->setContent ( \Zend\Json\Json::encode ( array (

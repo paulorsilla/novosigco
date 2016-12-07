@@ -38,24 +38,23 @@ class ModalidadeController extends ActionController {
 	 */
 	public function indexAction() {
 		$modalidade = $this->getEntityManager ()->getRepository ( "Application\Model\Modalidade" )->findAll ( array (), array (
-				'titulo' => 'ASC'
+				'titulo' => 'ASC' 
 		) );
-
+		
 		// adiciona os arquivos indexcomum.js e jquery.dataTable.min.js
 		// ao head da página
 		$renderer = $this->getServiceLocator ()->get ( 'Zend\View\Renderer\PhpRenderer' );
 		$renderer->headScript ()->appendFile ( '/js/jquery.dataTables.min.js' );
 		$renderer->headScript ()->appendFile ( '/js/indexcomum.js' );
 		return new ViewModel ( array (
-				'modalidades' => $modalidade
+				'modalidades' => $modalidade 
 		) );
 	}
-	
 	public function saveAction() {
 		$form = new ModalidadeForm ();
 		$request = $this->getRequest ();
-		//Hidratar classe
-		$form->setHydrator(new \Zend\Stdlib\Hydrator\ClassMethods(false));
+		// Hidratar classe
+		$form->setHydrator ( new \Zend\Stdlib\Hydrator\ClassMethods ( false ) );
 		if ($request->isPost ()) {
 			$modalidade = new Modalidade ();
 			$form->setInputFilter ( $modalidade->getInputFilter () );
@@ -75,14 +74,13 @@ class ModalidadeController extends ActionController {
 		$id = ( int ) $this->params ()->fromRoute ( 'id', 0 );
 		if ($id > 0) {
 			$modalidade = $this->getEntityManager ()->find ( 'Application\Model\Modalidade', $id );
-			$form->bind ( $modalidade);
+			$form->bind ( $modalidade );
 			$form->get ( 'submit' )->setAttribute ( 'value', 'Edit' );
 		}
 		return new ViewModel ( array (
-				'form' => $form
+				'form' => $form 
 		) );
 	}
-	
 	public function deleteAction() {
 		$id = ( int ) $this->params ()->fromRoute ( 'id', 0 );
 		if ($id == 0) {
