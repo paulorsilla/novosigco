@@ -51,7 +51,10 @@ echo $this->formLabel ( $form->get ( 'instrutores[0]' ) ) . "<br />";
 echo $this->formSelect ( $form->get ( 'instrutores[0]' ) );
 echo $this->formElementErrors ( $form->get ( 'instrutores[0]' ) )."<br />" ;
 
-
+for ($i = 1; $i < $this->turma->getInstrutores()->count(); $i++) {
+	echo $this->formSelect ( $form->get ( 'instrutores['.$i.']' ) );
+	echo $this->formElementErrors ( $form->get ( 'instrutores['.$i.']' ) )."<br />" ;
+}
 
 echo "</div><br />";
 echo "<button id='novoInstrutor'>Adicionar</button>";
