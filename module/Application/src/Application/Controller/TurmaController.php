@@ -143,15 +143,15 @@ class TurmaController extends ActionController {
 		if ($id > 0) {
 			$turma = $this->getEntityManager ()->find ( 'Application\Model\Turma', $id );
 			$instrutores = $turma->getInstrutores ();
-			$form->get('instrutores[0]')->setAttribute('value', $instrutores[0]->getId() );
+			$form->get ( 'instrutores[0]' )->setAttribute ( 'value', $instrutores [0]->getId () );
 			
 			for($i = 1; $i < $instrutores->count (); $i ++) {
 				$form->add ( array (
 						'type' => 'DoctrineModule\Form\Element\ObjectSelect',
-						'name' => 'instrutores['.$i.']',
+						'name' => 'instrutores[' . $i . ']',
 						'attributes' => array (
 								'style' => 'width: 800px',
-								'id' => 'instrutor_'.$i,
+								'id' => 'instrutor_' . $i,
 								'required' => false 
 						),
 						'options' => array (
@@ -164,7 +164,7 @@ class TurmaController extends ActionController {
 								) 
 						) 
 				) );
-				$form->get('instrutores['.$i.']')->setAttribute('value', $instrutores[$i]->getId() );
+				$form->get ( 'instrutores[' . $i . ']' )->setAttribute ( 'value', $instrutores [$i]->getId () );
 			}
 			$form->bind ( $turma );
 		}
@@ -175,10 +175,10 @@ class TurmaController extends ActionController {
 		$renderer->headScript ()->appendFile ( '/js/jquery.priceformat.min.js' );
 		return new ViewModel ( array (
 				'form' => $form,
-				'turma' => $turma
-		)
+				'turma' => $turma 
+		) )
 		// 'option' => $option
-		 );
+		;
 	}
 	/**
 	 * Exclui uma Turma
