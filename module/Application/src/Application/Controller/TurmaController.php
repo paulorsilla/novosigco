@@ -81,17 +81,17 @@ class TurmaController extends ActionController {
 				if (isset ( $data ['id'] ) && $data ['id'] > 0) {
 					$turma = $this->getEntityManager ()->find ( 'Application\Model\Turma', $data ['id'] );
 				}
-				$valor = preg_replace('/R\$/', '', $valor);
-				$valor = \Admin\Model\Util::converteDecimal($valor);
+				$valor = preg_replace ( '/R\$/', '', $valor );
+				$valor = \Admin\Model\Util::converteDecimal ( $valor );
 				$turma->getParticipantes ()->clear ();
 				foreach ( $participantes as $participanteId ) {
 					$participante = $this->getEntityManager ()->find ( "Application\Model\Empregado", $participanteId );
 					$turma->getParticipantes ()->add ( $participante );
 				}
-				$turma->getInstrutores()->clear();
-				foreach ($instrutores as $instrutorId){
-					$instrutor = $this->getEntityManager()->find("Application\Model\Instrutor", $instrutorId);
-					$turma->getInstrutores()->add($instrutor);
+				$turma->getInstrutores ()->clear ();
+				foreach ( $instrutores as $instrutorId ) {
+					$instrutor = $this->getEntityManager ()->find ( "Application\Model\Instrutor", $instrutorId );
+					$turma->getInstrutores ()->add ( $instrutor );
 				}
 				unset ( $data ["instrutores1"] );
 				unset ( $data ["matricula"] );
@@ -140,16 +140,38 @@ class TurmaController extends ActionController {
 			}
 		}
 		$id = ( int ) $this->params ()->fromRoute ( 'id', 0 );
-		$option = "<option value=''>--- Escolha um Instrutor ---</option>";
+//		$option = "<option value=''>--- Escolha um Instrutor ---</option>";
 		if ($id > 0) {
 			$turma = $this->getEntityManager ()->find ( 'Application\Model\Turma', $id );
-			$instrutores = $this->getEntityManager()->getRepository("Application\Model\Instrutor")->findAll();
-			foreach($instrutores as $instrutor){
-				$option .= "<option value=".$instrutor->getId().">".$instrutor->getNome()."</option>"; 
+			// $instrutores = $this->getEntityManager()->getRepository("Application\Model\Instrutor")->findAll();
+			// foreach($instrutores as $instrutor){
+			// $option .= "<option value=".$instrutor->getId().">".$instrutor->getNome()."</option>";
+			// }
+			
+			$instrutores = $turma->getInstrutores ();
+			for($i = 1; $i < $instrutores->count (); $i ++) {
+				
+				$form->add ( array (
+						'type' => 'DoctrineModule\Form\Element\ObjectSelect',
+						'name' => 'instrutores['.$i.']',
+						'attributes' => array (
+								'style' => 'width: 800px',
+								'id' => 'instrutor_'.$i,
+								'required' => false 
+						),
+						'options' => array (
+								'empty_option' => '--- Escolha um Instrutor ---',
+								'object_manager' => $this->getEntityManager (),
+								'target_class' => 'Application\Model\Instrutor',
+								'property' => 'nome',
+								'find_method' => array (
+										'name' => 'getInstrutores' 
+								) 
+						) 
+				) );
 			}
+			
 			$form->bind ( $turma );
-			$instrutores = $turma->getInstrutores();
-				$form->get ( 'instrutores[]' )->setAttribute ( 'value', $instrutores[0]->getId() );
 		}
 		$renderer = $this->getServiceLocator ()->get ( 'Zend\View\Renderer\PhpRenderer' );
 		$renderer->headScript ()->appendFile ( '/js/jquery.dataTables.min.js' );
@@ -158,9 +180,10 @@ class TurmaController extends ActionController {
 		$renderer->headScript ()->appendFile ( '/js/jquery.priceformat.min.js' );
 		return new ViewModel ( array (
 				'form' => $form,
-				'turma' => $turma,
-				'option' => $option
-		) );
+				'turma' => $turma 
+		)
+		// 'option' => $option
+		 );
 	}
 	/**
 	 * Exclui uma Turma
