@@ -195,7 +195,7 @@ $(document).ready(function() {
 	//aplicando js nos selects menus
 	$("#instituicao").selectmenu();
 	$("select[id^='instrutor_").selectmenu();
-	$("#coordenacao").selectmenu();
+	$("select[id^='coordenacao_").selectmenu();
 	$("#aplicacao").selectmenu();
 	$('#valor').priceFormat({
          prefix: 'R$ ',
@@ -450,14 +450,15 @@ $(document).ready(function() {
 	
 	$("#novoInstrutor").on("click", function(e) {
 		e.preventDefault();
-		$("#instrutor_1").selectmenu("destroy");
-		var novoInstrutor = $("#instrutor_1").clone();
+		$("#instrutor_0").selectmenu("destroy");
+		var novoInstrutor = $("#instrutor_0").clone();
+		novoInstrutor.prop('selectedIndex', 0);
 		var id = $("select[id^='instrutor_']").last().attr("id").split("_");
 		var novoId = parseInt(id[1])+1;
 		$(".instrutores").append("<br /><br />");
 		novoInstrutor.attr("id", "instrutor_"+novoId).appendTo(".instrutores").selectmenu();
 		novoInstrutor.attr("name", "instrutores[]");
-		$("#instrutor_1").selectmenu();
+		$("#instrutor_0").selectmenu();
 	});
 	
 	$("#removerInstrutor").on("click", function(e) {
@@ -466,6 +467,28 @@ $(document).ready(function() {
 			$("select[id^='instrutor_']").last().remove();
 			$(".instrutores").find('br').last().remove();
 			$(".instrutores").find('br').last().remove();
+		}
+	});
+	
+	$("#novoCoordenador").on("click", function(e) {
+		e.preventDefault();
+		$("#coordenacao_0").selectmenu("destroy");
+		var novoCoordenador = $("#coordenacao_0").clone();
+		novoCoordenador.prop('selectedIndex', 0);
+		var id = $("select[id^='coordenacao_']").last().attr("id").split("_");
+		var novoId = parseInt(id[1])+1;
+		$(".coordenadores").append("<br /><br />");
+		novoCoordenador.attr("id", "coordenacao_"+novoId).appendTo(".coordenadores").selectmenu();
+		novoCoordenador.attr("name", "coordenacao[]");
+		$("#coordenacao_0").selectmenu();
+	});
+	
+	$("#removerCoordenador").on("click", function(e) {
+		e.preventDefault();
+		if ( $("select[id^='coordenacao_']").length > 1) {
+			$("select[id^='coordenacao_']").last().remove();
+			$(".coordenadores").find('br').last().remove();
+			$(".coordenadores").find('br').last().remove();
 		}
 	});
 //fim do documento

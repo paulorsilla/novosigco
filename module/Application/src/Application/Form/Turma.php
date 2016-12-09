@@ -127,11 +127,11 @@ class Turma extends Form {
 		
 		$this->add ( array (
 				'type' => 'DoctrineModule\Form\Element\ObjectSelect',
-				'name' => 'coordenacao',
+				'name' => 'coordenacao[0]',
 				'attributes' => array (
 						'style' => 'width: 800px',
-						'id' => 'coordenacao',
-						'required' => true 
+						'id' => 'coordenacao_0',
+						'required' => false 
 				),
 				'options' => array (
 						'label' => 'Coordenação técnica:*',

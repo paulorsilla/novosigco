@@ -75,9 +75,12 @@ class Turma extends Entity {
 	 */
 	protected $instrutores;
 
-	/**
-	 * @ORM\OneToOne(targetEntity="Empregado")
-	 * @ORM\JoinColumn(name="coordenacao_tecnica", referencedColumnName="cod_func")
+	 /**
+	 * @ORM\ManyToMany(targetEntity="Empregado")
+	 * @ORM\JoinTable(name="turma_coordenacao",
+	 * joinColumns={@ORM\JoinColumn(name="turma_id", referencedColumnName="id")},
+	 * inverseJoinColumns={@ORM\JoinColumn(name="empregado_matricula", referencedColumnName="cod_func")}
+	 * )
 	 */
 	protected $coordenacao;
 	
@@ -89,6 +92,7 @@ class Turma extends Entity {
 		$this->programacao = new \Doctrine\Common\Collections\ArrayCollection ();
 		$this->participantes = new \Doctrine\Common\Collections\ArrayCollection ();
 		$this->instrutores = new \Doctrine\Common\Collections\ArrayCollection ();
+		$this->coordenacao = new \Doctrine\Common\Collections\ArrayCollection ();
 	}
 	public function getId() {
 		return $this->id;
@@ -166,7 +170,11 @@ class Turma extends Entity {
 					'required' => false 
 			) ) );
 			$inputFilter->add ( $factory->createInput ( array (
-					'name' => 'instrutores[]',
+					'name' => 'instrutores[0]',
+					'required' => false,
+			) ) );
+			$inputFilter->add ( $factory->createInput ( array (
+					'name' => 'coordenacao[0]',
 					'required' => false,
 			) ) );
 			$inputFilter->add ( $factory->createInput ( array (
