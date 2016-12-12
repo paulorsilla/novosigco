@@ -75,8 +75,8 @@ class TurmaController extends ActionController {
 				$codigo = $this->params ()->fromPost ( 'instituicao' );
 				$instituicao = $this->getEntityManager ()->find ( 'Application\Model\Instituicao', $codigo );
 				$instrutores = $this->params ()->fromPost ( 'instrutores' );
-				$coordenadores = $this->params ()->fromPost ( 'matricula' );
-				$participantes = $this->params ()->fromPost ( "matricula" );
+				$coordenadores = $this->params ()->fromPost ( 'coordenacao' );
+				$participantes = $this->params ()->fromPost ( 'matricula' );
 				if (isset ( $data ['id'] ) && $data ['id'] > 0) {
 					$turma = $this->getEntityManager ()->find ( 'Application\Model\Turma', $data ['id'] );
 				}
@@ -92,10 +92,10 @@ class TurmaController extends ActionController {
 					$instrutor = $this->getEntityManager ()->find ( "Application\Model\Instrutor", $instrutorId );
 					$turma->getInstrutores ()->add ( $instrutor );
 				}
-				$turma->getCoordenacao()->clear ();
+				$turma->getCoordenacao ()->clear ();
 				foreach ( $coordenadores as $coordenadorId ) {
 					$coordenacao = $this->getEntityManager ()->find ( "Application\Model\Empregado", $coordenadorId );
-					$turma->getCoordenacao()->add ( $coordenacao );
+					$turma->getCoordenacao ()->add ( $coordenacao );
 				}
 				unset ( $data ["instrutores"] );
 				unset ( $data ["matricula"] );
@@ -145,9 +145,8 @@ class TurmaController extends ActionController {
 		if ($id > 0) {
 			$turma = $this->getEntityManager ()->find ( 'Application\Model\Turma', $id );
 			$instrutores = $turma->getInstrutores ();
-			$coordenadores = $turma->getCoordenacao();
+			$coordenadores = $turma->getCoordenacao ();
 			$form->get ( 'instrutores[0]' )->setAttribute ( 'value', $instrutores [0]->getId () );
-			$form->get ( 'coordenacao[0]' )->setAttribute ( 'value', $coordenadores[0]->getMatricula () );
 			for($i = 1; $i < $instrutores->count (); $i ++) {
 				$form->add ( array (
 						'type' => 'DoctrineModule\Form\Element\ObjectSelect',
@@ -167,30 +166,31 @@ class TurmaController extends ActionController {
 								) 
 						) 
 				) );
-				
-				for($k = 1; $k < $coordenadores->count (); $k ++) {
-					$form->add ( array (
-							'type' => 'DoctrineModule\Form\Element\ObjectSelect',
-							'name' => 'coordenacao['.$k.']',
-							'attributes' => array (
-									'style' => 'width: 800px',
-									'id' => 'coordenacao_'.$k,
-									'required' => false
-							),
-							'options' => array (
-									'empty_option' => '--- Escolha um coordenador ---',
-									'object_manager' => $this->getEntityManager(),
-									'target_class' => 'Application\Model\Empregado',
-									'property' => 'nome',
-									'find_method' => array (
-											'name' => 'getEmpregados'
-									)
-							)
-					) );
-				}
 				$form->get ( 'instrutores[' . $i . ']' )->setAttribute ( 'value', $instrutores [$i]->getId () );
-				$form->get ( 'coordenacao[' . $k . ']' )->setAttribute ( 'value', $coordenadores [$k]->getMatricula () );
 			}
+			$form->get ( 'coordenacao[0]' )->setAttribute ( 'value', $coordenadores [0]->getMatricula () );
+			for($j = 1; $j < $coordenadores->count (); $j ++) {
+				$form->add ( array (
+						'type' => 'DoctrineModule\Form\Element\ObjectSelect',
+						'name' => 'coordenacao[' . $j . ']',
+						'attributes' => array (
+								'style' => 'width: 800px',
+								'id' => 'coordenacao_' . $j,
+								'required' => false 
+						),
+						'options' => array (
+								'empty_option' => '--- Escolha um coordenador ---',
+								'object_manager' => $this->getEntityManager (),
+								'target_class' => 'Application\Model\Empregado',
+								'property' => 'nome',
+								'find_method' => array (
+										'name' => 'getEmpregados' 
+								) 
+						) 
+				) );
+				$form->get ( 'coordenacao[' . $j . ']' )->setAttribute ( 'value', $coordenadores [$j]->getMatricula () );
+			}
+			
 			$form->bind ( $turma );
 		}
 		$renderer = $this->getServiceLocator ()->get ( 'Zend\View\Renderer\PhpRenderer' );
@@ -201,9 +201,9 @@ class TurmaController extends ActionController {
 		return new ViewModel ( array (
 				'form' => $form,
 				'turma' => $turma 
-		) )
+		) );
 		// 'option' => $option
-		;
+		
 	}
 	/**
 	 * Exclui uma Turma
