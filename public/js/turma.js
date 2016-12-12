@@ -1,25 +1,5 @@
 $(document).ready(function() {
-	//tabela do avaliação
-//	var tabelaCap = $("#tabelaAplicacao").DataTable({
-//		 "aaSorting": [0, "asc"],
-//		 "bInfo": false,
-//		 "ordering": false,
-//	      "bFilter": false,
-//	      "bLengthChange": false,
-//	      "paging": false,
-//	      "oLanguage": {
-//	      	"sZeroRecords": "",
-//	      	"sEmptyTable": ""
-//	      },
-//	      "columnDefs": [
-//	                 { width: "30%", targets: [0] },
-//	                 { width: "60%", targets: [1] },
-//	                 { width: "10%", targets: [2] },
-//	                 { className: "dt-body-center", targets: [2] }
-//	             ]
-//	});
-	
-	//tabela de participantes na tela
+	//tabela de empregados
 	var tabelaEmp = $("#tabelaParticipantes").DataTable({
 		  "bInfo": false,
 	      "bFilter": false,
@@ -34,11 +14,10 @@ $(document).ready(function() {
 	      "columnDefs": [
 	                 { width: "40%", targets: [1] },
 	                 { width: "30%", targets: [0] },
-	                // { width: "10%", targets: [5] },
 	                 { className: "dt-body-center", targets: [0, 1, 2] }
 	             ]
 	});	
-	
+	//tabela de programação
 	var tabelaProg = $('#tabelaProgramacao').DataTable({	
 			  "bInfo": true,
 		      "bFilter": false,
@@ -58,7 +37,7 @@ $(document).ready(function() {
 		             ]
 		});	
 	
-	//tabelas
+	//tabs
 	$("#tabs").tabs();
 	$("#selecoes").tabs();
 	
@@ -66,10 +45,10 @@ $(document).ready(function() {
 	var listaId = $("#id").val();
 	var empregadosSelecionados = [];
 	var empregadosMap = [];
-//	var esperasSelecionadas = [];
-//	var esperasMap = [];
 	var tabelaSelecaoEmpregados = "<table id='selecaoEmpregados'><thead><tr><th>Matricula</th><th>Nome</th></tr></thead><tbody>";
 	var tabelaSelecaoParticipantes = "<table id='selecaoParticipantes'><thead><tr><th>Matricula</th><th>Nome</th></tr></thead><tbody>";
+
+	
 	//busca os empregados no banco de dados
 	$.ajax({
         type: 'POST',
@@ -88,24 +67,6 @@ $(document).ready(function() {
         }
 	});
 
-//	//busca empregados, em caso de edição
-//	if (listaId > 0) {
-//		$.ajax({
-//	        type: 'POST',
-//	        dataType: "json",
-//	        async: false,
-//	        data: {listaId:listaId},
-//	        url: "/application/empregado/buscaempregado",
-//	        success: function(d) {
-//	        	var emp = $.parseJSON(d.empregados);
-//	        	$.each(emp, function (index, value){
-//	        		empregadosSelecionados.push(value.matricula); 
-//	        	});
-//	        	adicionaEmpregado();
-//	        }
-//		});
-//	}
-	
 	$("#submit").hide();
 	$("#cancelar").button({
 		icons: {
@@ -119,6 +80,7 @@ $(document).ready(function() {
 		},
 	text: true,
 	});
+	
 	// botões salvar e cancelar
 	$("#cancelar").click(function(e) {
 		e.preventDefault();
@@ -134,7 +96,6 @@ $(document).ready(function() {
 		icons: {
 			primary: "ui-icon-plus",
 		},
-		//text: false,
 	});
 	
 	//botão "remover" com sinal de -
@@ -153,7 +114,8 @@ $(document).ready(function() {
 		text: true,
 	});
 	
-	$("#capacitacao").selectmenu({//aplicando js e definindo função.
+	//aplicando js e definindo função.
+	$("#capacitacao").selectmenu({
 				change: function(e, ui) {
 					e.preventDefault();
 					$("#tabelaQuestionario tbody").html("");

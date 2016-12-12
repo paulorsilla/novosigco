@@ -74,8 +74,8 @@ class Turma extends Entity {
 	 * )
 	 */
 	protected $instrutores;
-
-	 /**
+	
+	/**
 	 * @ORM\ManyToMany(targetEntity="Empregado")
 	 * @ORM\JoinTable(name="turma_coordenacao",
 	 * joinColumns={@ORM\JoinColumn(name="turma_id", referencedColumnName="id")},
@@ -171,29 +171,29 @@ class Turma extends Entity {
 			) ) );
 			$inputFilter->add ( $factory->createInput ( array (
 					'name' => 'instrutores[0]',
-					'required' => false,
+					'required' => false 
 			) ) );
 			$inputFilter->add ( $factory->createInput ( array (
 					'name' => 'coordenacao[0]',
-					'required' => false,
+					'required' => false 
 			) ) );
 			$inputFilter->add ( $factory->createInput ( array (
 					'name' => 'conteudos',
 					'required' => false,
 					'filters' => array (
 							array (
-									'name' => 'StripTags'
+									'name' => 'StripTags' 
 							),
 							array (
-									'name' => 'StringTrim'
-							)
+									'name' => 'StringTrim' 
+							) 
 					),
 					'validators' => array (
 							array (
 									'name' => 'StringLength',
 									'options' => array (
-											'encoding' => 'UTF-8',
-									)
+											'encoding' => 'UTF-8' 
+									) 
 							)
 					)
 			) ) );

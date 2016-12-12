@@ -203,7 +203,6 @@ class TurmaController extends ActionController {
 				'turma' => $turma 
 		) );
 		// 'option' => $option
-		
 	}
 	/**
 	 * Exclui uma Turma

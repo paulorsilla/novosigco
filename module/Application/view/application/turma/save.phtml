@@ -44,11 +44,11 @@ echo $this->formElementErrors ( $form->get ( 'instituicao' ) ) . "<br />";
 
 echo "<div class='instrutores'>";
 echo $this->formLabel ( $form->get ( 'instrutores[0]' ) ) . "<br />";
-echo $this->formSelect ( $form->get ( 'instrutores[0]' ) )."<br/>";
+echo $this->formSelect ( $form->get ( 'instrutores[0]' ) ) . "<br/>";
 echo $this->formElementErrors ( $form->get ( 'instrutores[0]' ) ) . "<br />";
 
 for($i = 1; $i < $this->turma->getInstrutores ()->count (); $i ++) {
-	echo $this->formSelect ( $form->get ( 'instrutores[' . $i . ']' ) )."<br/>"; 
+	echo $this->formSelect ( $form->get ( 'instrutores[' . $i . ']' ) ) . "<br/>";
 	echo $this->formElementErrors ( $form->get ( 'instrutores[' . $i . ']' ) ) . "<br />";
 }
 echo "</div><br />";
@@ -60,8 +60,8 @@ echo "<div class='coordenadores'>";
 echo $this->formLabel ( $form->get ( 'coordenacao[0]' ) ) . "<br />";
 echo $this->formSelect ( $form->get ( 'coordenacao[0]' ) ) . "<br />";
 echo $this->formElementErrors ( $form->get ( 'coordenacao[0]' ) ) . "<br />";
-for ($k=1; $k < $this->turma->getCoordenacao()->count(); $k++){
-	echo $this->formSelect ( $form->get ( 'coordenacao[' . $k . ']' ) )."<br/>";
+for($k = 1; $k < $this->turma->getCoordenacao ()->count (); $k ++) {
+	echo $this->formSelect ( $form->get ( 'coordenacao[' . $k . ']' ) ) . "<br/>";
 	echo $this->formElementErrors ( $form->get ( 'coordenacao[' . $k . ']' ) ) . "<br />";
 }
 echo "</div><br/>";
