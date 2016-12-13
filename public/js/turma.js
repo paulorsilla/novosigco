@@ -165,7 +165,37 @@ $(document).ready(function() {
          thousandsSeparator: '.'
      });
 
+	//aplicando js nos selects menus
+	//$("select[id^='instrutor_").selectmenu();
+	$("select[id^='instrutor_").selectmenu();
+	$("select[id^='coordenacao_").selectmenu();
+	$("#aplicacao").selectmenu();
+	$("#instituicao").selectmenu();
+	$('#valor').priceFormat({
+         prefix: 'R$ ',
+         centsSeparator: ',',
+         thousandsSeparator: '.'
+     });
+
 	
+	$("#instituicao").html(instituicoes).selectmenu({
+		change: function(e, ui) {
+			e.preventDefault();
+			$.ajax({
+				type: 'POST',
+				dataType: "json",
+				async: false,
+				data: {instituicao:$(this).val()},
+				url: "/application/instrutor/buscainstrutor",
+				success: function(d) {
+					$("select[id^='instrutor_").html(d.instrutores)
+						.val("")
+						.selectmenu("refresh");
+				}
+			});
+		}
+	});
+
 	
 	//janela modal para seleção de empregados
 	var dialogEmpregados = $("#modal-participantes").dialog({

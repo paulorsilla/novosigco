@@ -41,6 +41,33 @@ class InstrutorController extends ActionController {
 		}
 		return $this->em2;
 	}
+	
+	public function buscainstrutorAction(){
+		$request = $this->getRequest ();
+		$response = $this->getResponse ();
+		$response->setContent ( \Zend\Json\Json::encode ( array (
+				'dataType' => 'json',
+				'response' => false
+		) ) );
+		if ($request->isPost ()) {
+			$instituicao = $this->params ()->fromPost ( "instituicao" );
+			$instrutores = $this->getEntityManager ()->getRepository ( 'Application\Model\Instrutor' )->findBy ( array (
+					'instituicao' => $instituicao
+			), array (
+					'razao' => 'ASC'
+			) );
+			$instrutorOption = "<option value=''>--- Selecione um Instrutor ---</option>";
+			foreach ( $instrutores as $instrutor ) {
+				$instrutorOption .= "<option value='" . $instrutor->getId () . "'>" . $instrutor->getNome () . "</option>";
+			}
+			$response->setContent ( \Zend\Json\Json::encode ( array (
+					'dataType' => 'json',
+					'response' => true,
+					'subareas' => $instrutorOption
+			) ) );
+		}
+		return $response;
+		}
 	public function indexAction() {
 		$instrutores = $this->getEntityManager ()->getRepository ( "Application\Model\Instrutor" )->findAll ( array (), array (
 				'ordem' => 'ASC' 
