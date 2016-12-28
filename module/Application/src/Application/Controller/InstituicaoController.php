@@ -94,23 +94,23 @@ class InstituicaoController extends ActionController {
 		) ) );
 		if ($request->isPost ()) {
 			$instituicoes = $this->getEntityManager ()->getRepository ( 'Application\Model\Instituicao' )->findBy ( array (), array (
-					'razao' => 'ASC' 
+					'fantasia' => 'ASC' 
 			) );
 			$instituicoesPesquisa = $this->getEntityManager ()->getRepository ( 'Application\Model\Instituicao' )->findBy ( array (
 					'subcategoria' => 45 
 			), array (
-					'razao' => 'ASC' 
+					'fantasia' => 'ASC' 
 			) );
 			$optionInstituicoes = "<option value=''>Selecione uma instituição</option>";
 			foreach ( $instituicoes as $instituicao ) {
 				if (($instituicao->getRazao () !== "") && (strlen ( $instituicao->getCnpj () ) >= 14))
-					$optionInstituicoes .= "<option value='" . $instituicao->getCodigo () . "'>" . $instituicao->getRazao () . "</option>";
+					$optionInstituicoes .= "<option value='" . $instituicao->getCodigo () . "'>" . $instituicao->getFantasia () . "</option>";
 			}
 			
 			$optionInstituicoesPesquisa = "<option value=''>Selecione uma instituição</option>";
 			foreach ( $instituicoesPesquisa as $instituicaoPesquisa ) {
 				if (($instituicaoPesquisa->getRazao () !== "") && (strlen ( $instituicaoPesquisa->getCnpj () ) >= 14)) {
-					$optionInstituicoesPesquisa .= "<option value='" . $instituicaoPesquisa->getCodigo () . "'>" . $instituicaoPesquisa->getRazao () . "</option>";
+					$optionInstituicoesPesquisa .= "<option value='" . $instituicaoPesquisa->getCodigo () . "'>" . $instituicaoPesquisa->getFantasia () . "</option>";
 				}
 				$response->setContent ( \Zend\Json\Json::encode ( array (
 						'dataType' => 'json',

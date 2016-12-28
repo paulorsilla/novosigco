@@ -425,7 +425,6 @@ class EmpregadoController extends ActionController {
 			$instituicaoId = $this->params ()->fromPost ( 'instituicao' );
 			$curso = $this->params ()->fromPost ( 'curso' );
 			$anoconclusao = $this->params ()->fromPost ( 'anoconclusao' );
-			error_log ( 'aqui -->' . $anoconclusao );
 			if ($anoconclusao == "")
 				$anoconclusao = null;
 			$escolaridade = $em->find ( 'Application\Model\Escolaridade', $escolaridadeId );
@@ -700,14 +699,14 @@ class EmpregadoController extends ActionController {
 			$empregadoEscolaridades = $em->getRepository ( 'Application\Model\EmpregadoEscolaridade' )->findBy ( array (
 					'empregado' => $matricula 
 			), array (
-					'anoConclusao' => 'DESC' 
+					'anoConclusao' => 'DESC'
 			) );
 			$escolaridades = array ();
 			foreach ( $empregadoEscolaridades as $empregadoEscolaridade ) {
 				// $dataInicial = \Admin\Model\Util::converteData ( str_replace ( "-", "/", $empregadoEscolaridade->getDataInicial () ) );
 				// $dataConclusao = \Admin\Model\Util::converteData ( str_replace ( "-", "/", $empregadoEscolaridade->getDataConclusao () ) );
-				$instituicao = $em2->find ( "Application\Model\Instituicao", $empregadoEscolaridade->getInstituicao () );
-				if ($instituicao) {
+				if (null != $empregadoEscolaridade->getInstituicao ()) {
+					$instituicao = $em2->find ( "Application\Model\Instituicao", $empregadoEscolaridade->getInstituicao () );
 					$razaoInstituicao = $instituicao->getRazao ();
 					$codigoInstituicao = $instituicao->getCodigo ();
 				} else {
@@ -715,6 +714,7 @@ class EmpregadoController extends ActionController {
 					$codigoInstituicao = null;
 				}
 				array_push ( $escolaridades, $empregadoEscolaridade->getId () . ";" . $empregadoEscolaridade->getEscolaridade ()->getDescricao () . ";" . $razaoInstituicao . ";" . $empregadoEscolaridade->getCurso () . ";" . $empregadoEscolaridade->getAnoConclusao () . ";" . $empregadoEscolaridade->getEscolaridade ()->getId () . ";" . $codigoInstituicao );
+				error_log("aqui");
 			}
 			$response->setContent ( \Zend\Json\Json::encode ( array (
 					'dataType' => 'json',
