@@ -410,6 +410,7 @@ class EmpregadoController extends ActionController {
 		}
 		return $response;
 	}
+	
 	public function addescolaridadeAction() {
 		$request = $this->getRequest ();
 		$response = $this->getResponse ();
@@ -423,6 +424,9 @@ class EmpregadoController extends ActionController {
 			$matricula = $this->params ()->fromPost ( 'matricula' );
 			$escolaridadeId = $this->params ()->fromPost ( 'escolaridade' );
 			$instituicaoId = $this->params ()->fromPost ( 'instituicao' );
+			if ($instituicaoId == "") {
+				$instituicaoId = null;
+			}
 			$curso = $this->params ()->fromPost ( 'curso' );
 			$anoconclusao = $this->params ()->fromPost ( 'anoconclusao' );
 			if ($anoconclusao == "")
@@ -441,11 +445,10 @@ class EmpregadoController extends ActionController {
 			$empregadoescolaridade->setInstituicao ( $instituicaoId );
 			$empregadoescolaridade->setCurso ( $curso );
 			$empregadoescolaridade->setAnoConclusao ( $anoconclusao );
+			
 			$em->persist ( $empregadoescolaridade );
 			$em->flush ();
-			
 			$response->setContent ( \Zend\Json\Json::encode ( array (
-					
 					'dataType' => 'json',
 					'response' => true 
 			) ) );
@@ -714,7 +717,6 @@ class EmpregadoController extends ActionController {
 					$codigoInstituicao = null;
 				}
 				array_push ( $escolaridades, $empregadoEscolaridade->getId () . ";" . $empregadoEscolaridade->getEscolaridade ()->getDescricao () . ";" . $razaoInstituicao . ";" . $empregadoEscolaridade->getCurso () . ";" . $empregadoEscolaridade->getAnoConclusao () . ";" . $empregadoEscolaridade->getEscolaridade ()->getId () . ";" . $codigoInstituicao );
-				error_log("aqui");
 			}
 			$response->setContent ( \Zend\Json\Json::encode ( array (
 					'dataType' => 'json',

@@ -1,7 +1,7 @@
 
 <div id="tituloPagina">Instituições<br/><br/>Instituições cadastradas</div>
 
-<table class="hover" id="consulta1">
+<table class="hover" id="consulta">
 	<thead>
 		<tr>
 			<th style="text-align: left;">CNPJ</th>
@@ -28,11 +28,6 @@
 	<?php endforeach;?>
 </table>
 
-<?php echo $this->paginationControl($instituicoes,
-                                    'Sliding',
-                                    'partials/paginator/control.phtml'); ?>
-                                    
-                                    
 <div id="barraBotoes">
 	<button id="novo">Novo...</button>
 </div>

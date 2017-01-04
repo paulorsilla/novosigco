@@ -29,7 +29,7 @@ class EmpregadoEscolaridade extends Entity {
 	protected $empregado;
 	
 	/**
-	 * @ORM\Column(type="string", name="instituicao_id");
+	 * @ORM\Column(type="integer", name="instituicao_id");
 	 */
 	protected $instituicao;
 	
