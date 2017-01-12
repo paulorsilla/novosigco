@@ -44,6 +44,7 @@ class InstrutorController extends ActionController {
 	
 	public function buscainstrutorAction(){
 		$request = $this->getRequest ();
+		error_log("1");
 		$response = $this->getResponse ();
 		$response->setContent ( \Zend\Json\Json::encode ( array (
 				'dataType' => 'json',
@@ -63,7 +64,7 @@ class InstrutorController extends ActionController {
 			$response->setContent ( \Zend\Json\Json::encode ( array (
 					'dataType' => 'json',
 					'response' => true,
-					'subareas' => $instrutorOption
+					'instrutorOption' => $instrutorOption
 			) ) );
 		}
 		return $response;

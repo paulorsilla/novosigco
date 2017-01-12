@@ -3,6 +3,7 @@
 <table class="hover" id="consulta">
 	<thead>
 		<tr>
+			<th style="text-align: left;">Matricula</th>
 			<th style="text-align: left;">Nome</th>
 			<th width="90" class="center">Opções</th>
 		</tr>
@@ -10,6 +11,7 @@
 	<tbody>
 	<?php foreach($empregados as $empregado):?>
 		<tr>
+			<td id="matricula"><?php echo $this->escapeHtml($empregado->getMatricula());?></td>
 			<td id="nome"><?php echo $this->escapeHtml($empregado->getNome());?></td>
 			
 			<td style="text-align:center">

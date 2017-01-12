@@ -188,7 +188,7 @@ $(document).ready(function() {
 				data: {instituicao:$(this).val()},
 				url: "/application/instrutor/buscainstrutor",
 				success: function(d) {
-					$("select[id^='instrutor_").html(d.instrutores)
+					$("#instrutor_0").html(d.instrutores)
 						.val("")
 						.selectmenu("refresh");
 				}
